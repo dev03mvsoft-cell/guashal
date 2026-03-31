@@ -57,8 +57,8 @@
             }
         }
 
-        /* --- Premium Background Translator Engine --- */
-        async function changeLanguage(lang) {
+        /* --- Language Bridge --- */
+        function changeLanguage(lang) {
             localStorage.setItem('site_lang', lang);
             if (window.applyLanguage) {
                 window.applyLanguage();
@@ -66,39 +66,6 @@
                 location.reload();
             }
         }
-
-        async function translateAllDynamicContent(target) {
-            const elements = document.querySelectorAll('[data-trans="en"], .translatable');
-            for (const el of elements) {
-                const originalText = el.getAttribute('data-origin') || el.innerText;
-                if (!el.getAttribute('data-origin')) el.setAttribute('data-origin', originalText);
-                try {
-                    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(originalText)}`);
-                    const data = await res.json();
-                    if (data && data[0]) {
-                        el.innerText = data[0].map(x => x[0]).join('');
-                        el.style.animation = 'fadeIn 0.5s ease';
-                    }
-                } catch (e) {
-                    console.error("Translation Error", e);
-                }
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('site_lang') || 'en';
-            if (savedLang !== 'en') {
-                translateAllDynamicContent(savedLang);
-                if (document.getElementById('current-lang')) {
-                    const labels = {
-                        'en': 'English',
-                        'hi': 'Hindi',
-                        'gu': 'Gujarati'
-                    };
-                    document.getElementById('current-lang').innerText = labels[savedLang];
-                }
-            }
-        });
 
         // Initialize SweetAlert Toast
         const Toast = Swal.mixin({
@@ -192,7 +159,7 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-4 border-l border-white/10 pl-6 text-[12px] items-center">
-                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold"><i class="fas fa-phone-alt mr-2 text-saffron"></i>+91 99985 81811</a>
+                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold"><i class="fas fa-phone-alt mr-2 text-saffron"></i><span data-lang="header_phone">+91 99985 81811</span></a>
             </div>
         </div>
     </div>

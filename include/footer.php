@@ -107,7 +107,7 @@
                         <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-clock text-saffron text-sm"></i>
                         </div>
-                        <p class="text-white/70 text-[15px]">Open Daily: 6:00 AM – 8:00 PM</p>
+                        <p class="text-white/70 text-[15px]" data-lang="footer_open_daily">Open Daily: 6:00 AM – 8:00 PM</p>
                     </div>
                 </div>
             </div>
@@ -149,11 +149,11 @@
                 &copy; <?php echo date('Y'); ?> <span class="text-gold/60" data-lang="brand_name">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>. <span data-lang="footer_rights">All rights reserved.</span>
             </p>
             <div class="flex gap-6 text-white/30 text-xs">
-                <a href="/privacy" class="hover:text-gold transition-colors">Privacy Policy</a>
+                <a href="/privacy" class="hover:text-gold transition-colors" data-lang="footer_privacy">Privacy Policy</a>
                 <span>·</span>
-                <a href="/terms" class="hover:text-gold transition-colors">Terms of Use</a>
+                <a href="/terms" class="hover:text-gold transition-colors" data-lang="footer_terms">Terms of Use</a>
                 <span>·</span>
-                <a href="/contact" class="hover:text-gold transition-colors">Get in Touch</a>
+                <a href="/contact" class="hover:text-gold transition-colors" data-lang="nav_contact">Get in Touch</a>
             </div>
             <div class="text-right">
                 <p class="text-white/20 text-[12px] italic mb-1">Crafted with reverence &amp; devotion</p>

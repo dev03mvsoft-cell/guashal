@@ -216,7 +216,8 @@ const translations = {
         'nav_home': 'Home', 'nav_about': 'About', 'nav_contact': 'Contact', 'nav_donate': 'Donate',
         'nav_founders': 'Founders', 'nav_team': 'Our Team', 'nav_gallery': 'Gallery', 'nav_events': 'Events',
         'nav_bulletin': 'Bulletin', 'nav_announcements': 'Announcements', 'nav_our_story': 'Our Story',
-        'brand_name': 'શ્રી ગૌ રક્ષક સેવા સમિતિ', 'brand_tagline': 'Panjrapole',
+        'brand_name': 'Shree Gau Rakshak Seva Samiti', 'brand_tagline': 'Panjrapole - Galpadar',
+        'header_phone': '+91 99985 81811',
         'hero_span': 'Divine Vedic Sanctuary',
         'hero_h1': 'A <span class="italic text-gold">Mother</span> Who Speaks No Words, <br> Yet <span class="text-gold underline decoration-white/20 underline-offset-8">Feeds the World</span> — <br> <span class="text-white opacity-90 italic">Let Our Love Protect Her</span>',
         'shlok_trans_en': '"Experience the spirituality of Gau Seva in its purest form. Join us in preserving the sanctity of our sacred cows through care, protection, and devotion."',
@@ -330,22 +331,25 @@ const translations = {
         'events_hero_span': 'Spiritual Gatherings & Events', 'events_hero_h1': 'Our <span class="italic text-gold">Sacred</span> Calendar',
         'events_section_label': 'Upcoming Events', 'events_section_title': 'Join Our <span class="italic text-gold">Spiritual</span> Shivir',
         // Contact Page
-        'contact_hero_span': 'Get in Touch with Us', 'contact_hero_h1': 'We\'d <span class="italic text-gold">Love</span> to hear from you',
-        'contact_label': 'Contact Us', 'contact_title': 'Visit the <span class="italic text-gold">Sanctuary</span>',
-        'contact_info_label': 'Our Location', 'contact_phone_label': 'Call Us', 'contact_email_label': 'Email Us',
-        'contact_form_title': 'Send a Message', 'contact_form_name': 'Full Name', 'contact_form_email': 'Email Address',
-        'contact_form_subject': 'Subject', 'contact_form_message': 'Message', 'contact_form_submit': 'Perform Message Sewa',
+        'contact_hero_span': 'Connect With Us', 'contact_hero_h1': 'Reach Out for <br><span class="italic text-gold block font-light opacity-90">Sewa & Darshan</span>',
+        'contact_label': 'Coordinates', 'contact_title': 'Where Every Life is <span class="text-gold italic">Honored</span>',
+        'contact_info_label': 'Sanctuary Location', 'contact_phone_label': 'Voice Channel', 'contact_email_label': 'Digital Mail',
+        'contact_form_title': 'Send a <span class="italic text-gold">Sacred Message</span>', 'contact_form_name': 'Name or Identity', 'contact_form_email': 'Email Address',
+        'contact_form_subject': 'Subject', 'contact_form_message': 'Shared Wisdom (Message)', 'contact_form_submit': 'Transmit Message',
         'placeholder_name': 'Enter your full name', 'placeholder_email': 'Email Address', 'placeholder_subject': 'Subject', 'placeholder_message': 'How can we help?',
         // Footer
         'footer_about_title': 'Gaushala Sanctuary', 'footer_about_desc': 'Transforming lives through Vedic wisdom and compassionate cow protection. Join us in our mission to serve the sacred beings.',
-        'footer_quick_links': 'Quick Links', 'footer_contact_us': 'Get In Touch', 'footer_address': 'Survey No. 129, Behind Rajvi Resort, <br>Galpadar, Gandhidham - Kutch.',
+        'footer_quick_links': 'Quick Links', 'footer_contact_us': 'Get In Touch',
+        'footer_address': 'Shri Gau Rakshak Seva Samiti,<br>Survey No. 129, Behind Rajvi Resort, <br>Galpadar, Gandhidham - Kutch.',
+        'footer_open_daily': 'Open Daily: 6:00 AM – 8:00 PM', 'footer_privacy': 'Privacy Policy', 'footer_terms': 'Terms of Use',
         'footer_rights': 'All Rights Reserved.'
     },
     'hi': {
         'nav_home': 'मुख्य पृष्ठ', 'nav_about': 'हमारे बारे में', 'nav_contact': 'संपर्क', 'nav_donate': 'दान दें',
         'nav_founders': 'संस्थापक', 'nav_team': 'हमारी टीम', 'nav_gallery': 'गैलरी', 'nav_events': 'कार्यक्रम',
         'nav_bulletin': 'बुलेटिन', 'nav_announcements': 'घोषणाएं', 'nav_our_story': 'हमारी कहानी',
-        'brand_name': 'श्री गौ रक्षक सेवा समिति', 'brand_tagline': 'पांजरापोल',
+        'brand_name': 'श्री गौ रक्षक सेवा समिति', 'brand_tagline': 'पांजरापोल - गलपादर',
+        'header_phone': '+91 99985 81811',
         'hero_span': 'पवित्र गौ सेवा धाम',
         'hero_h1': 'एक <span class="italic text-gold">मां</span> जो बोलती नहीं, <br> फिर भी <span class="text-gold underline decoration-white/20 underline-offset-8">दुनिया को पालती है</span> — <br> <span class="text-white opacity-90 italic">आइये प्यार से उनकी रक्षा करें</span>',
         'shlok_trans_hi': 'अर्थ: गायों में सब कुछ बसा है, तीनों लोक बसते हैं, गायों में ही जीवन है और सब कुछ उन्हीं में समाया है।',
@@ -449,22 +453,25 @@ const translations = {
         'events_hero_span': 'आध्यात्मिक कार्यक्रम', 'events_hero_h1': 'हमारा <span class="italic text-gold">सेवा</span> कैलेंडर',
         'events_section_label': 'आने वाले कार्यक्रम', 'events_section_title': 'आध्यात्मिक <span class="italic text-gold">शिविर</span> से जुड़ें',
         // Contact Page
-        'contact_hero_span': 'हमसे संपर्क करें', 'contact_hero_h1': 'हम आपकी <span class="italic text-gold">बात</span> सुनना चाहते हैं',
-        'contact_label': 'संपर्क करें', 'contact_title': 'गौशाला <span class="italic text-gold">पधारें</span>',
-        'contact_info_label': 'हमारा पता', 'contact_phone_label': 'फोन करें', 'contact_email_label': 'ईमेल करें',
-        'contact_form_title': 'संदेश भेजें', 'contact_form_name': 'आपका नाम', 'contact_form_email': 'ईमेल पता',
-        'contact_form_subject': 'विषय', 'contact_form_message': 'संदेश', 'contact_form_submit': 'संदेश भेजें',
+        'contact_hero_span': 'हमसे जुड़ें', 'contact_hero_h1': 'सेवा और दर्शन के लिए <br><span class="italic text-gold block font-light opacity-90">संपर्क करें</span>',
+        'contact_label': 'निर्देशांक', 'contact_title': 'जहाँ हर जीवन का <span class="text-gold italic">सम्मान</span> है',
+        'contact_info_label': 'अभयारण्य का पता', 'contact_phone_label': 'वॉयस चैनल (फ़ोन)', 'contact_email_label': 'डिजिटल मेल (ईमेल)',
+        'contact_form_title': 'एक <span class="italic text-gold">पावन संदेश</span> भेजें', 'contact_form_name': 'नाम या पहचान', 'contact_form_email': 'ईमेल पता',
+        'contact_form_subject': 'विषय', 'contact_form_message': 'साझा ज्ञान (संदेश)', 'contact_form_submit': 'संदेश प्रसारित करें',
         'placeholder_name': 'अपना पूरा नाम लिखें', 'placeholder_email': 'ईमेल पता', 'placeholder_subject': 'विषय', 'placeholder_message': 'हम आपकी क्या मदद कर सकते हैं?',
         // Footer
         'footer_about_title': 'गौशाला सेवा धाम', 'footer_about_desc': 'वैदिक ज्ञान और करुणा के माध्यम से गौ सेवा और संरक्षण। इस पवित्र अभियान का हिस्सा बनें।',
-        'footer_quick_links': 'महत्वपूर्ण लिंक', 'footer_contact_us': 'संपर्क करें', 'footer_address': 'सर्वे नं. 129, राजवी रिसॉर्ट के पीछे, <br>गलपादर, गांधीधाम - कच्छ।',
+        'footer_quick_links': 'महत्वपूर्ण लिंक', 'footer_contact_us': 'संपर्क',
+        'footer_address': 'श्री गौ रक्षक सेवा समिति,<br>सर्वे नं. 129, राजवी रिसॉर्ट के पीछे, <br>गलपादर, गांधीधाम - कच्छ।',
+        'footer_open_daily': 'प्रतिदिन खुला: सुबह 6:00 - रात 8:00', 'footer_privacy': 'गोपनीयता नीति', 'footer_terms': 'उपयोग की शर्तें',
         'footer_rights': 'सर्वाधिकार सुरक्षित।'
     },
     'gu': {
         'nav_home': 'હોમ', 'nav_about': 'અમારા વિશે', 'nav_contact': 'સંપર્ક કરો', 'nav_donate': 'દાન આપો',
         'nav_founders': 'સ્થાપકો', 'nav_team': 'અમારી ટીમ', 'nav_gallery': 'ગેલેરી', 'nav_events': 'કાર્યક્રમો',
         'nav_bulletin': 'બુલેટિન', 'nav_announcements': 'જાહેરાતો', 'nav_our_story': 'અમારી વાર્તા',
-        'brand_name': 'શ્રી ગૌ રક્ષક સેવા સમિતિ', 'brand_tagline': 'પાંજરાપોળ',
+        'brand_name': 'શ્રી ગૌ રક્ષક સેવા સમિતિ', 'brand_tagline': 'પાંજરાપોળ - ગળપાદર',
+        'header_phone': '+91 99985 81811',
         'hero_span': 'દિવ્ય ગૌ સેવા ધામ',
         'hero_h1': 'એક <span class="italic text-gold">માતા</span> જે એક શબ્દ નથી બોલતી, <br> છતાં <span class="text-gold underline decoration-white/20 underline-offset-8">પૂરા વિશ્વને પોષે છે</span> — <br> <span class="text-white opacity-90 italic">ચાલો આપણો પ્રેમ તેનું રક્ષણ કરે</span>',
         'shlok_trans_gu': 'અર્થ: ગાયોમાં જ બધું સ્થિત છે, ગાયોમાં જ ત્રણેય લોક સ્થિત છે, ગાયોમાં જ જીવ જીવે છે, ગાયોમાં જ બધું સમાયેલું છે.',
@@ -568,15 +575,17 @@ const translations = {
         'events_hero_span': 'આધ્યાત્મિક કાર્યક્રમો', 'events_hero_h1': 'અમારું <span class="italic text-gold">સેવા</span> કેલેન્ડર',
         'events_section_label': 'આવનારા કાર્યક્રમો', 'events_section_title': 'આધ્યાત્મિક <span class="italic text-gold">શિબિરમાં</span> જોડાઓ',
         // Contact Page
-        'contact_hero_span': 'અમારો સંપર્ક કરો', 'contact_hero_h1': 'અમે તમારી <span class="italic text-gold">વાત</span> સાંભળવા માંગીએ છીએ',
-        'contact_label': 'સંપર્ક કરો', 'contact_title': 'ગૌશાળાની <span class="italic text-gold">મુલાકાત લો</span>',
-        'contact_info_label': 'અમારું સરનામું', 'contact_phone_label': 'ફોન કરો', 'contact_email_label': 'ઈમેલ કરો',
-        'contact_form_title': 'સંદેશ મોકલો', 'contact_form_name': 'તમારું નામ', 'contact_form_email': 'ઈમેલ એડ્રેસ',
-        'contact_form_subject': 'વિષય', 'contact_form_message': 'સંદેશ', 'contact_form_submit': 'સંદેશ મોકલો',
+        'contact_hero_span': 'અમારી સાથે જોડાઓ', 'contact_hero_h1': 'સેવા અને દર્શન માટે <br><span class="italic text-gold block font-light opacity-90">સંપર્ક કરો</span>',
+        'contact_label': 'નિર્દેશાંક', 'contact_title': 'જ્યાં દરેક જીવનનું <span class="text-gold italic">સન્માન</span> છે',
+        'contact_info_label': 'ગૌશાળાનું સરનામું', 'contact_phone_label': 'વોઇસ ચેનલ (ફોન)', 'contact_email_label': 'ડિજિટલ મેઇલ (ઈમેલ)',
+        'contact_form_title': 'એક <span class="italic text-gold">પવિત્ર સંદેશ</span> મોકલો', 'contact_form_name': 'નામ અથવા ઓળખ', 'contact_form_email': 'ઈમેલ એડ્રેસ',
+        'contact_form_subject': 'વિષય', 'contact_form_message': 'સામાજિક જ્ઞાન (સંદેશ)', 'contact_form_submit': 'સંદેશ મોકલો',
         'placeholder_name': 'તમારું પૂરું નામ લખો', 'placeholder_email': 'ઈમેલ એડ્રેસ', 'placeholder_subject': 'વિષય', 'placeholder_message': 'અમે તમારી શું મદદ કરી શકીએ?',
         // Footer
         'footer_about_title': 'ગૌશાળા સેવા ધામ', 'footer_about_desc': 'વૈદિક જ્ઞાન અને કરુણા દ્વારા ગૌ સેવા અને રક્ષણ. આ પવિત્ર અભિયાનનો ભાગ બનો.',
-        'footer_quick_links': 'મહત્વપૂર્ણ લિંક્સ', 'footer_contact_us': 'સંપર્ક કરો', 'footer_address': 'સર્વે નં. ૧૨૯, રાજવી રીસોર્ટ ની પાછળ, <br>ગળપાદર, ગાંધીધામ - કચ્છ.',
+        'footer_quick_links': 'મહત્વપૂર્ણ લિંક્સ', 'footer_contact_us': 'સંપર્ક',
+        'footer_address': 'શ્રી ગૌ રક્ષક સેવા સમિતિ,<br>સર્વે નં. ૧૨૯, રાજવી રીસોર્ટ ની પાછળ, <br>ગળપાદર, ગાંધીધામ - કચ્છ.',
+        'footer_open_daily': 'દરરોજ ખુલ્લું: સવારે ૬:૦૦ – રાત્રે ૮:૦૦', 'footer_privacy': 'ગોપનીયતા નીતિ', 'footer_terms': 'વપરાશની શરતો',
         'footer_rights': 'તમામ હકો અનામત.'
     }
 };
@@ -652,27 +661,35 @@ async function getAutoTranslation(text, targetLang) {
     if (targetLang === 'en') return text;
     const cacheKey = `${targetLang}:${text}`;
 
-    // Check Cache first
-    if (transCacheDict[cacheKey]) return transCacheDict[cacheKey];
+    // 1. Check Browser-level Cache (STRIKT Audit)
+    if (transCacheDict[cacheKey]) {
+        const cachedValue = transCacheDict[cacheKey];
+        if (cachedValue.includes('MYMEMORY') || cachedValue.includes('limit reached')) {
+            delete transCacheDict[cacheKey];
+            localStorage.setItem(TRANS_CACHE_KEY, JSON.stringify(transCacheDict));
+        } else {
+            return cachedValue;
+        }
+    }
 
+    // 2. Call Internal Server-side Bridge (MySQL + Google Engine)
     try {
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`;
-        const response = await fetch(url);
+        const response = await fetch(`/api/translate.php?q=${encodeURIComponent(text)}&lang=${targetLang}`);
         const data = await response.json();
-
-        if (data.responseData && data.responseData.translatedText) {
-            const translatedText = data.responseData.translatedText;
-
-            // Save to Cache
+        
+        if (data && data.translatedText) {
+            const translatedText = data.translatedText;
+            
+            // Sync to Browser Cache
             transCacheDict[cacheKey] = translatedText;
             localStorage.setItem(TRANS_CACHE_KEY, JSON.stringify(transCacheDict));
-
+            
             return translatedText;
         }
     } catch (e) {
-        console.warn("Translation API connection failed. Using fallback.", e);
+        console.warn("Translation layer busy. Graceful fallback.");
     }
-    return text; // Fallback to English
+    return text; // Revert to English if all else fails
 }
 
 window.translateAllDynamicContent = async function (lang) {
@@ -684,21 +701,35 @@ window.translateAllDynamicContent = async function (lang) {
             'Divine update': 'दिव्य समाचार',
             'Featured Moment': 'मुख्य क्षण',
             'Sanctuary Location': 'गौशाला का पता',
-            'Archive is Being Restored': 'पुरालेख अपडेट हो रहा है'
+            'Archive is Being Restored': 'पुरालेख अपडेट हो रहा है',
+            'Acknowledge': 'स्वीकार करें',
+            'Visit Bulletin': 'बुलेटिन देखें',
+            'Heart of the Sanctuary': 'गौशाला का हृदय',
+            'Sacred Whisper': 'पवિત્ર સંદેશ',
+            'From The Sanctuary': 'ગૌશાળા થી',
+            'Divine Revelations': 'દિવ્ય દર્શન',
+            'Recent Stories': 'તાજેતરની વાર્તાઓ'
         },
         'gu': {
             'Divine update': 'દિવ્ય સમાચાર',
             'Featured Moment': 'મુખ્ય પળ',
             'Sanctuary Location': 'ગૌશાળાનું સરનામું',
-            'Archive is Being Restored': 'પુરાલેખ અપડેટ થઈ રહ્યો છે'
+            'Archive is Being Restored': 'પુરાલેખ અપડેટ થઈ રહ્યો છે',
+            'Acknowledge': 'સ્વીકારો',
+            'Visit Bulletin': 'બુલેટિન જુઓ',
+            'Heart of the Sanctuary': 'ગૌશાળાનું હૃદય',
+            'Sacred Whisper': 'પવિત્ર સંદેશ',
+            'From The Sanctuary': 'ગૌશાળા થી',
+            'Divine Revelations': 'દિવ્ય દર્શન',
+            'Recent Stories': 'તાજેતરની વાર્તાઓ'
         }
     };
 
     // Iterate through all elements marked for dynamic translation
     for (const el of dynamicElements) {
-        // Store original English if not present
+        // Store original English if not present (Strict Audit)
         if (!el.getAttribute('data-origin')) {
-            el.setAttribute('data-origin', el.innerText.trim());
+            el.setAttribute('data-origin', el.innerHTML.trim());
         }
 
         const originalText = el.getAttribute('data-origin');
@@ -709,11 +740,16 @@ window.translateAllDynamicContent = async function (lang) {
             continue;
         }
 
-        // 2. Automated: Fetch from Neural API (MyMemory)
+        // 2. Automated: Fetch from Neural API (Private Bridge)
         if (lang !== 'en') {
-            // Apply a loading state if it's taking too long (optional)
+            el.style.opacity = '0.7';
+            
+            // STRIKT THROTTLE: Avoid API Storm
+            await new Promise(r => setTimeout(r, 50));
+
             const result = await getAutoTranslation(originalText, lang);
             el.innerHTML = result;
+            el.style.opacity = '1';
         } else {
             // Revert to English
             el.innerHTML = originalText;

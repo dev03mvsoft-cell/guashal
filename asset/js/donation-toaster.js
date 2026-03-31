@@ -80,13 +80,21 @@ function initDonationTicker(donations) {
             pointer-events: auto;
         `;
 
+        const lang = localStorage.getItem('site_lang') || 'en';
+        const labels = {
+            'en': 'Blessed with',
+            'hi': 'दान की राशि',
+            'gu': 'દાનની રકમ'
+        };
+        const label = labels[lang] || labels['en'];
+
         toast.innerHTML = `
             <div style="background: #fff5eb; width: 34px; height: 34px; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                 <i class="fas fa-heart text-[#FF6A00]" style="font-size: 0.8rem;"></i>
             </div>
             <div style="flex: 1;">
                 <p style="margin: 0; font-weight: 700; font-size: 0.75rem; color: #2c4c3b; text-transform: uppercase; letter-spacing: 0.2px; line-height: 1;">${d.donor_name}</p>
-                <p style="margin: 2px 0 0; font-size: 0.7rem; color: #666; line-height: 1.2;">Blessed with <span style="color: #FF6A00; font-weight: 800;">₹${parseInt(d.amount).toLocaleString()}</span></p>
+                <p style="margin: 2px 0 0; font-size: 0.7rem; color: #666; line-height: 1.2;">${label} <span style="color: #FF6A00; font-weight: 800;">₹${parseInt(d.amount).toLocaleString()}</span></p>
             </div>
         `;
 
