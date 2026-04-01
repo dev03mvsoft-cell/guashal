@@ -45,15 +45,42 @@ try {
     <main class="flex-1 p-6 md:p-12 overflow-y-auto h-full">
 
         <!-- Header Section -->
-        <header class="flex justify-between items-center mb-12">
+        <header class="flex justify-between items-center mb-12 relative z-50">
             <div>
                 <p class="text-[12px] uppercase tracking-widest text-gray-400 font-bold mb-2">Welcome Back,</p>
                 <h2 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature">Core <span class="text-[#FF6A00] italic">Panel</span></h2>
             </div>
-            <div class="glass flex items-center gap-4 p-2 pl-6 rounded-full pr-2 shadow-sm">
-                <span class="text-sm font-bold text-gray-500">Administrator Mode</span>
-                <div class="w-10 h-10 bg-nature text-white flex items-center justify-center rounded-full font-bold">A</div>
-            </div>
+
+            <details class="group relative">
+                <summary class="glass flex items-center gap-4 p-2 pl-6 rounded-full pr-2 shadow-sm cursor-pointer list-none hover:shadow-md transition-all border border-transparent hover:border-saffron/20 group-open:shadow-lg">
+                    <span class="text-[10px] uppercase font-black tracking-widest text-gray-400 hidden md:block">Administrator Mode</span>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right hidden sm:block border-l border-gray-200 pl-4 py-1">
+                            <p class="text-[12px] font-bold text-nature leading-none"><?= $_SESSION['admin_name'] ?? 'Admin' ?></p>
+                            <p class="text-[9px] uppercase tracking-widest text-saffron font-black mt-1"><?= $_SESSION['admin_role'] ?? 'Super Admin' ?></p>
+                        </div>
+                        <div class="w-10 h-10 bg-nature text-white flex items-center justify-center rounded-full font-bold shadow-inner">
+                            <?= strtoupper(substr($_SESSION['admin_name'] ?? 'A', 0, 1)) ?>
+                        </div>
+                        <i class="fas fa-chevron-down text-[10px] text-gray-400 group-open:rotate-180 transition-transform ml-1"></i>
+                    </div>
+                </summary>
+
+                <div class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden transform opacity-0 scale-95 origin-top-right group-open:opacity-100 group-open:scale-100 transition-all duration-200 z-50">
+                    <div class="p-4 border-b border-gray-50 bg-gray-50/50">
+                        <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold mb-1">Signed in as</p>
+                        <p class="text-xs font-bold text-nature truncate"><?= $_SESSION['admin_name'] ?? 'Administrator' ?></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="profile.php" class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-nature hover:bg-gray-50 p-3 rounded-xl transition-colors">
+                            <i class="fas fa-user-circle w-4"></i> Profile Details
+                        </a>
+                        <a href="logout.php" class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-red-500 hover:text-red-600 hover:bg-red-50 p-3 rounded-xl transition-colors mt-1">
+                            <i class="fas fa-sign-out-alt w-4"></i> Secure Logout
+                        </a>
+                    </div>
+                </div>
+            </details>
         </header>
 
         <!-- Stats Grid -->

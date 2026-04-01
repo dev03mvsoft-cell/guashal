@@ -131,7 +131,7 @@ try {
 <?php endif; ?>
 
 <!-- Premium Hero Section with Swiper Background -->
-<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+<section class="relative min-h-[calc(100vh-135px)] md:min-h-[calc(100vh-145px)] mt-[135px] md:mt-[145px] flex items-center justify-center text-center overflow-hidden">
 
     <!-- Virtual Reality (VR) Panorama Layer -->
     <div id="panorama" class="absolute inset-0 z-[5] opacity-0 pointer-events-none transition-opacity duration-1000 bg-black"></div>
@@ -151,7 +151,7 @@ try {
                     <img src="/asset/img/cow/babycow.jpeg" alt="Gaushala Living" class="kenburns-bg opacity-70 object-cover object-center">
                 </div>
                 <div class="swiper-slide bg-black">
-                    <img src="/asset/img/cow/gushala12.jpg" alt="Gau Seva" class="kenburns-bg opacity-70 object-cover object-center">
+                    <img src="/asset/img/cow/hlo.jpg" alt="Gau Seva" class="kenburns-bg opacity-70 object-cover object-center">
                 </div>
             </div>
         </div>
@@ -161,22 +161,22 @@ try {
     <div id="hero-overlay" class="absolute inset-0 z-[1] bg-saffron/50 mix-blend-multiply transition-opacity duration-1000"></div>
     <div id="hero-gradient" class="absolute inset-0 z-[2] bg-gradient-to-t from-black/80 via-transparent to-black/40 transition-opacity duration-1000"></div>
 
-    <div class="container mx-auto px-6 relative z-[30] hero-content text-white pt-48 md:pt-40 pb-12">
-        <span class="text-gold uppercase tracking-[0.5em] text-[12px] md:text-sm font-bold mb-8 block drop-shadow-md" data-lang="hero_span">
+    <div class="container mx-auto px-6 relative z-[30] hero-content text-white pt-16 pb-12">
+        <span class="text-secondary uppercase tracking-[0.5em] text-[12px] md:text-sm font-bold mb-8 block drop-shadow-md" data-lang="hero_span">
             Divine Vedic Sanctuary
         </span>
 
-        <h1 class="text-3xl md:text-6xl leading-[1.05] mb-8 font-display drop-shadow-2xl text-white" data-lang="hero_h1">
+        <!-- <h1 class="text-3xl md:text-6xl leading-[1.05] mb-8 font-display drop-shadow-2xl text-white" data-lang="hero_h1">
             A <span class="italic text-gold">Mother</span> Who Speaks No Words, <br>
             Yet <span class="text-gold underline decoration-white/20 underline-offset-8">Feeds the World</span> — <br>
             <span class="text-white opacity-90 italic">Let Our Love Protect Her</span>
-        </h1>
+        </h1> -->
 
 
         <div class="section-divider mx-auto bg-gradient-to-r from-saffron to-gold w-32 md:w-48 !h-1.5 rounded-full mb-10 shadow-lg"></div>
 
         <div class="shlok-wrapper mb-0 relative z-20">
-            <p class="text-xl md:text-4xl font-bold mb-8 drop-shadow-2xl text-gold/90 font-hindi leading-relaxed tracking-widest">
+            <p class="text-xl md:text-4xl font-bold mb-8 drop-shadow-2xl text-secondary/90 font-hindi leading-relaxed tracking-widest">
                 "गौषु सर्वं प्रतिष्ठितं गोषु लोकाः प्रतिष्ठिताः। <br>
                 गोषु जीवन्ति जन्तवो गोषु सर्वं प्रतिष्ठितम्॥"
             </p>

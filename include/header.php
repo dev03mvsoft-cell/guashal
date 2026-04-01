@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Development Cache Control: Always fetch fresh code -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -49,7 +49,7 @@
                 extend: {
                     colors: {
                         'saffron': '#FF6A00',
-                        'gold': '#FFD700',
+                        'gold': '#c0a50eff',
                         'nature': '#2c4c3b',
                         'primary': '#FF6A00',
                         'secondary': '#fffcf9',
