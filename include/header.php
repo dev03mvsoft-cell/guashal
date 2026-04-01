@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Development Cache Control: Always fetch fresh code -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>Gaushala - Modern Sanctuary</title>
 
     <!-- Tailwind CSS CDN -->
@@ -33,8 +39,8 @@
     <link rel="apple-touch-icon" href="/asset/img/logo/logo.png">
 
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/asset/css/style.css">
+    <!-- Custom CSS (Cache Busting version) -->
+    <link rel="stylesheet" href="/asset/css/style.css?v=<?php echo time(); ?>">
 
 
     <script>
@@ -122,7 +128,7 @@
         $marquee_items = []; // Fallback to static if table doesn't exist
     }
     ?>
-    <div class="bg-gradient-to-r from-nature via-nature/90 to-nature border-b border-gold/20 py-2 fixed top-0 left-0 w-full z-[10000] overflow-hidden">
+    <div class="top-announcement bg-gradient-to-r from-nature via-nature/90 to-nature border-b border-gold/20 py-2 fixed top-0 left-0 w-full z-[10000] overflow-hidden transition-transform duration-500">
         <div class="container mx-auto px-6 flex items-center gap-4">
             <span class="bg-saffron text-white text-[12px] font-bold px-3 py-1 rounded-full uppercase tracking-widest hidden md:block whitespace-nowrap shadow-lg shadow-saffron/20 border border-white/10" data-lang="latest_label">Latest Update</span>
             <div class="flex-1 overflow-hidden relative">
@@ -165,7 +171,7 @@
     </div>
 
     <!-- Main Navigation Bar -->
-    <nav class="fixed top-[41px] left-0 w-full z-[9999] transition-all duration-300 backdrop-blur-md bg-nature/95 shadow-lg border-b border-white/10 nav-main">
+    <nav class="fixed top-[40px] md:top-[45px] left-0 w-full z-[9999] transition-all duration-500 backdrop-blur-md bg-nature/95 shadow-lg border-b border-white/10 nav-main">
         <div class="container mx-auto px-6 py-2 md:py-3 flex justify-between items-center transition-all duration-500 nav-container">
             <a href="/" class="flex items-center group transition-all duration-500 hover:scale-[1.03] active:scale-95">
                 <div class="relative">
@@ -173,15 +179,15 @@
                     <div class="absolute inset-0 bg-gold/20 rounded-full blur-2xl group-hover:bg-saffron/30 transition-colors duration-700"></div>
 
                     <!-- Branding Capsule -->
-                    <div class="relative bg-gradient-to-r from-white via-white to-[#fff9f2] border-2 border-gold rounded-full flex items-center px-1 py-1 gap-2 md:gap-4 shadow-xl h-12 md:h-20 max-w-fit pr-4 md:pr-10 ml-3 md:ml-12">
+                    <div class="relative bg-gradient-to-r from-white via-white to-[#fff9f2] border-2 border-gold rounded-full flex items-center px-1 py-1 gap-4 shadow-xl h-20 max-w-[90vw] pr-6 sm:pr-[60px] ml-6 sm:ml-10 scale-90 sm:scale-100 origin-left">
                         <!-- Logo Circle POP OUT -->
-                        <div class="h-14 w-14 md:h-24 md:w-24 -ml-5 md:-ml-16 rounded-full flex items-center justify-center p-2 flex-shrink-0 bg-white border-2 border-gold shadow-lg z-10 transition-transform duration-500 group-hover:scale-110">
+                        <div class="h-20 w-20 -ml-9 rounded-full flex items-center justify-center flex-shrink-0 bg-white border-2 border-gold shadow-lg p-0">
                             <img src="/asset/img/logo/logo.png" class="h-full w-full object-contain" alt="Logo">
                         </div>
                         <!-- Brand Typography Integrated -->
                         <div class="flex flex-col overflow-hidden">
-                            <span class="text-nature font-display text-[12px] md:text-xl font-bold leading-tight" data-lang="brand_name">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>
-                            <span class="text-[12px] md:text-[12px] uppercase tracking-[0.1em] md:tracking-[0.4em] text-saffron font-black" data-lang="brand_tagline">Panjrapole</span>
+                            <span class="text-nature font-display text-lg font-bold leading-tight">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>
+                            <span class="text-[10px] uppercase tracking-[0.3em] text-saffron font-black">Panjrapole</span>
                         </div>
                     </div>
 

@@ -3,18 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Smooth Scroll for Navbar
     const nav = document.querySelector('.nav-main');
     const navContainer = document.querySelector('.nav-container');
+    const topBar = document.querySelector('.top-announcement');
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 80) {
-            nav.classList.add('shadow-2xl');
-            nav.classList.remove('shadow-lg');
+        if (window.scrollY > 30) {
+            nav.classList.add('shadow-2xl', 'top-0');
+            nav.classList.remove('shadow-lg', 'top-[40px]', 'md:top-[45px]', 'top-[45px]');
             navContainer.classList.add('py-1', 'md:py-2');
-            navContainer.classList.remove('py-2', 'md:py-3');
+            navContainer.classList.remove('py-2', 'md:py-3', 'py-3');
+            if (topBar) topBar.classList.add('-translate-y-full');
         } else {
-            nav.classList.add('shadow-lg');
-            nav.classList.remove('shadow-2xl');
+            nav.classList.add('shadow-lg', 'top-[40px]', 'md:top-[45px]');
+            nav.classList.remove('shadow-2xl', 'top-0');
             navContainer.classList.remove('py-1', 'md:py-2');
             navContainer.classList.add('py-2', 'md:py-3');
+            if (topBar) topBar.classList.remove('-translate-y-full');
         }
     });
 

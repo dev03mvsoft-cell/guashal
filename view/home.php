@@ -142,13 +142,13 @@ try {
         <div class="swiper swiper-hero w-full h-full">
             <div class="swiper-wrapper">
                 <div class="swiper-slide bg-black">
-                    <img src="/asset/img/cow/gushala3.jpg" alt="Gaushala Cow" class="kenburns-bg opacity-70 object-cover object-center">
+                    <img src="/asset/img/cow/gus.jpeg" alt="Gaushala Cow" class="kenburns-bg opacity-70 object-cover object-center">
                 </div>
                 <div class="swiper-slide bg-black">
                     <img src="/asset/img/cow/gushala5.jpg" alt="Gaushala Sanctuary" class="kenburns-bg opacity-70 object-cover object-center">
                 </div>
                 <div class="swiper-slide bg-black">
-                    <img src="/asset/img/cow/gushala20.jpg" alt="Gaushala Living" class="kenburns-bg opacity-70 object-cover object-center">
+                    <img src="/asset/img/cow/babycow.jpeg" alt="Gaushala Living" class="kenburns-bg opacity-70 object-cover object-center">
                 </div>
                 <div class="swiper-slide bg-black">
                     <img src="/asset/img/cow/gushala12.jpg" alt="Gau Seva" class="kenburns-bg opacity-70 object-cover object-center">

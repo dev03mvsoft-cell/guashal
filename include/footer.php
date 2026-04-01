@@ -30,8 +30,8 @@
                             </div>
                             <!-- Brand Typography Integrated -->
                             <div class="flex flex-col overflow-hidden">
-                                <span class="text-nature font-display text-[12px] md:text-2xl font-bold leading-tight md:mb-1" data-lang="brand_name">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>
-                                <span class="text-[12px] md:text-[12px] uppercase tracking-[0.1em] md:tracking-[0.4em] text-saffron font-black" data-lang="brand_tagline">Panjrapole</span>
+                                <span class="text-nature font-display text-[15px] md:text-1xl font-bold leading-tight md:mb-1" data-lang="brand_name">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>
+                                <span class="text-[10px] md:text-[10px] uppercase tracking-[0.1em] md:tracking-[0.4em] text-saffron font-black" data-lang="brand_tagline">Panjrapole</span>
                             </div>
                         </div>
 
@@ -173,9 +173,9 @@
 <!-- AOS (Animate on Scroll) JS -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<!-- Initialize Main Scripts -->
-<script src="/asset/js/app.js"></script>
-<script src="/asset/js/donation-toaster.js"></script>
+<!-- Initialize Main Scripts (Cache Busting version) -->
+<script src="/asset/js/app.js?v=<?php echo time(); ?>"></script>
+<script src="/asset/js/donation-toaster.js?v=<?php echo time(); ?>"></script>
 
 
 
