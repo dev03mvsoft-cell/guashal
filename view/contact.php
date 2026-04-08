@@ -53,7 +53,7 @@
                         </div>
                         <div class="pt-1">
                             <h4 class="text-[9px] font-black uppercase tracking-[0.2em] text-nature/30 mb-2" data-lang="contact_phone_label">Voice Channel</h4>
-                            <p class="text-nature font-bold text-base leading-relaxed">+91 99985 81811</p>
+                            <p class="text-nature font-bold text-base leading-relaxed">+91 9998581811 <br>+91 9824284733</p>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                             <div class="w-16 h-1 bg-gradient-to-r from-gold to-transparent rounded-full"></div>
                         </div>
 
-                        <form id="contact-form" class="space-y-10">
+                        <form id="contact-form" enctype="multipart/form-data" class="space-y-10">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div class="relative group/field">
                                     <label class="block text-[9px] font-black uppercase tracking-widest text-nature/90 mb-2 transition-colors" data-lang="contact_form_name">Name or Identity</label>
@@ -106,6 +106,16 @@
                             <div class="relative group/field">
                                 <label class="block text-[9px] font-black uppercase tracking-widest text-nature/90 mb-2 transition-colors" data-lang="contact_form_message">Shared Wisdom (Message)</label>
                                 <textarea name="message" rows="3" data-lang-placeholder="placeholder_message" placeholder="Share your words..." class="w-full bg-transparent border-b border-nature/30 py-4 focus:outline-none focus:border-gold transition-all duration-500 placeholder:text-nature/60 font-bold text-lg text-nature resize-none" required></textarea>
+                            </div>
+
+                            <div class="relative group/field bg-nature/5 p-4 rounded-2xl">
+                                <label class="block text-[9px] font-black uppercase tracking-widest text-nature/90 mb-2 transition-colors flex items-center gap-2"><i class="fas fa-image opacity-50"></i> Upload Screenshot (Optional)</label>
+                                <input type="file" name="screenshot" accept="image/*" class="w-full bg-transparent focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-widest file:bg-nature/10 file:text-nature hover:file:bg-nature/20 cursor-pointer">
+                            </div>
+
+                            <div class="hidden" style="display:none;">
+                                <label>Leave this field empty</label>
+                                <input type="text" name="hp_catcher" id="contact_hp_catcher" tabindex="-1" autocomplete="off">
                             </div>
 
                             <div class="pt-6">
@@ -144,22 +154,28 @@
     </div>
 </section>
 
+<script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
 <script>
 document.getElementById('contact-form').addEventListener('submit', function(e) {
     if (e.preventDefault) e.preventDefault();
     const form = this;
-    const formData = new FormData(form);
     const submitBtn = form.querySelector('button[type="submit"]');
     const submitText = document.getElementById('submit-text');
     
     submitBtn.disabled = true;
     const originalText = submitText.innerText;
-    submitText.innerText = "Transmitting...";
+    submitText.innerText = "Authenticating...";
 
-    fetch('/api/contact_handler.php', {
-        method: 'POST',
-        body: formData
-    })
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'submit'}).then(function(token) {
+            const formData = new FormData(form);
+            formData.append('recaptcha_token', token);
+            submitText.innerText = "Transmitting...";
+
+            fetch('/api/contact_handler.php', {
+                method: 'POST',
+                body: formData
+            })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
@@ -185,6 +201,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     .finally(() => {
         submitBtn.disabled = false;
         submitText.innerText = originalText;
+    });
+        });
     });
 });
 </script>

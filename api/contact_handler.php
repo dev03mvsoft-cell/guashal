@@ -11,6 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $purpose = trim($_POST['purpose'] ?? '');
     $message = trim($_POST['message'] ?? '');
 
+    // Honeypot Check
+    if (!empty($_POST['hp_catcher'])) {
+        echo json_encode(['success' => false, 'message' => 'Spam activity detected. Request denied.']);
+        exit;
+    }
+
+    // reCAPTCHA Token Check
+    $recaptcha_token = $_POST['recaptcha_token'] ?? '';
+    if (empty($recaptcha_token)) {
+        echo json_encode(['success' => false, 'message' => 'Security challenge failed. Please refresh the page.']);
+        exit;
+    }
+
     if (empty($name) || empty($email) || empty($message)) {
         echo json_encode(['success' => false, 'message' => 'Please fill all required fields.']);
         exit;

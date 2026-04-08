@@ -258,7 +258,7 @@ const translations = {
         'currency_inr': 'Indian Currency (INR)', 'currency_foreign': 'Non-Indian Currency',
         'form_pincode': 'City Pincode', 'form_submit': 'Perform Divine Sewa',
         'placeholder_pincode': 'Pincode', 'placeholder_amount': '₹ Custom', 'placeholder_phone': 'WhatsApp Number', 'placeholder_ritual': 'Birthday Ritual',
-        'donate_verify_label': 'Verification Artifact', 'donate_upi_label': 'Direct UPI Passage', 'donate_trust_label': 'Sanctuary Trust', 'donate_tax_label': 'Tax Exemption U/S 80G - Income Tax Act 1961',
+        'donate_verify_label': 'UPI Payment', 'donate_upi_label': 'Direct UPI Passage', 'donate_trust_label': 'Sanctuary Trust', 'donate_tax_label': 'Tax Exemption U/S 80G - Income Tax Act 1961',
         // Testimonials
         'testimonials_label': 'Voices of Devotion', 'testimonials_title': 'What our Devotees say',
         'testi1_n': 'Rajesh Sharma', 'testi1_r': 'Monthly Donor', 'testi1_t': 'Visiting the Gaushala changed my perspective on life. Seeing the care given to injured cows is truly divine. It\'s a sanctuary of peace.', 'testi1_initial': 'R',
@@ -679,14 +679,14 @@ async function getAutoTranslation(text, targetLang) {
     try {
         const response = await fetch(`/api/translate.php?q=${encodeURIComponent(text)}&lang=${targetLang}`);
         const data = await response.json();
-        
+
         if (data && data.translatedText) {
             const translatedText = data.translatedText;
-            
+
             // Sync to Browser Cache
             transCacheDict[cacheKey] = translatedText;
             localStorage.setItem(TRANS_CACHE_KEY, JSON.stringify(transCacheDict));
-            
+
             return translatedText;
         }
     } catch (e) {
@@ -746,7 +746,7 @@ window.translateAllDynamicContent = async function (lang) {
         // 2. Automated: Fetch from Neural API (Private Bridge)
         if (lang !== 'en') {
             el.style.opacity = '0.7';
-            
+
             // STRIKT THROTTLE: Avoid API Storm
             await new Promise(r => setTimeout(r, 50));
 

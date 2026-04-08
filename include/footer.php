@@ -94,7 +94,7 @@
                         <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-phone text-saffron text-sm"></i>
                         </div>
-                        <a href="tel:+919998581811" class="text-white/70 text-[15px] hover:text-gold transition-colors">+91 99985 81811</a>
+                        <a href="tel:+919998581811" class="text-white/70 text-[15px] hover:text-gold transition-colors">+91 9998581811 / +91 9824284733</a>
 
                     </div>
                     <div class="flex gap-4 items-center">
@@ -116,16 +116,16 @@
             <div>
                 <h3 class="text-white font-bold uppercase tracking-[0.4em] text-xs mb-8" data-lang="footer_social">Stay Connected</h3>
                 <div class="flex gap-3 mb-10">
-                    <a href="#" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-saffron hover:text-white hover:border-saffron transition-all duration-300" title="Facebook">
+                    <a href="https://www.facebook.com/Shree.Gau.Rakshak.Seva.Samiti" target="_blank" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-saffron hover:text-white hover:border-saffron transition-all duration-300" title="Facebook">
                         <i class="fab fa-facebook-f text-sm"></i>
                     </a>
-                    <a href="#" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#E1306C] hover:text-white hover:border-[#E1306C] transition-all duration-300" title="Instagram">
+                    <a href="https://www.instagram.com/radhe_radhe_gaushala0" target="_blank" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#E1306C] hover:text-white hover:border-[#E1306C] transition-all duration-300" title="Instagram">
                         <i class="fab fa-instagram text-sm"></i>
                     </a>
-                    <a href="#" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300" title="WhatsApp">
+                    <a href="https://wa.me/919998581811" target="_blank" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300" title="WhatsApp">
                         <i class="fab fa-whatsapp text-sm"></i>
                     </a>
-                    <a href="#" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all duration-300" title="YouTube">
+                    <a href="https://www.youtube.com/@shree_gau_rakshak_seva_samiti" target="_blank" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all duration-300" title="YouTube">
                         <i class="fab fa-youtube text-sm"></i>
                     </a>
                 </div>

@@ -679,15 +679,7 @@ try {
             <div class="section-divider mx-auto"></div>
         </div>
 
-        <!-- Currency Toggle Tabs -->
-        <div class="max-w-4xl mx-auto mb-12 flex bg-white/50 backdrop-blur-md rounded-2xl p-1.5 border border-gold/10 shadow-lg" data-aos="fade-up">
-            <button onclick="switchCurrency('indian')" id="tab-indian" class="currency-tab flex-1 py-4 px-6 rounded-xl font-display font-medium text-lg transition-all duration-500 bg-saffron text-white shadow-xl" data-lang="currency_inr">
-                Indian Currency (INR)
-            </button>
-            <button onclick="switchCurrency('foreign')" id="tab-foreign" class="currency-tab flex-1 py-4 px-6 rounded-xl font-display font-medium text-lg transition-all duration-500 text-nature/40  focus:outline-none" data-lang="currency_foreign">
-                Non-Indian Currency
-            </button>
-        </div>
+
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12" data-aos="fade-up">
             <!-- Left Side: Form (7 cols) -->
@@ -699,7 +691,7 @@ try {
                         <div class="absolute inset-0 bg-gradient-to-br from-saffron/[0.1] to-nature/[0.05]"></div>
                     </div>
 
-                    <form action="#" class="space-y-10">
+                    <form id="home-donation-form" enctype="multipart/form-data" class="space-y-10">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <!-- Select Seva -->
                             <div>
@@ -749,7 +741,7 @@ try {
                                 <div>
                                     <label class="block text-[12px] font-black uppercase tracking-widest text-nature/60 mb-3">WhatsApp Number</label>
                                     <div class="flex items-center gap-4">
-                                        <div class="flex items-center gap-2  px-4 py-3 rounded-xl border border-gold/10 shadow-sm">
+                                        <div class="flex items-center gap-2  px-4 py-3">
                                             <img src="https://flagcdn.com/w20/in.png" class="w-5 object-contain" alt="India">
                                             <span class="text-sm font-black text-nature">+91</span>
                                         </div>
@@ -768,16 +760,20 @@ try {
                                 <div>
                                     <label class="block text-[12px] font-black uppercase tracking-widest text-nature/60 mb-3">Date of Birth <span class="opacity-50 italic">(Optional)</span></label>
                                     <input type="date" class="w-full bg-transparent border-b-2 border-nature/10 focus:border-saffron py-3 focus:outline-none transition-all text-nature font-bold">
-                                    <p class="text-[12px] text-saffron/70 mt-3 font-bold uppercase tracking-wider leading-relaxed">
-                                        Sankalp and Aarti will be performed for you on your birthday.
-                                    </p>
                                 </div>
                             </div>
 
-                            <!-- Pincode -->
-                            <div class="max-w-[200px]">
-                                <label class="block text-[12px] font-black uppercase tracking-widest text-nature/60 mb-3" data-lang="form_pincode">City Pincode</label>
-                                <input type="text" placeholder="Pincode" class="w-full bg-transparent border-b-2 border-nature/10 focus:border-saffron py-3 focus:outline-none transition-all placeholder:text-nature/30 font-bold tracking-widest text-nature" data-lang-placeholder="placeholder_pincode">
+                            <div class="flex flex-col md:flex-row gap-10">
+                                <!-- Pincode -->
+                                <div class="w-full md:max-w-[200px]">
+                                    <label class="block text-[12px] font-black uppercase tracking-widest text-nature/60 mb-3" data-lang="form_pincode">City Pincode</label>
+                                    <input type="text" placeholder="Pincode" class="w-full bg-transparent border-b-2 border-nature/10 focus:border-saffron py-3 focus:outline-none transition-all placeholder:text-nature/30 font-bold tracking-widest text-nature" data-lang-placeholder="placeholder_pincode">
+                                </div>
+                                <!-- Screenshot -->
+                                <div class="w-full flex-grow">
+                                    <label class="block text-[12px] font-black uppercase tracking-widest text-nature/60 mb-3 flex items-center gap-2"><i class="fas fa-image opacity-50"></i> Payment Screenshot</label>
+                                    <input type="file" name="screenshot" accept="image/*" class="w-full bg-transparent border-b-2 border-nature/10 focus:border-saffron py-2 focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-widest file:bg-nature/5 file:text-nature hover:file:bg-nature/10 cursor-pointer">
+                                </div>
                             </div>
                         </div>
 
@@ -792,67 +788,51 @@ try {
             <!-- Right Side: Info & QR (5 cols) -->
             <div class="lg:col-span-5 flex flex-col gap-6">
                 <!-- Payment Details Container -->
-                <div id="payment-details-box" class="bg-saffron/5 p-8 md:p-12 rounded-[3.5rem] border border-saffron/10 h-full relative overflow-hidden flex flex-col justify-between">
+                <div id="payment-details-box" class="bg-saffron/5 p-8 md:p-12 rounded-[3.5rem] border border-saffron/10 relative overflow-hidden flex flex-col">
                     <div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-                            <!-- QR Code Section -->
-                            <div class="text-center">
-                                <h4 class="text-xs font-black uppercase tracking-[0.3em] text-nature/40 mb-6">For UPI & QR</h4>
-                                <div class="bg-white p-4 rounded-3xl shadow-xl border border-gold/10 inline-block relative group">
-                                    <img src="/asset/img/donation_qr_mockup.png" class="w-40 h-40 md:w-48 md:h-48 rounded-xl object-contain grayscale group-hover:grayscale-0 transition-all duration-700" alt="Sewa QR Code">
-                                    <div class="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                </div>
-                                <p class="mt-4 text-[12px] font-bold text-nature/60 tracking-widest flex items-center justify-center gap-2">
-                                    goseva.augp@aubank <i class="far fa-copy cursor-pointer hover:text-saffron transition-colors"></i>
-                                </p>
-                            </div>
-
+                        <div class="flex flex-col gap-8 mb-8">
                             <!-- Bank Transfer Details -->
                             <div class="space-y-6">
-                                <h4 class="text-15 font-black uppercase tracking-[0.3em] text-nature/40 mb-6 flex items-center gap-2">For Bank Transfer <i class="far fa-copy text-[12px] opacity-40"></i></h4>
-                                <div class="space-y-4">
+                                <h4 class="text-15 font-black uppercase tracking-[0.3em] text-nature/40 flex items-center gap-2">For Bank Transfer <i class="far fa-copy text-[12px] opacity-40"></i></h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-nature/5 p-6 rounded-2xl text-left">
                                     <div>
-                                        <p class="text-[12px] uppercase tracking-widest font-black text-nature/30 mb-1">Account Name</p>
-                                        <p class="text-sm font-bold text-nature flex items-center justify-between">Business Care Solutions <i class="far fa-copy text-[12px] opacity-20 hover:opacity-100 cursor-pointer"></i></p>
+                                        <p class="text-[10px] uppercase tracking-widest font-black text-nature/30 mb-1">Account Name</p>
+                                        <p class="text-sm font-bold text-nature">SHRI GAU RAKSHK SEVA SAMITI</p>
                                     </div>
                                     <div>
-                                        <p class="text-[12px] uppercase tracking-widest font-black text-nature/30 mb-1">Account Number</p>
-                                        <p class="text-sm font-bold text-nature flex items-center justify-between">7418529639 <i class="far fa-copy text-[12px] opacity-20 hover:opacity-100 cursor-pointer"></i></p>
+                                        <p class="text-[10px] uppercase tracking-widest font-black text-nature/30 mb-1">Account Number</p>
+                                        <p class="text-sm font-bold text-nature">9049164841</p>
                                     </div>
                                     <div>
-                                        <p class="text-[12px] uppercase tracking-widest font-black text-nature/30 mb-1">Bank Name</p>
-                                        <p class="text-sm font-bold text-nature">AU Small Finance Bank</p>
+                                        <p class="text-[10px] uppercase tracking-widest font-black text-nature/30 mb-1">Bank Name</p>
+                                        <p class="text-sm font-bold text-nature">KOTAK MAHINDRA BANK</p>
                                     </div>
                                     <div>
-                                        <p class="text-[12px] uppercase tracking-widest font-black text-nature/30 mb-1">IFSC Code</p>
-                                        <p class="text-sm font-bold text-nature flex items-center justify-between">AUBL0002567 <i class="far fa-copy text-[12px] opacity-20 hover:opacity-100 cursor-pointer"></i></p>
+                                        <p class="text-[10px] uppercase tracking-widest font-black text-nature/30 mb-1">IFSC Code & Branch</p>
+                                        <p class="text-sm font-bold text-nature">KKBK0003065 (GANDHIDHAM)</p>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- UPI Section -->
+                            <div class="text-left">
+                                <h4 class="text-xs font-black uppercase tracking-[0.3em] text-nature/40 mb-4">UPI Payment</h4>
+                                <div class="space-y-1 bg-nature/5 p-4 rounded-2xl w-full">
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Direct UPI Passage</p>
+                                    <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
+                                    <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
                                 </div>
                             </div>
                         </div>
 
-                        <p class="text-center text-[12px] font-italic text-nature/40 mb-10">(Kindly send us a screenshot for your seva entry)</p>
-
-                        <!-- Legal & Trust -->
-                        <div class="space-y-3 pt-8 border-t border-saffron/10">
-                            <p class="text-[12px] font-bold text-nature tracking-wide flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-saffron animate-pulse"></span>
-                                80G available as per Income Tax Act 1961
-                            </p>
-                            <p class="text-[12px] text-nature/60 tracking-wider">
-                                Tax Exemption Certificate Ref. No.: <span class="text-nature font-bold">AAATH7322QF20218</span>
-                            </p>
-                            <p class="text-[12px] text-nature/40 pt-4 italic">
-                                *By proceeding, you are agreeing to our Terms & Conditions & Privacy Policy
-                            </p>
-                        </div>
+                        <p class="text-center text-[12px] font-italic text-nature/40">(Kindly send us a screenshot for your seva entry)</p>
                     </div>
 
                     <!-- Footer Support -->
-                    <div class="mt-12">
+                    <div class="mt-8 pt-6 border-t border-saffron/10">
                         <div class="flex flex-col md:flex-row md:items-center gap-6 mb-8">
-                            <a href="tel:+919660071666" class="flex items-center gap-2 text-xs font-bold text-nature/60 hover:text-saffron transition-colors">
-                                <i class="fab fa-whatsapp text-lg text-[#25D366]"></i> +91 96600 71666
+                            <a href="tel:+919998581811" class="flex items-center gap-2 text-xs font-bold text-nature/60 hover:text-saffron transition-colors">
+                                <i class="fab fa-whatsapp text-lg text-[#25D366]"></i> +91 9998581811 / 9824284733
                             </a>
                             <a href="mailto:sewa@gaushala.org" class="flex items-center gap-2 text-xs font-bold text-nature/60 hover:text-saffron transition-colors">
                                 <i class="far fa-envelope text-lg text-gold"></i> sewa@gaushala.org
@@ -860,7 +840,7 @@ try {
                         </div>
 
                         <div class="flex gap-4 items-center opacity-40 grayscale hover:grayscale-0 transition-all">
-                            <img src="https://static-assets.paytm.com/common/uikit/images/logo.png" class="h-4 object-contain" alt="Paytm">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="h-4 object-contain" alt="Paytm">
                             <i class="fab fa-google-pay text-2xl text-nature"></i>
                             <i class="fab fa-apple-pay text-2xl text-nature"></i>
                             <i class="fab fa-cc-visa text-2xl text-nature"></i>

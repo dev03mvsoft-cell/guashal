@@ -1,3 +1,37 @@
+<?php
+// Dynamic URL Base Generator for automated environment adaptation
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
+$current_url = $base_url . $_SERVER['REQUEST_URI'];
+
+// Advanced Multi-City SEO Logic
+$seo_valid_locations = ['Gandhidham', 'Bhuj', 'Anjar', 'Mandvi', 'Mundra', 'Adipur', 'Bhachau', 'Nakhatrana', 'Rapar', 'Gujarat', 'Kutch', 'India'];
+$seo_location = 'Gandhidham'; // Highest Priority Target Location
+$seo_locality = 'Gandhidham'; 
+
+if (isset($_GET['loc']) && !empty($_GET['loc'])) {
+    $requested_loc = ucwords(strtolower(trim(preg_replace('/[^a-zA-Z\s]/', '', $_GET['loc']))));
+    if (in_array($requested_loc, $seo_valid_locations)) {
+        $seo_location = $requested_loc;
+        $seo_locality = $requested_loc;
+    }
+}
+
+// Multi-Language Organization Constants (Dynamic Centralized Control)
+$org_en = "Shri Gau Rakshak Seva Samiti";
+$org_gu = "શ્રી ગૌ રક્ષક સેવા સમિતિ";
+$org_hi = "श्री गौ रक्षक सेवा समिति";
+$org_short = "GRSS";
+
+// Dynamic Google Top Search Intents logic for titles
+// High-volume keywords in India: Gaushala, Cow Donation, Gau Seva, Cow Shelter, Panjrapole
+$seo_title_intent = "Gaushala, Cow Donation & Gau Seva in {$seo_location}";
+
+// If location is specific or the priority target (Gandhidham / Bhuj), include Panjrapole
+if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
+    $seo_title_intent = "{$seo_location} Gaushala & Panjrapole - Cow Donation";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +44,90 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <title>Gaushala - Modern Sanctuary</title>
+    <title><?= $seo_title_intent ?> | <?= $org_gu ?> | <?= $org_short ?></title>
 
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Support gaushala and donate for cow seva in <?= $seo_location ?>. Help us protect and care for cows with your contribution. <?= $org_en ?> (<?= $org_gu ?> / <?= $org_hi ?>) is dedicated to the care and protection of cows. Donate online easily.">
+    <meta name="keywords" content="gaushala donation <?= $seo_location ?>, cow donation <?= $seo_location ?>, gaushala near me, donate for cows <?= $seo_location ?>, gau seva donation online, support gaushala <?= $seo_location ?>, cow shelter donation India, gaushala charity trust <?= $seo_locality ?>, Gaushala in Gujarat, Cow Shelter in Kutch">
+    <meta name="author" content="<?= $org_en ?> (<?= $org_gu ?>)">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Open Graph / Regional SEO -->
+    <meta property="og:title" content="<?= $seo_title_intent ?> | <?= $org_short ?>">
+    <meta property="og:description" content="<?= $org_en ?> (<?= $org_gu ?>) is a trusted Panjrapole and cow shelter. We provide medical support to cows in need. Start your gau seva journey today.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?= $current_url ?>">
+    <meta property="og:image" content="<?= $base_url ?>/asset/img/logo/logo.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Donate for Gau Seva <?= $seo_location ?> | Cow Shelter in <?= $seo_locality ?>">
+    <meta name="twitter:description" content="Support gaushala and donate for cow seva in <?= $seo_location ?>. Help us protect and care for cows with your contribution. Donate online easily.">
+
+    <!-- Local SEO (<?= $seo_locality ?> Target) -->
+    <meta name="geo.region" content="IN-GJ" />
+    <meta name="geo.placename" content="<?= $seo_locality ?>, Kutch" />
+
+    <!-- Schema.org JSON-LD LocalBusiness -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "NGO",
+            "name": "<?= $org_en ?>",
+            "alternateName": [
+                "<?= $org_gu ?>",
+                "<?= $org_hi ?>",
+                "<?= $org_short ?> Gaushala"
+            ],
+            "description": "<?= $org_en ?> (<?= $org_gu ?> / <?= $org_hi ?>) is dedicated to the care and protection of cows in <?= $seo_location ?>. We provide shelter, food and medical support to cows in need. Your donation helps us continue our mission of gau seva and cow protection.",
+            "url": "<?= $base_url ?>/",
+            "logo": "<?= $base_url ?>/asset/img/logo/logo.png",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "<?= $seo_locality ?>",
+                "addressRegion": "Gujarat",
+                "postalCode": "370201",
+                "addressCountry": "IN"
+            },
+            "areaServed": [{
+                    "@type": "City",
+                    "name": "Gandhidham"
+                },
+                {
+                    "@type": "City",
+                    "name": "Bhuj"
+                },
+                {
+                    "@type": "City",
+                    "name": "Anjar"
+                },
+                {
+                    "@type": "City",
+                    "name": "Mandvi"
+                },
+                {
+                    "@type": "AdministrativeArea",
+                    "name": "Kutch"
+                },
+                {
+                    "@type": "AdministrativeArea",
+                    "name": "Gujarat"
+                }
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-9998581811",
+                "contactType": "customer service",
+                "areaServed": "IN",
+                "availableLanguage": ["English", "Hindi", "Gujarati"]
+            },
+            "sameAs": [
+                "https://www.facebook.com/grssgaushala"
+            ]
+        }
+    </script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -165,7 +281,7 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-4 border-l border-white/10 pl-6 text-[12px] items-center">
-                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold"><i class="fas fa-phone-alt mr-2 text-saffron"></i><span data-lang="header_phone">+91 99985 81811</span></a>
+                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold"><i class="fas fa-phone-alt mr-2 text-saffron"></i><span data-lang="header_phone">+91 9998581811 / 9824284733</span></a>
             </div>
         </div>
     </div>

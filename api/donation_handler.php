@@ -6,11 +6,24 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount = (int)($_POST['amount'] ?? 0);
-    $donor_name = trim($_POST['full_name'] ?? '');
+    $donor_name = trim($_POST['donor_name'] ?? $_POST['full_name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
-    $currency = trim($_POST['currency_type'] ?? 'INR');
+    $currency = trim($_POST['currency'] ?? $_POST['currency_type'] ?? 'INR');
     $seva_id = (int)($_POST['seva_id'] ?? 0);
+
+    // Honeypot Check
+    if (!empty($_POST['hp_catcher'])) {
+        echo json_encode(['success' => false, 'message' => 'Spam activity detected. Request denied.']);
+        exit;
+    }
+
+    // reCAPTCHA Token Check
+    $recaptcha_token = $_POST['recaptcha_token'] ?? '';
+    if (empty($recaptcha_token)) {
+        echo json_encode(['success' => false, 'message' => 'Security challenge failed. Please refresh the page.']);
+        exit;
+    }
 
     if ($amount <= 0 || empty($donor_name) || empty($email)) {
         echo json_encode(['success' => false, 'message' => 'Please fill all required donation details.']);

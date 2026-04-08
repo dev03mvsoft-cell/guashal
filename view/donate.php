@@ -47,17 +47,41 @@ try {
                     </div>
                 </div>
 
-                <div class="flex bg-gray-50 p-2 rounded-2xl lg:rounded-3xl" data-aos="fade-up">
-                    <button onclick="switchCurrency('indian')" id="tab-indian" class="currency-tab flex-1 py-3 lg:py-4 px-4 lg:px-6 rounded-xl lg:rounded-2xl font-bold transition-all bg-saffron text-white shadow-xl shadow-saffron/20 text-xs lg:text-base" data-lang="currency_inr">
-                        Indian (INR)
-                    </button>
-                    <button onclick="switchCurrency('foreign')" id="tab-foreign" class="currency-tab flex-1 py-3 lg:py-4 px-4 lg:px-6 rounded-xl lg:rounded-2xl text-gray-400  transition-all text-xs lg:text-base" data-lang="currency_foreign">
-                        Non-Indian
-                    </button>
-                </div>
+
             </header>
 
-            <form id="donation-form" class="space-y-10 lg:space-y-12">
+            <div class="mb-10 text-left" data-aos="fade-up">
+                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-6 flex items-center justify-center md:justify-start gap-2">Bank Account Details <i class="far fa-copy opacity-40"></i></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-nature/5 p-6 rounded-2xl text-center md:text-left">
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Account Name</p>
+                        <p class="text-sm font-bold text-nature">SHRI GAU RAKSHK SEVA SAMITI</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Account Number</p>
+                        <p class="text-sm font-bold text-nature">9049164841</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Bank Name</p>
+                        <p class="text-sm font-bold text-nature">KOTAK MAHINDRA BANK</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">IFSC Code & Branch</p>
+                        <p class="text-sm font-bold text-nature">KKBK0003065 (GANDHIDHAM)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 mb-10 text-left" data-aos="fade-up">
+                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-4" data-lang="donate_verify_label">UPI Payment</h4>
+                <div class="space-y-1 bg-nature/5 p-4 rounded-2xl md:inline-block w-full text-center md:text-left">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1" data-lang="donate_upi_label">Direct UPI Passage</p>
+                    <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
+                    <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
+                </div>
+            </div>
+
+            <form id="donation-form" enctype="multipart/form-data" class="space-y-10 lg:space-y-12">
                 <input type="hidden" name="currency" id="selected-currency" value="INR">
                 <div class="space-y-8 lg:space-y-10" data-aos="fade-up">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
@@ -106,8 +130,17 @@ try {
                             <span class="absolute top-[-10px] right-4 text-[9px] lg:text-[9px] font-black uppercase tracking-widest text-nature bg-white px-2 rounded-full border-2 border-saffron/10 shadow-sm" data-lang="form_birthday_label">Birthday Ritual</span>
                         </div>
                     </div>
+
+                    <div>
+                        <label class="block text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/60 mb-4 px-4 flex items-center gap-2"><i class="fas fa-image opacity-50"></i> Payment Screenshot</label>
+                        <input type="file" name="screenshot" accept="image/*" class="w-full bg-white/50 border-b-2 border-gray-200 focus:border-saffron py-3 px-6 rounded-t-xl font-bold text-nature text-base lg:text-lg focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-black file:bg-nature/10 file:text-nature hover:file:bg-nature/20 cursor-pointer">
+                    </div>
+                    
+                    <div class="hidden" style="display:none;">
+                        <label>Leave this field empty</label>
+                        <input type="text" name="hp_catcher" id="donate_hp_catcher" tabindex="-1" autocomplete="off">
+                    </div>
                 </div>
-        </div>
 
         <button type="submit" class="w-full py-6 lg:py-8 rounded-[2rem] lg:rounded-[2.5rem] bg-nature text-white font-display text-2xl lg:text-3xl font-bold shadow-[0_40px_80px_rgba(44,76,59,0.3)] hover:bg-saffron transition-all duration-1000 transform hover:-translate-y-2 flex items-center justify-center gap-4 lg:gap-6 group">
             <span id="submit-text" class="relative italic" data-lang="form_submit">Perform Sacred Ritual</span>
@@ -115,18 +148,8 @@ try {
         </button>
 
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 pt-12 lg:pt-16 border-t border-gray-50 text-center md:text-left">
-            <div>
-                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-4" data-lang="donate_verify_label">Verification Artifact</h4>
-                <div class="flex flex-col md:flex-row items-center gap-4 lg:gap-6">
-                    <img src="/asset/img/donation_qr_mockup.png" class="w-24 h-24 lg:w-32 lg:h-32 rounded-3xl shadow-xl grayscale hover:grayscale-0 transition-all cursor-pointer">
-                    <div class="space-y-1">
-                        <p class="text-xs font-black text-nature" data-lang="donate_upi_label">Direct UPI Passage</p>
-                        <p class="text-[12px] lg:text-[12px] text-saffron font-bold">goseva.augp@aubank <i class="far fa-copy ml-1"></i></p>
-                    </div>
-                </div>
-            </div>
-            <div class="space-y-4">
+        <div class="pt-12 lg:pt-16 border-t border-gray-50 text-center flex justify-center">
+            <div class="space-y-4 inline-block text-left">
                 <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30" data-lang="donate_trust_label">Sanctuary Trust</h4>
                 <div class="flex items-center gap-3 bg-nature/5 p-4 rounded-2xl">
                     <i class="fas fa-certificate text-gold"></i>
@@ -134,6 +157,7 @@ try {
                 </div>
             </div>
         </div>
+
         </form>
     </div>
     </div>
@@ -195,49 +219,57 @@ try {
     document.getElementById('donation-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const form = this;
-        const formData = new FormData(form);
         const submitBtn = form.querySelector('button[type="submit"]');
         const submitText = document.getElementById('submit-text');
-        
+
         submitBtn.disabled = true;
         const originalText = submitText.innerText;
-        submitText.innerText = "Processing...";
+        submitText.innerText = "Authenticating...";
 
-        fetch('./api/donation_handler.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Toast.fire({
-                    icon: 'success',
-                    title: data.message
-                });
-                
-                // Optimized redirect flow to the payment integration page
-                setTimeout(() => {
-                    window.location.href = '/payment?status=success';
-                }, 2000);
-                
-                form.reset();
-            } else {
-                Toast.fire({
-                    icon: 'error',
-                    title: data.message
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Toast.fire({
-                icon: 'error',
-                title: 'Sacred connection lost. Please try again.'
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'submit'}).then(function(token) {
+                const formData = new FormData(form);
+                formData.append('recaptcha_token', token);
+                submitText.innerText = "Processing...";
+
+                fetch('./api/donation_handler.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            });
+
+                            // Optimized redirect flow to the payment integration page
+                            setTimeout(() => {
+                                window.location.href = '/payment?status=success';
+                            }, 2000);
+
+                            form.reset();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Sacred connection lost. Please try again.'
+                        });
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitText.innerText = originalText;
+                    });
             });
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            submitText.innerText = originalText;
         });
     });
 </script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
