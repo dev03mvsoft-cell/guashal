@@ -1,4 +1,42 @@
 <?php
+// --- Security: Real-time Monitoring & Auto-blocking (Dashboard) ---
+function log_suspicious_activity($reason) {
+    $logfile = __DIR__ . '/../suspicious_activity.log';
+    $entry = date('Y-m-d H:i:s') . " | IP: " . $_SERVER['REMOTE_ADDR'] . " | Reason: $reason\n";
+    file_put_contents($logfile, $entry, FILE_APPEND | LOCK_EX);
+}
+if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/(sqlmap|nikto|acunetix|wpscan|fuzz|nmap|dirbuster|havij|zaproxy|crawler|bot|spider|curl|wget|python|perl|ruby|java|scan|masscan|hydra|netsparker|owasp)/i', $_SERVER['HTTP_USER_AGENT'])) {
+    log_suspicious_activity('Malicious bot detected: ' . $_SERVER['HTTP_USER_AGENT']);
+    header('HTTP/1.1 403 Forbidden');
+    exit('Access denied.');
+}
+if (isset($_SERVER['REQUEST_URI']) && preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $_SERVER['REQUEST_URI'])) {
+    log_suspicious_activity('Suspicious file access: ' . $_SERVER['REQUEST_URI']);
+    header('HTTP/1.1 403 Forbidden');
+    exit('Access denied.');
+}
+
+// Secure session settings before session_start
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', '1');
+    $is_https = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0';
+    ini_set('session.cookie_secure', $is_https);
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.cookie_samesite', 'Strict');
+    session_start();
+}
+
+// Security headers for admin dashboard
+header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header('X-XSS-Protection: 1; mode=block');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Permissions-Policy: geolocation=(), microphone=()');
+header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com data:; connect-src 'self'; frame-ancestors 'self';");
+header('Cross-Origin-Opener-Policy: same-origin');
+header('Cross-Origin-Resource-Policy: same-origin');
+header_remove('X-Powered-By');
+
 require_once 'include/auth.php';
 require_once '../config/db.php';
 

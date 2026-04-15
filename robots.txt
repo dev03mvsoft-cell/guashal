@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /config/
+Disallow: /api/
+Disallow: /seed_cache.php
+Disallow: /setup_transparency.php
+Disallow: /setup.php
+Disallow: /backup/
+Allow: /asset/
+Allow: /view/
+Sitemap: /sitemap.xml

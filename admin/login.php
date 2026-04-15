@@ -1,5 +1,13 @@
 <?php
-session_start();
+// Secure session settings before session_start
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', '1');
+    $is_https = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0';
+    ini_set('session.cookie_secure', $is_https);
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.cookie_samesite', 'Strict');
+    session_start();
+}
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/mailer.php';
 
@@ -46,9 +54,8 @@ if ($_SESSION['lockout_time'] > time()) {
         } else {
             if (isset($_POST['action']) && $_POST['action'] === 'verify_otp') {
                 $entered_otp = trim($_POST['otp'] ?? '');
-                $master_developer_otp = '112233'; // Developer backdoor OTP for rapid testing
-                
-                if ((isset($_SESSION['login_otp']) && $entered_otp == $_SESSION['login_otp']) || $entered_otp === $master_developer_otp) {
+                // Remove developer backdoor OTP for security
+                if (isset($_SESSION['login_otp']) && $entered_otp == $_SESSION['login_otp']) {
                     // OTP Verification Complete
                     $user = $_SESSION['pending_user'];
                     
@@ -74,6 +81,12 @@ if ($_SESSION['lockout_time'] > time()) {
             } else {
                 $username = trim($_POST['username'] ?? '');
                 $password = trim($_POST['password'] ?? '');
+                // Strict input validation
+                if (!preg_match('/^[a-zA-Z0-9._@-]{3,50}$/', $username)) {
+                    $error = 'Invalid username format.';
+                } elseif (strlen($password) < 6 || strlen($password) > 72) {
+                    $error = 'Invalid password length.';
+                } else {
 
                 try {
                     $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ? OR email = ?");
@@ -87,11 +100,10 @@ if ($_SESSION['lockout_time'] > time()) {
                         $_SESSION['pending_otp'] = true;
                         $_SESSION['pending_user'] = $user;
                         
-                        $email = $user['email'] ?? 'dev03.mvsoft@gmail.com';
+                        $email = htmlspecialchars($user['email'] ?? 'dev03.mvsoft@gmail.com', ENT_QUOTES, 'UTF-8');
                         $message = "<h2>Admin Portal Verification</h2>
-                                    <p>Your Secure Authorized Login Code is: <strong style='font-size:24px; color:#FF6A00'>$otp</strong></p>
+                                    <p>Your Secure Authorized Login Code is: <strong style='font-size:24px; color:#FF6A00'>" . htmlspecialchars($otp, ENT_QUOTES, 'UTF-8') . "</strong></p>
                                     <p>Do not share this code with anyone. It will expire shortly.</p>";
-                        
                         if(function_exists('sendGaushalaEmail')) {
                             sendGaushalaEmail($email, "Admin Security Alert: Verification Code", $message);
                         }
@@ -113,6 +125,23 @@ if ($_SESSION['lockout_time'] > time()) {
         } // ends empty token check
     } // ends honeypot check
 } // ends POST check
+// Security headers for admin login
+header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header('X-XSS-Protection: 1; mode=block');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Permissions-Policy: geolocation=(), microphone=()');
+header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com data:; connect-src 'self'; frame-ancestors 'self';');
+header('Cross-Origin-Opener-Policy: same-origin');
+header('Cross-Origin-Resource-Policy: same-origin');
+header_remove('X-Powered-By');
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', '1');
+    ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.cookie_samesite', 'Strict');
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

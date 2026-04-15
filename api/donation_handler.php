@@ -11,6 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = trim($_POST['phone'] ?? '');
     $currency = trim($_POST['currency'] ?? $_POST['currency_type'] ?? 'INR');
     $seva_id = (int)($_POST['seva_id'] ?? 0);
+    // Input validation
+    if (!preg_match('/^[a-zA-Z\s.]{2,100}$/', $donor_name)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid donor name.']); exit;
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid email address.']); exit;
+    }
+    if (!preg_match('/^[0-9]{10,15}$/', $phone) && !empty($phone)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid phone number.']); exit;
+    }
+    if (!preg_match('/^[A-Z]{3,5}$/', $currency)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid currency.']); exit;
+    }
 
     // Honeypot Check
     if (!empty($_POST['hp_catcher'])) {
@@ -37,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Send Email Notification
         $emailBody = "
             <h2>New Sacred Donation</h2>
-            <p><strong>Donor Name:</strong> $donor_name</p>
-            <p><strong>Amount:</strong> $currency $amount</p>
-            <p><strong>Email:</strong> $email</p>
-            <p><strong>Phone:</strong> $phone</p>
+            <p><strong>Donor Name:</strong> " . htmlspecialchars($donor_name, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Amount:</strong> " . htmlspecialchars($currency, ENT_QUOTES, 'UTF-8') . " $amount</p>
+            <p><strong>Email:</strong> " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Phone:</strong> " . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . "</p>
             <p><strong>Seva ID:</strong> $seva_id</p>
             <p><strong>Status:</strong> Pending Verification</p>
         ";

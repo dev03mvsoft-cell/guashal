@@ -5,3 +5,30 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
+
+# --- Security Hardening ---
+# Disable directory listing
+Options -Indexes
+
+# Block double extensions (e.g., shell.php.jpg)
+RewriteCond %{REQUEST_URI} \.(php|phtml|php3|php4|php5|php7|phps)\.(jpg|jpeg|gif|png|bmp|webp|svg|ico|pdf|txt|doc|docx|xls|xlsx|ppt|pptx|zip|rar|tar|gz|7z)$ [NC]
+RewriteRule .* - [F]
+
+# Restrict PHP file uploads to specific folders only (if any)
+# Example: Only allow uploads to asset/img/events/uploads, asset/img/gallery/uploads
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps)$">
+	Order Deny,Allow
+	Deny from all
+</FilesMatch>
+
+# Prevent access to sensitive files
+<FilesMatch "\.(env|git|htaccess|htpasswd|ini|log|sh|bak|swp|orig|save)$">
+	Order allow,deny
+	Deny from all
+</FilesMatch>
+
+# Prevent access to backup/config files
+<FilesMatch "(config|backup|db|mailer)\.(php|sql|bak|zip|tar|gz|7z)$">
+	Order allow,deny
+	Deny from all
+</FilesMatch>

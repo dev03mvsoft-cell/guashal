@@ -10,6 +10,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = trim($_POST['phone'] ?? '');
     $purpose = trim($_POST['purpose'] ?? '');
     $message = trim($_POST['message'] ?? '');
+    // Input validation
+    if (!preg_match('/^[a-zA-Z\s.]{2,100}$/', $name)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid name.']); exit;
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid email address.']); exit;
+    }
+    if (!preg_match('/^[0-9]{10,15}$/', $phone) && !empty($phone)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid phone number.']); exit;
+    }
+    if (!preg_match('/^[a-zA-Z\s]{2,100}$/', $purpose) && !empty($purpose)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid purpose.']); exit;
+    }
+    if (strlen($message) < 2 || strlen($message) > 1000) {
+        echo json_encode(['success' => false, 'message' => 'Invalid message length.']); exit;
+    }
 
     // Honeypot Check
     if (!empty($_POST['hp_catcher'])) {
@@ -36,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Send Email Notification
         $emailBody = "
             <h2>New Contact Request</h2>
-            <p><strong>Name:</strong> $name</p>
-            <p><strong>Email:</strong> $email</p>
-            <p><strong>Phone:</strong> $phone</p>
-            <p><strong>Purpose:</strong> $purpose</p>
-            <p><strong>Message:</strong><br>$message</p>
+            <p><strong>Name:</strong> " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Email:</strong> " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Phone:</strong> " . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Purpose:</strong> " . htmlspecialchars($purpose, ENT_QUOTES, 'UTF-8') . "</p>
+            <p><strong>Message:</strong><br>" . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . "</p>
         ";
         sendGaushalaEmail('dev03.mvsoft@gmail.com', 'New Contact Request: ' . $name, $emailBody);
 
