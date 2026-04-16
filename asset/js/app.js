@@ -221,7 +221,7 @@ const translations = {
         'nav_bulletin': 'Bulletin', 'nav_announcements': 'Announcements', 'nav_our_story': 'Our Story',
         'brand_name': 'Shree Gau Rakshak Seva Samiti', 'brand_tagline': 'Panjrapole - Galpadar',
         'header_phone': '+91 99985 81811',
-        'hero_span': 'Divine Vedic Sanctuary',
+        'hero_span': 'Shree Radhe Radhe ',
         'hero_h1': 'A <span class="italic text-gold">Mother</span> Who Speaks No Words, <br> Yet <span class="text-gold underline decoration-white/20 underline-offset-8">Feeds the World</span> — <br> <span class="text-white opacity-90 italic">Let Our Love Protect Her</span>',
         'shlok_trans_en': '"Experience the spirituality of Gau Seva in its purest form. Join us in preserving the sanctity of our sacred cows through care, protection, and devotion."',
         'explore_mission': 'Explore Mission', 'vr_tour': 'Enter 360° Virtual Reality',

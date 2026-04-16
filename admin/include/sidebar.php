@@ -96,6 +96,7 @@
                 <a href="/admin/transparency/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/transparency/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Transparency</a>
                 <a href="/admin/contributions.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/contributions.php') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Contributions</a>
                 <a href="/admin/seva/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/seva/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Add Seva</a>
+                <a href="/admin/donors/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/donors/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Hall of Fame</a>
             </div>
         </details>
 

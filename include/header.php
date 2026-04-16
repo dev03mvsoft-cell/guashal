@@ -366,6 +366,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                     <li><a href="/gallery" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_gallery">Gallery</a></li>
                     <li><a href="/events" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_events">Events</a></li>
                     <li><a href="/announcements" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_announcements">Announcements</a></li>
+                    <li><a href="/donors" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_donors">Hall of Fame</a></li>
                     <li><a href="/contact" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_contact">Contact</a></li><!-- Language Switcher Dropdown (Vedic Premium) -->
                     <li class="relative group ml-4">
                         <button class="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2 rounded-full text-[12px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:bg-gold group-hover:text-nature transition-all duration-500 shadow-sm shadow-black/20">
@@ -412,6 +413,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                 <li><a href="/gallery" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_gallery">Gallery</a></li>
                 <li><a href="/events" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_events">Events</a></li>
                 <li><a href="/announcements" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_announcements">Announcements</a></li>
+                <li><a href="/donors" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_donors">Hall of Fame</a></li>
                 <li><a href="/contact" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_contact">Contact</a></li>
 
                 <!-- Mobile Language Selector -->

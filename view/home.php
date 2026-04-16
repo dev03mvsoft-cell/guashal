@@ -1,4 +1,12 @@
 <?php
+// Fetch Donors for Multi-Row Marquee
+$small_donors = [];
+try {
+    $small_donors = $pdo->query("SELECT * FROM donors WHERE is_visible = 1 ORDER BY donation_date DESC LIMIT 50")->fetchAll();
+} catch (Exception $e) {
+    $small_donors = [];
+}
+
 // Fetch latest announcement for popup
 $latest_pop = null;
 try {
@@ -163,7 +171,7 @@ try {
 
     <div class="container mx-auto px-6 relative z-[30] hero-content text-white pt-16 pb-12">
         <span class="text-secondary uppercase tracking-[0.5em] text-[12px] md:text-sm font-bold mb-8 block drop-shadow-md" data-lang="hero_span">
-            Divine Vedic Sanctuary
+            Shree Radhe Radhe
         </span>
 
         <!-- <h1 class="text-3xl md:text-6xl leading-[1.05] mb-8 font-display drop-shadow-2xl text-white" data-lang="hero_h1">
@@ -580,6 +588,154 @@ try {
         </div>
     </div>
 </section>
+
+<!-- Donors Hall of Fame: High-Fidelity Multi-Row Marquee -->
+<section id="noble-donors" class="py-24 relative overflow-hidden bg-[#fdfaf7] border-y border-nature/5">
+    <div class="container mx-auto px-6 relative z-10 text-center mb-16">
+        <div data-aos="fade-up">
+            <span class="text-saffron uppercase tracking-[0.6em] text-[10px] md:text-xs font-black mb-4 block">Hall of Fame</span>
+            <h2 class="text-5xl md:text-7xl font-display text-nature mb-6">Our Noble <span class="italic text-gold underline decoration-gold/20 underline-offset-8">Donors</span></h2>
+            <div class="flex items-center justify-center gap-4 mt-12 bg-nature/5 w-fit mx-auto p-1.5 rounded-full border border-nature/10">
+                <button onclick="filterDonors('recent')" id="btn-recent-marquee" class="px-8 py-3 rounded-full bg-nature text-white font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-nature/20 active-pill">Recent</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Marquee Rows Wrapper -->
+    <div class="relative w-full overflow-hidden donors-hall-wrapper py-10" style="mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
+
+        <div class="space-y-12">
+            <!-- Row 1: Moving Left -->
+            <div class="flex marquee-row-left gap-8 animate-marquee-home whitespace-nowrap">
+                <?php
+                $row1 = array_slice($small_donors, 0, 15);
+                for ($i = 0; $i < 2; $i++): foreach ($row1 as $d): ?>
+                        <div class="donor-card-mini flex items-center gap-5 bg-white/80 backdrop-blur-md px-8 py-5 rounded-[2.5rem] min-w-[320px] shadow-sm border border-nature/5 hover:border-saffron/20 hover:shadow-xl transition-all duration-500 group">
+                            <div class="w-14 h-14 rounded-full bg-[#f1f5e9] flex items-center justify-center font-bold text-nature shadow-inner overflow-hidden flex-shrink-0 border-2 border-white group-hover:scale-110 transition-transform">
+                                <?php if ($d['profile_pic'] && $d['profile_pic'] !== 'default_donor.png'): ?>
+                                    <img src="/asset/img/donors/<?= $d['profile_pic'] ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
+                                    <?= strtoupper(substr($d['name'], 0, 1)) ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-[16px] font-bold text-nature/80"><?= htmlspecialchars($d['name']) ?></h4>
+                                <p class="text-[13px] text-nature/40 font-medium mt-1">Donated <span class="text-saffron font-bold tracking-wider">₹<?= number_format($d['amount']) ?></span></p>
+                                <div class="flex items-center gap-1.5 mt-1.5">
+                                    <span class="w-1 h-1 bg-gold rounded-full"></span>
+                                    <span class="text-[10px] text-nature/30 uppercase tracking-widest font-black italic">about <?= rand(1, 24) ?> hrs ago</span>
+                                </div>
+                            </div>
+                        </div>
+                <?php endforeach;
+                endfor; ?>
+            </div>
+
+            <!-- Row 2: Moving Right -->
+            <div class="flex marquee-row-right gap-8 animate-marquee-home-reverse whitespace-nowrap" style="margin-left: -500px;">
+                <?php
+                $row2 = array_slice($small_donors, 15, 15);
+                for ($i = 0; $i < 2; $i++): foreach ($row2 as $d): ?>
+                        <div class="donor-card-mini flex items-center gap-5 bg-white/80 backdrop-blur-md px-8 py-5 rounded-[2.5rem] min-w-[320px] shadow-sm border border-nature/5 hover:border-saffron/20 hover:shadow-xl transition-all duration-500 group">
+                            <div class="w-14 h-14 rounded-full bg-[#f1f5e9] flex items-center justify-center font-bold text-nature shadow-inner overflow-hidden flex-shrink-0 border-2 border-white group-hover:scale-110 transition-transform">
+                                <?php if ($d['profile_pic'] && $d['profile_pic'] !== 'default_donor.png'): ?>
+                                    <img src="/asset/img/donors/<?= $d['profile_pic'] ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
+                                    <?= strtoupper(substr($d['name'], 0, 1)) ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-[16px] font-bold text-nature/80"><?= htmlspecialchars($d['name']) ?></h4>
+                                <p class="text-[13px] text-nature/40 font-medium mt-1">Donated <span class="text-saffron font-bold tracking-wider">₹<?= number_format($d['amount']) ?></span></p>
+                                <div class="flex items-center gap-1.5 mt-1.5">
+                                    <span class="w-1 h-1 bg-gold rounded-full"></span>
+                                    <span class="text-[10px] text-nature/30 uppercase tracking-widest font-black italic">about <?= rand(1, 24) ?> hrs ago</span>
+                                </div>
+                            </div>
+                        </div>
+                <?php endforeach;
+                endfor; ?>
+            </div>
+
+            <!-- Row 3: Moving Left -->
+            <div class="flex marquee-row-left gap-8 animate-marquee-home whitespace-nowrap">
+                <?php
+                $row3 = array_slice($small_donors, 30, 20);
+                for ($i = 0; $i < 2; $i++): foreach ($row3 as $d): ?>
+                        <div class="donor-card-mini flex items-center gap-5 bg-white/80 backdrop-blur-md px-8 py-5 rounded-[2.5rem] min-w-[320px] shadow-sm border border-nature/5 hover:border-saffron/20 hover:shadow-xl transition-all duration-500 group">
+                            <div class="w-14 h-14 rounded-full bg-[#f1f5e9] flex items-center justify-center font-bold text-nature shadow-inner overflow-hidden flex-shrink-0 border-2 border-white group-hover:scale-110 transition-transform">
+                                <?php if ($d['profile_pic'] && $d['profile_pic'] !== 'default_donor.png'): ?>
+                                    <img src="/asset/img/donors/<?= $d['profile_pic'] ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
+                                    <?= strtoupper(substr($d['name'], 0, 1)) ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-[16px] font-bold text-nature/80"><?= htmlspecialchars($d['name']) ?></h4>
+                                <p class="text-[13px] text-nature/40 font-medium mt-1">Donated <span class="text-saffron font-bold tracking-wider">₹<?= number_format($d['amount']) ?></span></p>
+                                <div class="flex items-center gap-1.5 mt-1.5">
+                                    <span class="w-1 h-1 bg-gold rounded-full"></span>
+                                    <span class="text-[10px] text-nature/30 uppercase tracking-widest font-black italic">about <?= rand(1, 24) ?> hrs ago</span>
+                                </div>
+                            </div>
+                        </div>
+                <?php endforeach;
+                endfor; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 text-center mt-1" data-aos="fade-up">
+        <a href="/donors" class="inline-flex items-center gap-4 px-12 py-5 border-2 border-nature/10 rounded-2xl font-black uppercase tracking-[0.4em] text-[12px] text-nature hover:bg-nature hover:text-white hover:border-nature transition-all duration-500 shadow-xl shadow-nature/5">
+            View More Devotees
+        </a>
+    </div>
+</section>
+
+<style>
+    .animate-marquee-home {
+        display: inline-flex;
+        animation: marquee-scroll 80s linear infinite;
+        min-width: 100%;
+    }
+
+    .animate-marquee-home-reverse {
+        display: inline-flex;
+        animation: marquee-scroll-reverse 80s linear infinite;
+        min-width: 100%;
+    }
+
+    @keyframes marquee-scroll {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes marquee-scroll-reverse {
+        from {
+            transform: translateX(-50%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    .marquee-row-left:hover,
+    .marquee-row-right:hover {
+        animation-play-state: paused;
+    }
+
+    .donors-hall-wrapper {
+        -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
+</style>
 
 <!-- Gaushala Seva: Saffron Themed Donation Grid -->
 <section id="seva-options" class="py-28 relative overflow-hidden bg-white">

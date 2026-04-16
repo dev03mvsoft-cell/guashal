@@ -42,6 +42,7 @@ $routes = [
     '/gaushala-seva' => 'gaushala-seva.php',
     '/donate' => 'donate.php',
     '/payment' => 'payment.php',
+    '/donors' => 'donors-hall.php',
 ];
 
 // Get current URL and strip query strings for routing
