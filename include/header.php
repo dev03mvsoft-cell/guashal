@@ -359,7 +359,9 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                                     <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_our_story">Our Story</span>
                                 </a>
                                 <a href="/founders" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
-                                    <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_founders">Founders</span>
+                                    <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_founders">Founders
+                                        & Trustees
+                                    </span>
                                 </a>
                                 <a href="/team" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
                                     <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_team">Our Team</span>
@@ -412,7 +414,7 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
             <ul class="flex flex-col gap-8 font-display text-2xl text-nature items-center">
                 <li><a href="/" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_home">Home</a></li>
                 <li><a href="/about" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_our_story">Our Story</a></li>
-                <li><a href="/founders" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_founders">Founders</a></li>
+                <li><a href="/founders" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_founders">Founders & Trustees</a></li>
                 <li><a href="/team" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_team">Our Team</a></li>
                 <li><a href="/gallery" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_gallery">Gallery</a></li>
                 <li><a href="/events" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_events">Events</a></li>
