@@ -1,10 +1,19 @@
 <?php
 require_once '../include/auth.php';
+require_once '../include/functions.php';
 require_once '../../config/db.php';
 
 // Handle Delete
 if (isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $pdo->prepare("DELETE FROM founders WHERE id = ?")->execute([$_POST['id']]);
+    $id = $_POST['id'];
+    
+    // Cleanup Image File
+    $stmt = $pdo->prepare("SELECT image_path FROM founders WHERE id = ?");
+    $stmt->execute([$id]);
+    $img = $stmt->fetchColumn();
+    if ($img) cleanup_file($img);
+
+    $pdo->prepare("DELETE FROM founders WHERE id = ?")->execute([$id]);
     header("Location: index.php?msg=Visionary Released From Digital Council");
     exit;
 }
@@ -13,6 +22,15 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete') {
 if (isset($_POST['action']) && $_POST['action'] === 'bulk_delete' && !empty($_POST['selected_ids'])) {
     $ids = $_POST['selected_ids'];
     $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    
+    // Cleanup Image Files for all selected
+    $stmt = $pdo->prepare("SELECT image_path FROM founders WHERE id IN ($placeholders)");
+    $stmt->execute($ids);
+    $imgs = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    foreach ($imgs as $img) {
+        if ($img) cleanup_file($img);
+    }
+
     $pdo->prepare("DELETE FROM founders WHERE id IN ($placeholders)")->execute($ids);
     header("Location: index.php?msg=" . count($ids) . " Visionaries Released From Digital Council");
     exit;
@@ -132,7 +150,9 @@ try {
                             </div>
 
                             <div class="relative z-10 w-full mb-auto">
-                                <span class="bg-gold/10 text-nature py-1 px-4 rounded-full text-[12px] font-black tracking-widest uppercase mb-4 inline-block">Visionary Leader</span>
+                                <span class="bg-gold/10 text-nature py-1 px-4 rounded-full text-[12px] font-black tracking-widest uppercase mb-4 inline-block">
+                                    <?= htmlspecialchars($item['type']) == 'founder' ? 'Founding Visionary' : 'Executive Trustee' ?>
+                                </span>
                                 <h3 class="text-2xl font-bold text-nature mb-2 leading-tight"><?= htmlspecialchars($item['name_en']) ?></h3>
                             </div>
 

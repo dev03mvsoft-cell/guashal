@@ -1,20 +1,5 @@
 <?php
-// --- Security: Real-time Monitoring & Auto-blocking (Dashboard) ---
-function log_suspicious_activity($reason) {
-    $logfile = __DIR__ . '/../suspicious_activity.log';
-    $entry = date('Y-m-d H:i:s') . " | IP: " . $_SERVER['REMOTE_ADDR'] . " | Reason: $reason\n";
-    file_put_contents($logfile, $entry, FILE_APPEND | LOCK_EX);
-}
-if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/(sqlmap|nikto|acunetix|wpscan|fuzz|nmap|dirbuster|havij|zaproxy|crawler|bot|spider|curl|wget|python|perl|ruby|java|scan|masscan|hydra|netsparker|owasp)/i', $_SERVER['HTTP_USER_AGENT'])) {
-    log_suspicious_activity('Malicious bot detected: ' . $_SERVER['HTTP_USER_AGENT']);
-    header('HTTP/1.1 403 Forbidden');
-    exit('Access denied.');
-}
-if (isset($_SERVER['REQUEST_URI']) && preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $_SERVER['REQUEST_URI'])) {
-    log_suspicious_activity('Suspicious file access: ' . $_SERVER['REQUEST_URI']);
-    header('HTTP/1.1 403 Forbidden');
-    exit('Access denied.');
-}
+// Security checks are handled globally in root index.php
 
 // Secure session settings before session_start
 if (session_status() === PHP_SESSION_NONE) {

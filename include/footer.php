@@ -180,6 +180,20 @@
 
 
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FLOATING WHATSAPP BUTTON -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<a href="https://wa.me/919998581811" target="_blank" class="fixed bottom-8 right-8 z-[999] group flex flex-col items-end">
+    <!-- Pulse Effect Layers -->
+    <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20 scale-150"></div>
+    <div class="absolute inset-0 bg-[#25D366] rounded-full animate-pulse opacity-10 scale-125"></div>
+
+    <!-- Main Icon Container -->
+    <div class="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white text-3xl shadow-[0_20px_50px_rgba(37,211,102,0.4)] group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 relative">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+</a>
+
 </body>
 
 </html>

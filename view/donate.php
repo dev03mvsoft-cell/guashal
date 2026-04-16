@@ -36,8 +36,8 @@ try {
     <div class="lg:w-[55%] xl:w-[50%] p-6 md:p-12 lg:p-24 overflow-y-auto flex flex-col justify-center">
         <div class="max-w-3xl mx-auto w-full">
 
-            <header class="mb-12 lg:mb-20">
-                <div class="flex items-center gap-4 lg:gap-6 mb-8 lg:mb-10">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-8 lg:mb-10">
+                <div class="flex items-center gap-4 lg:gap-6">
                     <a href="/" class="w-12 h-12 lg:w-14 lg:h-14 bg-nature/5 text-nature rounded-full flex items-center justify-center hover:bg-saffron hover:text-white transition-all shadow-sm">
                         <i class="fas fa-home"></i>
                     </a>
@@ -47,8 +47,21 @@ try {
                     </div>
                 </div>
 
-
-            </header>
+                <!-- QR Code Quick Scan -->
+                <div class="flex items-center gap-8 bg-white p-6 rounded-[2.5rem] border-2 border-nature/10 shadow-2xl hover:scale-[1.02] transition-all duration-500">
+                    <div class="w-48 h-48 md:w-64 md:h-64 bg-white rounded-2xl overflow-hidden flex items-center justify-center p-2">
+                        <img src="/asset/img/kotak_qr.png" class="w-full h-full object-contain" style="image-rendering: pixelated;" alt="Kotak Mahindra Bank QR">
+                    </div>
+                    <div class="pr-6 max-w-[200px]">
+                        <h4 class="text-lg font-display text-nature font-bold mb-2 italic">Scan to Pay</h4>
+                        <p class="text-xs font-bold text-nature/60 leading-relaxed mb-6">Use any UPI app (PhonePe, Google Pay, Paytm) to send your offering.</p>
+                        <div class="flex items-center gap-4 py-3 px-4 bg-nature/5 rounded-xl border border-nature/5">
+                            <i class="fas fa-shield-alt text-saffron"></i>
+                            <span class="text-[9px] font-black uppercase tracking-widest text-nature/40 leading-tight">Secure Vedic Transmission</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="mb-10 text-left" data-aos="fade-up">
                 <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-6 flex items-center justify-center md:justify-start gap-2">Bank Account Details <i class="far fa-copy opacity-40"></i></h4>
@@ -135,31 +148,31 @@ try {
                         <label class="block text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/60 mb-4 px-4 flex items-center gap-2"><i class="fas fa-image opacity-50"></i> Payment Screenshot</label>
                         <input type="file" name="screenshot" accept="image/*" class="w-full bg-white/50 border-b-2 border-gray-200 focus:border-saffron py-3 px-6 rounded-t-xl font-bold text-nature text-base lg:text-lg focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-black file:bg-nature/10 file:text-nature hover:file:bg-nature/20 cursor-pointer">
                     </div>
-                    
+
                     <div class="hidden" style="display:none;">
                         <label>Leave this field empty</label>
                         <input type="text" name="hp_catcher" id="donate_hp_catcher" tabindex="-1" autocomplete="off">
                     </div>
                 </div>
 
-        <button type="submit" class="w-full py-6 lg:py-8 rounded-[2rem] lg:rounded-[2.5rem] bg-nature text-white font-display text-2xl lg:text-3xl font-bold shadow-[0_40px_80px_rgba(44,76,59,0.3)] hover:bg-saffron transition-all duration-1000 transform hover:-translate-y-2 flex items-center justify-center gap-4 lg:gap-6 group">
-            <span id="submit-text" class="relative italic" data-lang="form_submit">Perform Sacred Ritual</span>
-            <i class="fas fa-arrow-right text-base lg:text-lg opacity-40 transform group-hover:translate-x-3 transition-transform"></i>
-        </button>
+                <button type="submit" class="w-full py-6 lg:py-8 rounded-[2rem] lg:rounded-[2.5rem] bg-nature text-white font-display text-2xl lg:text-3xl font-bold shadow-[0_40px_80px_rgba(44,76,59,0.3)] hover:bg-saffron transition-all duration-1000 transform hover:-translate-y-2 flex items-center justify-center gap-4 lg:gap-6 group">
+                    <span id="submit-text" class="relative italic" data-lang="form_submit">Perform Sacred Ritual</span>
+                    <i class="fas fa-arrow-right text-base lg:text-lg opacity-40 transform group-hover:translate-x-3 transition-transform"></i>
+                </button>
 
 
-        <div class="pt-12 lg:pt-16 border-t border-gray-50 text-center flex justify-center">
-            <div class="space-y-4 inline-block text-left">
-                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30" data-lang="donate_trust_label">Sanctuary Trust</h4>
-                <div class="flex items-center gap-3 bg-nature/5 p-4 rounded-2xl">
-                    <i class="fas fa-certificate text-gold"></i>
-                    <p class="text-[12px] lg:text-[12px] font-bold text-nature/60 italic leading-snug" data-lang="donate_tax_label">Tax Exemption U/S 80G - Income Tax Act 1961</p>
+                <div class="pt-12 lg:pt-16 border-t border-gray-50 text-center flex justify-center">
+                    <div class="space-y-4 inline-block text-left">
+                        <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30" data-lang="donate_trust_label">Sanctuary Trust</h4>
+                        <div class="flex items-center gap-3 bg-nature/5 p-4 rounded-2xl">
+                            <i class="fas fa-certificate text-gold"></i>
+                            <p class="text-[12px] lg:text-[12px] font-bold text-nature/60 italic leading-snug" data-lang="donate_tax_label">Tax Exemption U/S 80G - Income Tax Act 1961</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
 
 </section>
@@ -227,7 +240,9 @@ try {
         submitText.innerText = "Authenticating...";
 
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'submit'}).then(function(token) {
+            grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {
+                action: 'submit'
+            }).then(function(token) {
                 const formData = new FormData(form);
                 formData.append('recaptcha_token', token);
                 submitText.innerText = "Processing...";

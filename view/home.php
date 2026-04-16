@@ -589,6 +589,8 @@ try {
     </div>
 </section>
 
+
+
 <!-- Donors Hall of Fame: High-Fidelity Multi-Row Marquee -->
 <section id="noble-donors" class="py-24 relative overflow-hidden bg-[#fdfaf7] border-y border-nature/5">
     <div class="container mx-auto px-6 relative z-10 text-center mb-16">
@@ -818,6 +820,64 @@ try {
     </div>
 </section>
 
+<!-- 🐄 GAU DATT SEVA: Foster a Cow (Premium Call-to-Action) 🐄 -->
+<section id="gau-datt" class="py-24 relative overflow-hidden bg-nature">
+    <!-- Divine Pattern Overlay -->
+    <div class="absolute inset-0 opacity-[0.05] pointer-events-none">
+        <img src="/asset/img/pattern/footer-pattern.png" class="w-full h-full object-cover">
+    </div>
+
+    <div class="container mx-auto px-10 md:px-16 lg:px-24 relative z-10">
+        <div class="bg-white/5 backdrop-blur-xl rounded-[3.5rem] p-8 md:p-16 border border-white/10 shadow-2xl flex flex-col lg:flex-row items-center gap-12 md:gap-20">
+
+            <!-- Visual Element -->
+            <div class="lg:w-1/2 relative" data-aos="fade-right">
+                <div class="relative w-full aspect-square md:aspect-video rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/10 group">
+                    <img src="/asset/img/cow/gushala20.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[3s]" alt="Gau Datt Seva">
+                    <div class="absolute inset-0 bg-gradient-to-t from-nature via-transparent to-transparent opacity-60"></div>
+
+                    <!-- Emotional Badge -->
+                    <div class="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20">
+                        <p class="text-white text-base md:text-lg italic" data-trans="en">"Your yard may be small, but your heart is infinite. Let us care for her while you provide her path."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Element -->
+            <div class="lg:w-1/2 text-white" data-aos="fade-left">
+                <span class="text-saffron uppercase tracking-[0.5em] text-[12px] font-black mb-4 block" data-lang="gau_datt_sub">Divine Foster Care</span>
+                <h2 class="text-4xl md:text-6xl font-display leading-tight mb-8 text-white" data-lang="gau_datt_title">Gau Datt <span class="italic text-gold italic">Seva</span></h2>
+
+                <div class="space-y-6 text-white/80 text-lg leading-relaxed mb-12">
+                    <div class="lang-en">
+                        <p class="mb-4">Living in a city often makes it impossible to keep our sacred Gau Mata at home. But your devotion shouldn't have to wait.</p>
+                        <p class="font-medium text-gold italic">Through **Gau Datt Seva**, you can 'Adopt' a cow in our sanctuary. She stays in our loving care, while you support her monthly fodder and medical expenses.</p>
+                    </div>
+
+                    <div class="lang-hi hidden font-hindi text-xl leading-relaxed">
+                        <p>क्या आपके पास घर में गौ माता रखने की जगह नहीं है? अब आप हमारी गौशाला में अपनी गाय को 'पाल' सकते हैं। उसका मासिक खर्च (चारा और दवाई) आप देंगे, और सेवा हम करेंगे।</p>
+                    </div>
+
+                    <div class="lang-gu hidden font-gujarati text-xl leading-relaxed">
+                        <p>શું તમારી પાસે ઘરે ગૌ માતા રાખવાની જગ્યા નથી? હવે તમે અમારી ગૌશાળામાં ગાયને 'દત્ત' લઈ શકો છો. તેનો માસિક ખર્ચ તમે આપશો, અને સેવા અમે કરીશું.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-8 items-center">
+                    <a href="/contact" class="bg-saffron text-white px-12 py-5 rounded-premium font-bold hover:bg-gold hover:text-nature transition-all duration-700 shadow-xl uppercase tracking-widest text-[13px]" data-lang="connect_host">
+                        Connect to Foster a Cow
+                    </a>
+                    <div class="flex items-center gap-3 text-white/40">
+                        <i class="fas fa-hand-holding-heart text-gold text-2xl"></i>
+                        <span class="text-[10px] uppercase tracking-widest font-black leading-tight">Monthly sponsorship <br> & Devotion required</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- PREMIUM SPIRITUAL DONATION CENTER: The Ultimate Sewa Portal -->
 <!-- ═══════════════════════════════════════════════════════════ -->
@@ -973,10 +1033,19 @@ try {
                             <!-- UPI Section -->
                             <div class="text-left">
                                 <h4 class="text-xs font-black uppercase tracking-[0.3em] text-nature/40 mb-4">UPI Payment</h4>
-                                <div class="space-y-1 bg-nature/5 p-4 rounded-2xl w-full">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Direct UPI Passage</p>
-                                    <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
-                                    <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
+                                <div class="bg-nature/5 p-4 rounded-2xl w-full flex items-center justify-between gap-6">
+                                    <div class="space-y-1">
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Direct UPI Passage</p>
+                                        <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
+                                        <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
+                                    </div>
+                                    
+                                    <!-- Sacred QR Quick Scan -->
+                                    <div class="shrink-0 w-32 h-32 md:w-48 md:h-48 bg-white p-3 rounded-2xl border-2 border-gold/10 shadow-2xl flex items-center justify-center group hover:scale-105 transition-transform duration-500">
+                                        <div class="w-full h-full rounded-lg overflow-hidden">
+                                            <img src="/asset/img/kotak_qr.png" class="w-full h-full object-contain" style="image-rendering: pixelated;" alt="Donation QR">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

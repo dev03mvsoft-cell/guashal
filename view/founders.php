@@ -1,106 +1,129 @@
-<?php require_once 'config/db.php'; ?>
-<!-- Hero Section: The Founding Visionaries -->
-<section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
-    <!-- Background Image with Ken Burns Effect -->
-    <div class="absolute inset-0 z-0">
-        <img src="/asset/img/cow/bgofthecow.jpg"
-            class="w-full h-full object-cover kenburns-bg" alt="Founding Visionaries">
-        <div class="absolute inset-0 bg-gradient-to-b from-nature/60 via-nature/40 "></div>
-    </div>
+<?php require_once 'config/db.php';
 
-    <!-- Content -->
-    <div class="container mx-auto px-6 relative z-10 text-center pt-32 md:pt-40" data-aos="zoom-out">
-        <span class="text-gold uppercase tracking-[0.5em] text-sm font-bold mb-4 block drop-shadow-lg" data-lang="founders_hero_span">The Visionaries of Gaushala</span>
-        <h1 class="text-5xl md:text-8xl font-display text-white mb-6 leading-tight drop-shadow-2xl" data-lang="founders_hero_h1">
-            Our <span class="italic text-gold">Founding</span> Souls
-        </h1>
-        <div class="section-divider mx-auto w-24 h-1.5 rounded-full shadow-lg"></div>
-    </div>
-</section>
+// Fetch leadership
+$founder_items = [];
+$trustee_items = [];
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- FOUNDERS SECTION: The Visionaries -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<?php
-$founders = [];
 try {
-    $stmt = $pdo->query("SELECT * FROM founders ORDER BY sort_order ASC");
-    if ($stmt) $founders = $stmt->fetchAll();
+    $stmt = $pdo->query("SELECT * FROM founders ORDER BY sort_order ASC, id ASC");
+    $all = $stmt->fetchAll();
+    foreach ($all as $f) {
+        $role = trim(strtolower($f['type'] ?? 'trustee'));
+        if ($role == 'founder') {
+            $founder_items[] = $f;
+        } else {
+            $trustee_items[] = $f;
+        }
+    }
 } catch (Exception $e) {
 }
-
-if (!empty($founders)):
 ?>
-    <!-- 🏛️ THE SPIRITUAL ARCHITECTS 🏛️ -->
-    <section id="founders-list" class="py-24 bg-white relative">
-        <div class="container mx-auto px-6 lg:px-24">
-            <div class="text-center mb-20" data-aos="fade-down">
-                <span class="text-saffron font-bold uppercase tracking-[0.4em] text-xs mb-4 block" data-lang="founders_label">Sacred Lineage</span>
-                <h2 class="text-4xl md:text-5xl font-display text-nature" data-lang="founders_title">Founding Visionaries</h2>
-                <div class="section-divider mx-auto mt-6 w-20 h-1 bg-gold rounded-full"></div>
-            </div>
 
-            <div class="space-y-16">
-                <?php foreach ($founders as $index => $f): ?>
-                    <div class="bg-secondary/30 p-8 md:p-12 rounded-[3rem] border border-nature/5 shadow-xl transition-all duration-500 hover:shadow-2xl hover:bg-white group" data-aos="fade-up" data-aos-delay="<?= $index * 100 ?>">
-                        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- COMPACT FOUNDERS PAGE (UI Match) -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="pt-48 pb-32 bg-white">
+    <div class="container mx-auto px-6">
 
-                            <!-- Circle Image -->
-                            <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
-                                <div class="absolute inset-0 bg-gold/10 rounded-full blur-2xl group-hover:bg-saffron/20 transition-all duration-700"></div>
-                                <div class="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
-                                    <img src="<?= htmlspecialchars($f['image_path']) ?>"
-                                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        alt="<?= htmlspecialchars($f['name_en']) ?>">
-                                </div>
-                                <!-- Decorative Badge -->
-                                <div class="absolute -bottom-2 right-4 z-20 bg-saffron text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                                    <i class="fas fa-certificate text-xs animate-pulse"></i>
-                                </div>
+        <!-- SECTION 1: FOUNDERS -->
+        <?php if (!empty($founder_items)): ?>
+            <div class="mb-32 text-center">
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16">Our Founders</h2>
+
+                <div class="flex flex-wrap justify-center gap-10">
+                    <?php foreach ($founder_items as $f): ?>
+                        <div class="w-64 bg-white rounded-2xl shadow-[0_5px_20px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100 group transition-all hover:-translate-y-2" data-aos="fade-up">
+                            <!-- Image Frame -->
+                            <div class="w-full aspect-square overflow-hidden bg-gray-50 border-b border-gray-100">
+                                <img src="<?= htmlspecialchars($f['image_path'] ?: '/asset/img/donors/default_donor.png') ?>"
+                                    class="w-full h-full object-cover">
                             </div>
-
-                            <!-- Information Content -->
-                            <div class="flex-1 text-center md:text-left">
-                                <span class="text-saffron font-black uppercase tracking-widest text-[12px] mb-2 block" data-lang="founders_visionary">Chief Visionary</span>
-                                <h3 class="text-3xl md:text-4xl font-display text-nature mb-6 italic" data-trans="en"><?= htmlspecialchars($f['name_en']) ?></h3>
-
-                                <div class="w-16 h-1 bg-gold/30 rounded-full mb-8 mx-auto md:mx-0"></div>
-
-                                <blockquote class="text-nature/60 text-lg italic leading-relaxed mb-8 relative">
-                                    <i class="fas fa-quote-left text-gold/10 text-6xl absolute -top-10 -left-6"></i>
-                                    <span data-trans="en">"<?= htmlspecialchars($f['message_en'] ?: ($f['bio_en'] ? substr($f['bio_en'], 0, 100) . '...' : 'Compassion is the heart of our mission.')) ?>"</span>
-                                </blockquote>
-
-                                <div class="text-nature/50 text-12 leading-relaxed max-w-2xl font-light" data-trans="en">
-                                    <?= nl2br(htmlspecialchars($f['bio_en'])) ?>
-                                </div>
-
-                                <div class="mt-10 flex items-center gap-4 justify-center md:justify-start">
-                                    <span class="px-4 py-1.5 bg-nature/5 text-nature/40 rounded-full text-[12px] font-black uppercase tracking-widest border border-nature/5" data-lang="founders_pillar_label">Legacy Pillar</span>
-                                    <span class="w-2 h-2 bg-gold rounded-full animate-pulse"></span>
-                                    <span class="text-gold text-[12px] font-bold uppercase tracking-widest" data-lang="founders_foundational_spirit">Foundational Spirit</span>
-                                </div>
+                            <!-- Simple Content -->
+                            <div class="p-6 text-center">
+                                <h3 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight">
+                                    <?= htmlspecialchars($f['name_en']) ?>
+                                </h3>
+                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]">
+                                    <?= htmlspecialchars($f['designation_en'] ?: 'Founding Member') ?>
+                                </p>
                             </div>
-
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
-    </section>
-<?php endif; ?>
+        <?php endif; ?>
 
-<!-- Call to Action -->
-<section class="py-32 relative overflow-hidden bg-secondary">
+        <!-- SECTION 2: TRUSTEES -->
+        <?php if (!empty($trustee_items)): ?>
+            <div class="text-center">
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16">Our Trustees</h2>
+
+                <div class="flex flex-wrap justify-center gap-10">
+                    <?php foreach ($trustee_items as $t): ?>
+                        <div class="w-64 bg-white rounded-2xl shadow-[0_5px_20px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100 group transition-all hover:-translate-y-2" data-aos="fade-up">
+                            <div class="w-full aspect-square overflow-hidden bg-gray-50 border-b border-gray-100">
+                                <img src="<?= htmlspecialchars($t['image_path'] ?: '/asset/img/donors/default_donor.png') ?>"
+                                    class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 text-center">
+                                <h4 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight">
+                                    <?= htmlspecialchars($t['name_en']) ?>
+                                </h4>
+                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]">
+                                    <?= htmlspecialchars($t['designation_en'] ?: 'Trustee Member') ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+    </div>
+</section>
+<section class="py-32 relative overflow-hidden bg-white">
+    <!-- Background Accents -->
+    <div class="absolute top-0 right-0 w-76 h-76 bg-saffron/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-76 h-76 bg-gold/5 rounded-full blur-3xl -z-10 -translate-x-1/2 translate-y-1/2"></div>
+
     <div class="container mx-auto px-6 lg:px-24">
-        <div class="relative glass-bg rounded-premium shadow-2xl overflow-hidden p-12 md:p-24 text-center border-t-4 border-gold" data-aos="zoom-in">
-            <h2 class="text-4xl md:text-6xl font-display text-nature mb-8" data-lang="founders_cta_title">Keep the <span class="italic text-saffron underline decoration-gold/30 underline-offset-8">Vision Alive</span></h2>
-            <p class="text-xl text-nature/60 mb-12 max-w-2xl mx-auto leading-relaxed" data-lang="founders_cta_desc">
-                Support the sanctuary and carry forward the legacy of our founders. Every contribution makes a difference.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="/donate" class="bg-saffron text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto">Support Our Vision</a>
-                <a href="/contact" class="border-2 border-nature text-nature px-12 py-5 rounded-full font-bold text-lg hover:bg-nature hover:text-white transition-all duration-300 w-full sm:w-auto">Get Involved</a>
+        <div class="relative rounded-[3.5rem] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.5)] overflow-hidden p-10 md:p-20 text-center border border-white/10 group" data-aos="zoom-in">
+            <!-- Luxury Card Background Interface -->
+            <div class="absolute inset-0 z-0">
+                <img src="/asset/img/cow/gushala18.jpg"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[6s] ease-out" alt="Sacred Mission Card">
+                <!-- Multi-layered Scrim for Premium Depth -->
+                <div class="absolute inset-0 bg-nature/90 backdrop-blur-[4px] mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-nature via-nature/40 to-saffron/10 opacity-60"></div>
+            </div>
+
+            <!-- Card Content Wrapper -->
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Spiritual Pulse Badge -->
+                <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 text-gold shadow-[0_0_50px_rgba(255,215,0,0.1)] relative group">
+                    <div class="absolute inset-0 bg-gold rounded-full blur-2xl opacity-10 animate-pulse"></div>
+                    <i class="fas fa-om text-3xl relative z-10 transition-transform duration-700 group-hover:rotate-[360deg]"></i>
+                </div>
+
+                <h2 class="text-4xl md:text-7xl font-display text-white mb-6 leading-[1.1] tracking-tight" data-lang="about_cta_title">
+                    Join us in <span class="italic text-gold underline decoration-gold/20 underline-offset-[16px]">Helping Cows</span>
+                </h2>
+
+                <p class="text-lg md:text-xl text-white/70 mb-10 max-w-3xl mx-auto leading-relaxed italic font-light font-display" data-lang="about_cta_desc">
+                    Your help ensures every cow here gets the best care they need. Whether you visit or donate, you are doing a great thing.
+                </p>
+
+                <!-- Divine Horizontal Divider -->
+                <div class="w-32 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent mb-10"></div>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center w-full sm:w-auto">
+                    <a href="/donate" class="bg-saffron text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-[0_20px_60px_rgba(255,106,0,0.5)] hover:scale-105 active:scale-95 transition-all duration-700 w-full sm:w-auto uppercase tracking-[0.3em] text-[15px] shadow-2xl" data-lang="about_cta_btn1">
+                        Donate Now
+                    </a>
+                    <a href="/contact" class="bg-white/5 backdrop-blur-md border border-white/20 text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-nature transition-all duration-700 w-full sm:w-auto uppercase tracking-[0.3em] text-[15px] shadow-2xl" data-lang="about_cta_btn2">
+                        Come Visit Us
+                    </a>
+                </div>
             </div>
         </div>
     </div>

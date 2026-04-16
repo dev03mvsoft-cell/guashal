@@ -1,6 +1,7 @@
 <?php
 // --- Real-time Monitoring & Auto-blocking (Fixed) ---
-function log_suspicious_activity($reason) {
+function log_suspicious_activity($reason)
+{
     $logfile = __DIR__ . '/suspicious_activity.log';
     $ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
     $ua = $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN';
@@ -9,16 +10,21 @@ function log_suspicious_activity($reason) {
 }
 
 // Block known malicious bots and scanners
-if (!empty($_SERVER['HTTP_USER_AGENT']) &&
-    preg_match('/(sqlmap|nikto|acunetix|wpscan|fuzz|nmap|dirbuster|havij|zaproxy|crawler|bot|spider|curl|wget|python|perl|ruby|java|scan|masscan|hydra|netsparker|owasp)/i', $_SERVER['HTTP_USER_AGENT'])) {
+if (
+    !empty($_SERVER['HTTP_USER_AGENT']) &&
+    preg_match('/(sqlmap|nikto|acunetix|wpscan|fuzz|nmap|dirbuster|havij|zaproxy|crawler|bot|spider|curl|wget|python|perl|ruby|java|scan|masscan|hydra|netsparker|owasp)/i', $_SERVER['HTTP_USER_AGENT'])
+) {
     log_suspicious_activity('Malicious bot detected');
     header('HTTP/1.1 403 Forbidden');
     exit('Access denied.');
 }
 
 // Block suspicious file access attempts
-if (!empty($_SERVER['REQUEST_URI']) &&
-    preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $_SERVER['REQUEST_URI'])) {
+if (
+    !empty($_SERVER['REQUEST_URI']) &&
+    strpos($_SERVER['REQUEST_URI'], '/admin') !== 0 &&
+    preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $_SERVER['REQUEST_URI'])
+) {
     log_suspicious_activity('Suspicious file access');
     header('HTTP/1.1 403 Forbidden');
     exit('Access denied.');

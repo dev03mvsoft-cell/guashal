@@ -1,221 +1,182 @@
 <?php
 require_once '../include/auth.php';
+require_once '../include/functions.php';
 require_once '../../config/db.php';
 
-$message = '';
-$error = '';
 $id = $_GET['id'] ?? null;
-$data = [
-    'name_en' => '',
-    'designation_en' => '',
-    'image_path' => '',
-    'sort_order' => 0
-];
+$item = null;
+$error = '';
 
 if ($id) {
-    $stmt = $pdo->prepare("SELECT * FROM team WHERE id = ?");
-    $stmt->execute([$id]);
-    $data = $stmt->fetch() ?: $data;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM team WHERE id = ?");
+        $stmt->execute([$id]);
+        $item = $stmt->fetch();
+    } catch (Exception $e) {}
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $n_en = $_POST['name_en'];
-    $d_en = $_POST['designation_en'];
-    $img = $_POST['image_path'];
-    $sort = $_POST['sort_order'];
+    $name_en = $_POST['name_en'];
+    $position_en = $_POST['position_en'];
+    $bio_en = $_POST['bio_en'];
+    $sort_order = (int)$_POST['sort_order'];
+    $image_path = $_POST['image_path'] ?: ($item['image_path'] ?? '');
+
+    // Handle File Upload
+    if (!empty($_FILES['image_file']['name'])) {
+        $uploaded_path = upload_file($_FILES['image_file'], 'uploads/team');
+        if ($uploaded_path) {
+            // Delete old file if replacing
+            if ($item && !empty($item['image_path'])) {
+                cleanup_file($item['image_path']);
+            }
+            $image_path = $uploaded_path;
+        }
+    }
 
     try {
         if ($id) {
-            $stmt = $pdo->prepare("UPDATE team SET name_en=?, designation_en=?, image_path=?, sort_order=? WHERE id=?");
-            $stmt->execute([$n_en, $d_en, $img, $sort, $id]);
-            header("Location: index.php?msg=Guardian Profile Refined");
-            exit;
+            $stmt = $pdo->prepare("UPDATE team SET name_en=?, position_en=?, bio_en=?, sort_order=?, image_path=? WHERE id=?");
+            $stmt->execute([$name_en, $position_en, $bio_en, $sort_order, $image_path, $id]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO team (name_en, designation_en, image_path, sort_order) VALUES (?,?,?,?)");
-            $stmt->execute([$n_en, $d_en, $img, $sort]);
-            header("Location: index.php?msg=New Guardian Onboarded");
-            exit;
+            $stmt = $pdo->prepare("INSERT INTO team (name_en, position_en, bio_en, sort_order, image_path) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$name_en, $position_en, $bio_en, $sort_order, $image_path]);
         }
-    } catch (PDOException $e) {
-        $error = $e->getMessage();
-    }
+        header("Location: index.php?msg=Member Updated");
+        exit;
+    } catch (PDOException $e) { $error = $e->getMessage(); }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardian Editor - Gaushala Admin</title>
+    <title>Optimize Team Portal</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .input-premium {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(44, 76, 59, 0.05);
-            border-radius: 2rem;
-            padding: 1.5rem;
+        .system-input {
+            background: #fff;
+            border: 2px solid #f1f5f9;
+            border-radius: 1.25rem;
+            padding: 1.25rem 1.5rem;
             width: 100%;
             transition: all 0.4s;
             font-weight: 600;
         }
-
-        .input-premium:focus {
+        .system-input:focus {
+            border-color: #c0a50e;
+            box-shadow: 0 10px 30px -10px rgba(192, 165, 14, 0.2);
             outline: none;
-            border-color: #FF6A00;
-            background: white;
-            box-shadow: 0 20px 40px -15px rgba(255, 106, 0, 0.1);
         }
-
-        .section-label {
-            font-size: 12px;
+        .glass-card {
+            background: white;
+            border-radius: 3rem;
+            padding: 3rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.05);
+        }
+        .label-system {
+            font-size: 11px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: rgba(44, 76, 59, 0.3);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-label::after {
-            content: '';
-            height: 1px;
-            flex: 1;
-            background: rgba(44, 76, 59, 0.05);
+            letter-spacing: 0.2em;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+            display: block;
+            margin-left: 1rem;
         }
     </style>
 </head>
-
-<body class="min-h-screen flex flex-col md:flex-row bg-[#faf8f6]">
+<body class="bg-[#fcfdfd] flex">
 
     <?php include '../include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
-        <div class="max-w-5xl mx-auto">
-
-            <header class="mb-16">
-                <a href="index.php" class="text-nature/30 hover:text-[#FF6A00] transition-colors flex items-center gap-2 mb-8 uppercase text-[12px] font-black tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Return to Council
+    <main class="flex-1 p-8 lg:p-20 overflow-y-auto">
+        <div class="max-w-4xl mx-auto">
+            
+            <header class="mb-16 flex items-center justify-between">
+                <div>
+                    <span class="text-saffron font-black uppercase tracking-[0.4em] text-[10px] mb-2 block">HR Administration</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature leading-tight"><?= $id ? 'Edit' : 'Add' ?> <span class="text-gold italic">Member</span></h1>
+                </div>
+                <a href="index.php" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-nature/20 hover:text-red-500 hover:rotate-90 transition-all shadow-xl">
+                    <i class="fas fa-times text-xl"></i>
                 </a>
-                <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature"><?= $id ? 'Refine' : 'Onboard' ?> <span class="italic text-[#FF6A00]">Guardian</span></h1>
             </header>
 
-            <?php if ($error): ?>
-                <div class="bg-red-50 text-red-500 p-8 rounded-[2.5rem] mb-12 border border-red-100 font-bold text-[12px] uppercase tracking-widest leading-loose">
-                    <i class="fas fa-shield-alt mr-2"></i> Error: <?= $error ?>
-                </div>
-            <?php endif; ?>
-
-            <form method="POST" class="bg-white/60 p-10 md:p-14 rounded-[3.5rem] border border-nature/5 shadow-2xl relative overflow-hidden backdrop-blur-3xl mb-20">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
-                    <!-- Identity & Role -->
-                    <div class="md:col-span-8 space-y-8">
-                        <section>
-                            <div class="section-label mb-6">Identity Details</div>
-                            <div class="space-y-4">
-                                <div class="space-y-2">
-                                    <label class="block text-[12px] font-bold text-nature/40 uppercase tracking-widest ml-4">Full Name</label>
-                                    <input type="text" name="name_en" class="input-premium py-4" placeholder="e.g. Shri Rajesh Patel" value="<?= htmlspecialchars($data['name_en']) ?>" required>
+            <form method="POST" enctype="multipart/form-data" class="space-y-12 pb-20">
+                
+                <!-- STEP 1: MEMBER PORTRAIT -->
+                <div class="glass-card text-center" data-aos="fade-up">
+                    <div class="relative group w-48 h-48 mx-auto mb-10">
+                        <div class="w-full h-full rounded-[3rem] border-4 border-white shadow-2xl overflow-hidden relative bg-slate-50">
+                            <img id="img-preview" src="<?= $item ? htmlspecialchars($item['image_path']) : '#' ?>" 
+                                 class="w-full h-full object-cover <?= $item && $item['image_path'] ? '' : 'hidden' ?>">
+                            <?php if(!$item || !$item['image_path']): ?>
+                                <div id="img-placeholder" class="w-full h-full flex items-center justify-center text-slate-200">
+                                    <i class="fas fa-user-circle text-6xl"></i>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="block text-[12px] font-bold text-nature/40 uppercase tracking-widest ml-4">Role / Designation</label>
-                                    <input type="text" name="designation_en" class="input-premium py-4" placeholder="e.g. President" value="<?= htmlspecialchars($data['designation_en']) ?>" required>
-                                </div>
-                            </div>
-                        </section>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <!-- Hidden File Input -->
+                        <input type="file" name="image_file" id="image_file" class="hidden" accept="image/*" onchange="previewImage(this)">
+                        
+                        <label for="image_file" class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-nature text-white px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-2xl hover:bg-gold cursor-pointer transition-all whitespace-nowrap">
+                                <i class="fas fa-camera-retro mr-2"></i> Upload Portrait
+                        </label>
+                        <input type="hidden" name="image_path" id="image_path" value="<?= $item ? htmlspecialchars($item['image_path']) : '' ?>">
                     </div>
-
-                    <!-- Visuals -->
-                    <div class="md:col-span-4 space-y-8">
-                        <section>
-                            <div class="section-label mb-6">Visuals</div>
-                            <div class="space-y-4">
-                                <div id="preview_box" class="w-full aspect-square rounded-[2.5rem] bg-nature/5 border border-nature/5 overflow-hidden shadow-inner flex items-center justify-center relative group">
-                                    <img id="current_preview" src="<?= $data['image_path'] ?: '#' ?>" class="w-full h-full object-cover <?= $data['image_path'] ? '' : 'hidden' ?>">
-                                    <?php if (!$data['image_path']): ?>
-                                        <div id="preview_placeholder" class="text-nature/10 text-4xl"><i class="fas fa-user-shield"></i></div>
-                                    <?php endif; ?>
-                                    <div class="absolute inset-0 bg-nature/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                                        <button type="button" onclick="openVault()" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-nature shadow-xl hover:bg-gold hover:text-white transition-all"><i class="fas fa-images"></i></button>
-                                        <button type="button" onclick="document.getElementById('sacred_upload').click()" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-nature shadow-xl hover:bg-saffron hover:text-white transition-all"><i class="fas fa-cloud-upload-alt"></i></button>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="image_path" id="image_path" value="<?= htmlspecialchars($data['image_path']) ?>">
-                                <input type="file" id="sacred_upload" class="hidden" accept="image/*" onchange="handleSacredUpload(this)">
-
-                                <div class="space-y-2">
-                                    <label class="block text-[12px] font-bold text-nature/40 uppercase tracking-widest ml-4">Council Order</label>
-                                    <input type="number" name="sort_order" class="input-premium py-4" value="<?= htmlspecialchars($data['sort_order']) ?>">
-                                </div>
-                            </div>
-                        </section>
+                    
+                    <div class="max-w-md mx-auto space-y-2">
+                        <label class="label-system">Full Name</label>
+                        <input type="text" name="name_en" required class="system-input text-center text-2xl" placeholder="e.g. Shri Rajesh Patel" value="<?= $item ? htmlspecialchars($item['name_en']) : '' ?>">
                     </div>
                 </div>
 
-                <div class="mt-12 pt-10 border-t border-nature/5">
-                    <button type="submit" class="w-full bg-nature text-white py-6 rounded-[2rem] font-black uppercase tracking-[0.4em] text-[15px] shadow-2xl hover:bg-gold hover:text-nature hover:scale-[1.01] transition-all duration-700">
-                        <?= $id ? 'Refine Guardian Profile' : 'Onboard Visionary Leader' ?>
-                    </button>
+                <!-- STEP 2: PROFESSIONAL ROLE -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-2">
+                            <label class="label-system">Official Position</label>
+                            <input type="text" name="position_en" required class="system-input" placeholder="e.g. Manager / Coordinator" value="<?= $item ? htmlspecialchars($item['position_en']) : '' ?>">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="label-system">Internal Rank (Sort Order)</label>
+                            <input type="number" name="sort_order" required class="system-input" value="<?= $item ? $item['sort_order'] : '0' ?>">
+                        </div>
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="label-system">Short Biography</label>
+                            <textarea name="bio_en" class="system-input h-32" placeholder="Tell the world about their humble service..."><?= $item ? htmlspecialchars($item['bio_en']) : '' ?></textarea>
+                        </div>
+                        <div class="md:col-span-2 flex items-end">
+                            <button type="submit" class="w-full bg-nature text-white py-6 rounded-3xl font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-gold hover:text-nature transition-all duration-500 transform hover:scale-[1.02]">
+                                Save Member Record
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
             </form>
         </div>
     </main>
 
     <script>
-        function openVault() {
-            const vaultUrl = '../gallery.php?select=image_path';
-            const vaultWindow = window.open(vaultUrl, 'Gallery', 'width=1100,height=800,scrollbars=yes');
-            if (!vaultWindow || vaultWindow.closed || typeof vaultWindow.closed == 'undefined') {
-                alert('Divine insight: Your browser blocked the Visual Vault. Please allow popups for the sanctuary dashboard.');
+        function previewImage(input) {
+            const preview = document.getElementById('img-preview');
+            const placeholder = document.getElementById('img-placeholder');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    if(placeholder) placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
             }
         }
-
-        function handleSacredUpload(input) {
-            if (!input.files || !input.files[0]) return;
-
-            const formData = new FormData();
-            formData.append('image_file', input.files[0]);
-            formData.append('action', 'quick_upload');
-
-            // Feedback
-            const btn = input.previousElementSibling;
-            const originalIcon = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-sync fa-spin text-saffron"></i>';
-
-            fetch('../gallery.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('image_path').value = data.path;
-                        updatePreview(data.path);
-                    } else {
-                        alert('Sacred error: ' + (data.error || 'The upload was interrupted.'));
-                    }
-                })
-                .catch(err => alert('Sacred error: Connection to the vault failed.'))
-                .finally(() => {
-                    btn.innerHTML = originalIcon;
-                });
-        }
-
-        function updatePreview(path) {
-            const img = document.getElementById('current_preview');
-            const placeholder = document.getElementById('preview_placeholder');
-            img.src = path;
-            img.classList.remove('hidden');
-            if (placeholder) placeholder.classList.add('hidden');
-        }
-
-        // Live path preview
-        document.getElementById('image_path').addEventListener('input', function() {
-            updatePreview(this.value);
-        });
     </script>
 </body>
-
 </html>

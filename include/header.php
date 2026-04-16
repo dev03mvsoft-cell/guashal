@@ -7,7 +7,7 @@ $current_url = $base_url . $_SERVER['REQUEST_URI'];
 // Advanced Multi-City SEO Logic
 $seo_valid_locations = ['Gandhidham', 'Bhuj', 'Anjar', 'Mandvi', 'Mundra', 'Adipur', 'Bhachau', 'Nakhatrana', 'Rapar', 'Gujarat', 'Kutch', 'India'];
 $seo_location = 'Gandhidham'; // Highest Priority Target Location
-$seo_locality = 'Gandhidham'; 
+$seo_locality = 'Gandhidham';
 
 if (isset($_GET['loc']) && !empty($_GET['loc'])) {
     $requested_loc = ucwords(strtolower(trim(preg_replace('/[^a-zA-Z\s]/', '', $_GET['loc']))));
@@ -28,7 +28,7 @@ $org_short = "GRSS";
 $seo_title_intent = "Gaushala, Cow Donation & Gau Seva in {$seo_location}";
 
 // If location is specific or the priority target (Gandhidham / Bhuj), include Panjrapole
-if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
+if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     $seo_title_intent = "{$seo_location} Gaushala & Panjrapole - Cow Donation";
 }
 ?>
@@ -47,7 +47,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     header('X-XSS-Protection: 1; mode=block'); // XSS filter
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: geolocation=(), microphone=()');
-    header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com data:; connect-src 'self' https://www.googletagmanager.com; frame-ancestors 'self';");
+    header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://www.googletagmanager.com; frame-src 'self' https://www.google.com; frame-ancestors 'self';");
     // Prevent tabnabbing
     header('Cross-Origin-Opener-Policy: same-origin');
     header('Cross-Origin-Resource-Policy: same-origin');
@@ -170,7 +170,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Font Awesome (Icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- SweetAlert2 (Toaster) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -305,8 +305,15 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="hidden md:flex gap-4 border-l border-white/10 pl-6 text-[12px] items-center">
-                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold"><i class="fas fa-phone-alt mr-2 text-saffron"></i><span data-lang="header_phone">+91 9998581811 / 9824284733</span></a>
+            <div class="hidden md:flex gap-6 border-l border-white/10 pl-6 text-[12px] items-center">
+                <a href="tel:+919998581811" class="text-white/70 hover:text-gold transition-colors font-bold flex items-center gap-2">
+                    <i class="fas fa-phone-alt text-saffron"></i>
+                    <span data-lang="header_phone">+91 9998581811</span>
+                </a>
+                <a href="https://wa.me/919998581811" target="_blank" class="text-white/70 hover:text-[#25D366] transition-colors font-bold flex items-center gap-2 border-l border-white/10 pl-6">
+                    <i class="fab fa-whatsapp text-[#25D366] text-sm"></i>
+                    <span>Contact on WhatsApp</span>
+                </a>
             </div>
         </div>
     </div>
@@ -349,15 +356,12 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                         <div class="absolute top-[100%] left-1/2 -translate-x-1/2 w-56 bg-white/95 backdrop-blur-3xl rounded-[2rem] shadow-[0_40px_100px_-20px_rgba(44,76,59,0.2)] border border-gold/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 transform origin-top z-[10001] scale-95 group-hover:scale-100 overflow-hidden mt-2">
                             <div class="py-4">
                                 <a href="/about" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-saffron/30 group-hover/item:bg-saffron group-hover/item:scale-150 transition-all duration-500"></span>
                                     <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_our_story">Our Story</span>
                                 </a>
                                 <a href="/founders" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-saffron/30 group-hover/item:bg-saffron group-hover/item:scale-150 transition-all duration-500"></span>
                                     <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_founders">Founders</span>
                                 </a>
                                 <a href="/team" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-saffron/30 group-hover/item:bg-saffron group-hover/item:scale-150 transition-all duration-500"></span>
                                     <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_team">Our Team</span>
                                 </a>
                             </div>
@@ -365,7 +369,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                     </li>
                     <li><a href="/gallery" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_gallery">Gallery</a></li>
                     <li><a href="/events" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_events">Events</a></li>
-                    <li><a href="/announcements" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_announcements">Announcements</a></li>
+                    <li><a href="/announcements" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_announcements">Updates</a></li>
                     <li><a href="/donors" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_donors">Hall of Fame</a></li>
                     <li><a href="/contact" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_contact">Contact</a></li><!-- Language Switcher Dropdown (Vedic Premium) -->
                     <li class="relative group ml-4">
@@ -390,7 +394,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                         </div>
                     </li>
 
-                    <li><a href="/donate" class="bg-saffron text-white px-8 py-2 rounded-full hover:bg-gold hover:text-nature transition-all duration-500 shadow-xl shadow-saffron/20 border border-saffron/20 font-bold text-[15px]" data-lang="nav_donate">Donate</a></li>
+                    <li><a href="/donate" class="bg-saffron text-white px-8 py-2 rounded-full hover:bg-gold hover:text-nature transition-all duration-500 shadow-xl shadow-saffron/20 border border-saffron/20 font-bold text-[15px] flex items-center justify-center" data-lang="nav_donate">Donate</a></li>
             </a></li>
             </ul>
 
@@ -412,7 +416,7 @@ if($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                 <li><a href="/team" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_team">Our Team</a></li>
                 <li><a href="/gallery" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_gallery">Gallery</a></li>
                 <li><a href="/events" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_events">Events</a></li>
-                <li><a href="/announcements" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_announcements">Announcements</a></li>
+                <li><a href="/announcements" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_announcements">Updates</a></li>
                 <li><a href="/donors" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_donors">Hall of Fame</a></li>
                 <li><a href="/contact" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_contact">Contact</a></li>
 

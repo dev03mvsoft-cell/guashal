@@ -97,6 +97,7 @@
                                     <option value="Volunteer Sewa & Service" class="text-nature">Volunteer Sewa & Service</option>
                                     <option value="Donation Inquiry" class="text-nature">Donation Inquiry</option>
                                     <option value="Visit Sacred Sanctuary" class="text-nature">Visit Sacred Sanctuary</option>
+                                    <option value="Gau Datt (Cow Foster Care)" class="text-nature">Gau Datt (Cow Foster Care)</option>
                                 </select>
                                 <div class="absolute right-0 bottom-4 pointer-events-none text-gold">
                                     <i class="fas fa-chevron-down text-xs"></i>
@@ -108,10 +109,10 @@
                                 <textarea name="message" rows="3" data-lang-placeholder="placeholder_message" placeholder="Share your words..." class="w-full bg-transparent border-b border-nature/30 py-4 focus:outline-none focus:border-gold transition-all duration-500 placeholder:text-nature/60 font-bold text-lg text-nature resize-none" required></textarea>
                             </div>
 
-                            <div class="relative group/field bg-nature/5 p-4 rounded-2xl">
+                            <!-- <div class="relative group/field bg-nature/5 p-4 rounded-2xl">
                                 <label class="block text-[9px] font-black uppercase tracking-widest text-nature/90 mb-2 transition-colors flex items-center gap-2"><i class="fas fa-image opacity-50"></i> Upload Screenshot (Optional)</label>
                                 <input type="file" name="screenshot" accept="image/*" class="w-full bg-transparent focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-widest file:bg-nature/10 file:text-nature hover:file:bg-nature/20 cursor-pointer">
-                            </div>
+                            </div> -->
 
                             <div class="hidden" style="display:none;">
                                 <label>Leave this field empty</label>
@@ -156,53 +157,55 @@
 
 <script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
 <script>
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    if (e.preventDefault) e.preventDefault();
-    const form = this;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const submitText = document.getElementById('submit-text');
-    
-    submitBtn.disabled = true;
-    const originalText = submitText.innerText;
-    submitText.innerText = "Authenticating...";
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        if (e.preventDefault) e.preventDefault();
+        const form = this;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const submitText = document.getElementById('submit-text');
 
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'submit'}).then(function(token) {
-            const formData = new FormData(form);
-            formData.append('recaptcha_token', token);
-            submitText.innerText = "Transmitting...";
+        submitBtn.disabled = true;
+        const originalText = submitText.innerText;
+        submitText.innerText = "Authenticating...";
 
-            fetch('/api/contact_handler.php', {
-                method: 'POST',
-                body: formData
-            })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Toast.fire({
-                icon: 'success',
-                title: data.message
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {
+                action: 'submit'
+            }).then(function(token) {
+                const formData = new FormData(form);
+                formData.append('recaptcha_token', token);
+                submitText.innerText = "Transmitting...";
+
+                fetch('/api/contact_handler.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            });
+                            form.reset();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Sacred connection lost. Please try again.'
+                        });
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitText.innerText = originalText;
+                    });
             });
-            form.reset();
-        } else {
-            Toast.fire({
-                icon: 'error',
-                title: data.message
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Toast.fire({
-            icon: 'error',
-            title: 'Sacred connection lost. Please try again.'
-        });
-    })
-    .finally(() => {
-        submitBtn.disabled = false;
-        submitText.innerText = originalText;
-    });
         });
     });
-});
 </script>
