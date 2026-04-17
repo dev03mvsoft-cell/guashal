@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const navContainer = document.querySelector('.nav-container');
     const topBar = document.querySelector('.top-announcement');
 
-    window.addEventListener('scroll', () => {
+    function updateNav() {
+        if (!nav || !navContainer) return;
+
         if (window.scrollY > 30) {
             nav.classList.add('shadow-2xl', 'top-0');
-            nav.classList.remove('shadow-lg', 'top-[40px]', 'md:top-[45px]', 'top-[45px]');
+            nav.classList.remove('shadow-lg', 'top-[40px]', 'md:top-[45px]');
             navContainer.classList.add('py-1', 'md:py-2');
-            navContainer.classList.remove('py-2', 'md:py-3', 'py-3');
+            navContainer.classList.remove('py-2', 'md:py-3');
             if (topBar) topBar.classList.add('-translate-y-full');
         } else {
             nav.classList.add('shadow-lg', 'top-[40px]', 'md:top-[45px]');
@@ -19,7 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
             navContainer.classList.add('py-2', 'md:py-3');
             if (topBar) topBar.classList.remove('-translate-y-full');
         }
-    });
+    }
+
+    window.addEventListener('scroll', updateNav);
+    updateNav(); // Immediate check on DOMContentLoaded
 
     // 2. Mobile Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
@@ -219,6 +224,7 @@ const translations = {
         'nav_home': 'Home', 'nav_about': 'About', 'nav_contact': 'Contact', 'nav_donate': 'Donate',
         'nav_founders': 'Founders', 'nav_team': 'Our Team', 'nav_gallery': 'Gallery', 'nav_events': 'Events',
         'nav_bulletin': 'Bulletin', 'nav_announcements': 'Announcements', 'nav_our_story': 'Our Story',
+        'nav_donors': 'Donate Wall', 'nav_updates': 'Updates',
         'brand_name': 'Shree Gau Rakshak Seva Samiti', 'brand_tagline': 'Panjrapole - Galpadar',
         'header_phone': '+91 99985 81811',
         'hero_span': 'Shree Radhe Radhe ',
@@ -351,6 +357,7 @@ const translations = {
         'nav_home': 'मुख्य पृष्ठ', 'nav_about': 'हमारे बारे में', 'nav_contact': 'संपर्क', 'nav_donate': 'दान दें',
         'nav_founders': 'संस्थापक', 'nav_team': 'हमारी टीम', 'nav_gallery': 'गैलरी', 'nav_events': 'कार्यक्रम',
         'nav_bulletin': 'बुलेटिन', 'nav_announcements': 'घोषणाएं', 'nav_our_story': 'हमारी कहानी',
+        'nav_donors': 'दान की दीवार', 'nav_updates': 'अपडेट',
         'brand_name': 'श्री गौ रक्षक सेवा समिति', 'brand_tagline': 'पांजरापोल - गलपादर',
         'header_phone': '+91 99985 81811',
         'hero_span': 'पवित्र गौ सेवा धाम',
@@ -473,6 +480,7 @@ const translations = {
         'nav_home': 'હોમ', 'nav_about': 'અમારા વિશે', 'nav_contact': 'સંપર્ક કરો', 'nav_donate': 'દાન આપો',
         'nav_founders': 'સ્થાપકો', 'nav_team': 'અમારી ટીમ', 'nav_gallery': 'ગેલેરી', 'nav_events': 'કાર્યક્રમો',
         'nav_bulletin': 'બુલેટિન', 'nav_announcements': 'જાહેરાતો', 'nav_our_story': 'અમારી વાર્તા',
+        'nav_donors': 'દાનની દીવાલ', 'nav_updates': 'અપડેટ',
         'brand_name': 'શ્રી ગૌ રક્ષક સેવા સમિતિ', 'brand_tagline': 'પાંજરાપોળ - ગળપાદર',
         'header_phone': '+91 99985 81811',
         'hero_span': 'દિવ્ય ગૌ સેવા ધામ',
@@ -760,7 +768,4 @@ window.translateAllDynamicContent = async function (lang) {
     }
 }
 
-// Auto-apply language on load
-document.addEventListener('DOMContentLoaded', () => {
-    applyLanguage();
-});
+// Auto-apply language on load is already handled inside the main DOMContentLoaded at the top

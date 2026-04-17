@@ -17,7 +17,7 @@ if (isset($_GET['delete'])) {
     }
 
     $pdo->prepare("DELETE FROM donors WHERE id = ?")->execute([$id]);
-    header("Location: index.php?msg=Member removed from Hall of Fame");
+    header("Location: index.php?msg=Member removed from Donate Wall");
     exit();
 }
 
@@ -67,7 +67,7 @@ $donors = $all_items;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donors Hall of Fame Management | Admin</title>
+    <title>Donors Donate Wall Management | Admin</title>
     <?php include '../include/head.php'; ?>
     <style>
         .donor-table tr {
@@ -85,7 +85,7 @@ $donors = $all_items;
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
             <div>
-                <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature mb-2">Donors Hall of Fame</h1>
+                <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature mb-2">Donors Donate Wall</h1>
                 <p class="text-nature/60 font-medium">Manage and celebrate the compassionate souls who support our cows.</p>
             </div>
             <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
@@ -256,7 +256,7 @@ $donors = $all_items;
                                             <i class="fas fa-edit text-sm"></i>
                                         </a>
                                         <a href="index.php?delete=<?= $donor['id'] ?>"
-                                            onclick="return confirm('Release this record from the Hall of Fame?')"
+                                            onclick="return confirm('Release this record from the Donate Wall?')"
                                             class="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm">
                                             <i class="fas fa-trash text-sm"></i>
                                         </a>
@@ -272,7 +272,7 @@ $donors = $all_items;
             <?php if (empty($donors)): ?>
                 <div class="py-32 text-center">
                     <i class="fas fa-heart-crack text-6xl text-nature/10 mb-6"></i>
-                    <h3 class="text-2xl font-bold text-nature">The Hall of Fame is Empty</h3>
+                    <h3 class="text-2xl font-bold text-nature">The Donate Wall is Empty</h3>
                     <p class="text-nature/40 mt-2">Start recognizing your noble donors today.</p>
                     <a href="editor.php" class="inline-block mt-8 bg-nature text-white px-8 py-3 rounded-xl font-bold">Add First Donor</a>
                 </div>

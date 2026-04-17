@@ -1,5 +1,5 @@
 <?php
-// Fetch all donors for the full Hall of Fame
+// Fetch all donors for the full Donate Wall
 $all_donors = [];
 try {
     $all_donors = $pdo->query("SELECT * FROM donors WHERE is_visible = 1 ORDER BY donation_date DESC")->fetchAll();
@@ -12,13 +12,13 @@ try {
 <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
     <!-- Background Image with Ken Burns Effect -->
     <div class="absolute inset-0 z-0">
-        <img src="/asset/img/cow/bgofthecow.jpg" class="w-full h-full object-cover kenburns-bg" alt="Donors Hall of Fame">
+        <img src="/asset/img/cow/bgofthecow.jpg" class="w-full h-full object-cover kenburns-bg" alt="Donors Donate Wall">
         <div class="absolute inset-0 bg-gradient-to-b from-nature/80 via-nature/40 to-nature/90"></div>
     </div>
 
     <!-- Content -->
     <div class="container mx-auto px-6 relative z-10 text-center pt-24" data-aos="zoom-out">
-        <span class="text-gold uppercase tracking-[0.5em] text-[12px] md:text-sm font-bold mb-4 block drop-shadow-lg" data-lang="donors_hero_label">The Sacred Hall of Fame</span>
+        <span class="text-gold uppercase tracking-[0.5em] text-[12px] md:text-sm font-bold mb-4 block drop-shadow-lg" data-lang="donors_hero_label">The Sacred Donate Wall</span>
         <h1 class="text-4xl md:text-8xl font-display text-white mb-6 leading-tight drop-shadow-2xl" data-lang="donors_hero_title">
             Our <span class="italic text-gold underline decoration-gold/20 underline-offset-[16px]">Noble</span> Donors
         </h1>
@@ -33,22 +33,22 @@ try {
 <section class="py-24 bg-white relative overflow-hidden">
     <!-- Subtle Pattern Overlay -->
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-        <img src="/asset/img/pattern/footer-pattern.png" class="w-full h-full object-cover">
+        <!-- Pattern removed due to missing resource -->
     </div>
 
     <div class="container mx-auto px-6 lg:px-24 relative z-10">
-        
+
         <!-- Premium Search & Filter Bar -->
         <div class="mb-12" data-aos="fade-up">
             <div class="max-w-3xl mx-auto relative group">
                 <div class="absolute inset-y-0 left-8 flex items-center pointer-events-none text-nature/30 group-focus-within:text-saffron transition-colors">
                     <i class="fas fa-search text-xl"></i>
                 </div>
-                <input type="text" 
-                       id="donorSearch" 
-                       placeholder="Search noble donors by name or purpose..." 
-                       class="w-full bg-white border-2 border-nature/5 focus:border-saffron/30 rounded-[2.5rem] py-8 pl-20 pr-10 text-nature font-display text-xl focus:outline-none shadow-xl shadow-nature/5 transition-all placeholder:text-nature/20 placeholder:italic">
-                
+                <input type="text"
+                    id="donorSearch"
+                    placeholder="Search noble donors by name or purpose..."
+                    class="w-full bg-white border-2 border-nature/5 focus:border-saffron/30 rounded-[2.5rem] py-8 pl-20 pr-10 text-nature font-display text-xl focus:outline-none shadow-xl shadow-nature/5 transition-all placeholder:text-nature/20 placeholder:italic">
+
                 <!-- Search Decoration -->
                 <div class="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
                     <span class="text-[10px] font-black uppercase tracking-widest text-nature/20 hidden md:block">Instant Filter</span>
@@ -63,7 +63,7 @@ try {
             <div class="text-center py-20 bg-secondary/30 rounded-[3rem] border-2 border-dashed border-nature/10" data-aos="fade-up">
                 <i class="fas fa-heart text-6xl text-nature/10 mb-6 border-gold"></i>
                 <h3 class="text-2xl font-display text-nature">Our family is growing</h3>
-                <p class="text-nature/40 mt-2 italic">Be the first to join our Sacred Hall of Fame.</p>
+                <p class="text-nature/40 mt-2 italic">Be the first to join our Sacred Donate Wall.</p>
                 <a href="/donate" class="inline-block mt-8 bg-saffron text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:shadow-xl transition-all">Support Now</a>
             </div>
         <?php else: ?>
@@ -80,17 +80,17 @@ try {
                 <!-- Body -->
                 <div class="divide-y divide-nature/10" id="donorsList">
                     <?php foreach ($all_donors as $index => $donor): ?>
-                        <div class="donor-row group relative grid grid-cols-1 md:grid-cols-12 items-center px-8 py-5 md:px-12 md:py-6 hover:bg-nature/[0.02] transition-colors duration-200" 
-                             data-aos="fade-up" 
-                             data-aos-delay="<?= ($index % 10) * 30 ?>"
-                             data-search="<?= strtolower(htmlspecialchars($donor['name'] . ' ' . $donor['purpose'])) ?>">
-                            
+                        <div class="donor-row group relative grid grid-cols-1 md:grid-cols-12 items-center px-8 py-5 md:px-12 md:py-6 hover:bg-nature/[0.02] transition-colors duration-200"
+                            data-aos="fade-up"
+                            data-aos-delay="<?= ($index % 10) * 30 ?>"
+                            data-search="<?= strtolower(htmlspecialchars($donor['name'] . ' ' . $donor['purpose'])) ?>">
+
                             <!-- Column 1: Profile -->
                             <div class="col-span-1 flex justify-center md:justify-start">
                                 <div class="w-12 h-12 rounded-xl bg-nature/5 overflow-hidden ring-1 ring-nature/10">
-                                    <img src="/asset/img/donors/<?= $donor['profile_pic'] ?>" 
-                                         onerror="this.src='/asset/img/donors/default_donor.png'"
-                                         class="w-full h-full object-cover">
+                                    <img src="/asset/img/donors/<?= $donor['profile_pic'] ?>"
+                                        onerror="this.src='/asset/img/donors/default_donor.png'"
+                                        class="w-full h-full object-cover">
                                 </div>
                             </div>
 
@@ -133,54 +133,54 @@ try {
                     <p class="text-nature/40 text-[11px] font-black uppercase tracking-[0.6em]">Sacred Contributions for Perpetual Protection of Gaia</p>
                 </div>
             </div>
-            </div>
-        <?php endif; ?>
     </div>
+<?php endif; ?>
+</div>
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('donorSearch');
-    const donorRows = document.querySelectorAll('.donor-row');
-    const noResults = document.createElement('div');
-    
-    // Create "No Results" element
-    noResults.id = 'noResultsMessage';
-    noResults.className = 'hidden py-20 text-center bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-200';
-    noResults.innerHTML = `
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('donorSearch');
+        const donorRows = document.querySelectorAll('.donor-row');
+        const noResults = document.createElement('div');
+
+        // Create "No Results" element
+        noResults.id = 'noResultsMessage';
+        noResults.className = 'hidden py-20 text-center bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-200';
+        noResults.innerHTML = `
         <div class="flex flex-col items-center">
             <i class="fas fa-search text-4xl text-gray-200 mb-4"></i>
             <p class="text-gray-400 font-display italic">No donors found matching your search...</p>
         </div>
     `;
-    
-    const donorsContainer = document.querySelector('.divide-y');
-    donorsContainer.appendChild(noResults);
 
-    searchInput.addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase().trim();
-        let visibleCount = 0;
+        const donorsContainer = document.querySelector('.divide-y');
+        donorsContainer.appendChild(noResults);
 
-        donorRows.forEach(row => {
-            const searchText = row.getAttribute('data-search');
-            if (searchText.includes(term)) {
-                row.classList.remove('hidden');
-                row.classList.add('grid');
-                visibleCount++;
+        searchInput.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            donorRows.forEach(row => {
+                const searchText = row.getAttribute('data-search');
+                if (searchText.includes(term)) {
+                    row.classList.remove('hidden');
+                    row.classList.add('grid');
+                    visibleCount++;
+                } else {
+                    row.classList.remove('grid');
+                    row.classList.add('hidden');
+                }
+            });
+
+            // Show/Hide "No Results" message
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
             } else {
-                row.classList.remove('grid');
-                row.classList.add('hidden');
+                noResults.classList.add('hidden');
             }
         });
-
-        // Show/Hide "No Results" message
-        if (visibleCount === 0) {
-            noResults.classList.remove('hidden');
-        } else {
-            noResults.classList.add('hidden');
-        }
     });
-});
 </script>
 
 <!-- Call to Action -->

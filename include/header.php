@@ -47,7 +47,7 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     header('X-XSS-Protection: 1; mode=block'); // XSS filter
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: geolocation=(), microphone=()');
-    header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://www.googletagmanager.com; frame-src 'self' https://www.google.com; frame-ancestors 'self';");
+    header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google.com https://flagcdn.com https://upload.wikimedia.org https://www.transparenttextures.com https://www.google-analytics.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://cdn.jsdelivr.net; frame-src 'self' https://www.google.com; frame-ancestors 'self';");
     // Prevent tabnabbing
     header('Cross-Origin-Opener-Policy: same-origin');
     header('Cross-Origin-Resource-Policy: same-origin');
@@ -370,10 +370,32 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                         </div>
                     </li>
                     <li><a href="/gallery" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_gallery">Gallery</a></li>
-                    <li><a href="/events" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_events">Events</a></li>
-                    <li><a href="/announcements" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_announcements">Updates</a></li>
-                    <li><a href="/donors" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_donors">Hall of Fame</a></li>
-                    <li><a href="/contact" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_contact">Contact</a></li><!-- Language Switcher Dropdown (Vedic Premium) -->
+                    
+                    <!-- Updates Dropdown -->
+                    <li class="relative group">
+                        <a href="/announcements" class="hover:text-gold transition-all duration-500 flex items-center gap-2 py-4 text-[15px]" data-lang="nav_updates">
+                            Updates
+                            <svg class="w-2.5 h-2.5 group-hover:rotate-180 transition-transform duration-700 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+
+                        <!-- High-Fidelity Floating Dropdown -->
+                        <div class="absolute top-[100%] left-1/2 -translate-x-1/2 w-56 bg-white/95 backdrop-blur-3xl rounded-[2rem] shadow-[0_40px_100px_-20px_rgba(44,76,59,0.2)] border border-gold/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 transform origin-top z-[10001] scale-95 group-hover:scale-100 overflow-hidden mt-2">
+                            <div class="py-4">
+                                <a href="/events" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
+                                    <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_events">Events</span>
+                                </a>
+                                <a href="/announcements" class="group/item block px-8 py-3.5 text-[15px] font-bold text-nature hover:bg-gold/5 transition-all flex items-center gap-4">
+                                    <span class="group-hover/item:translate-x-1 transition-transform" data-lang="nav_announcements">Announcements</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="/donors" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_donors">Donate Wall</a></li>
+                    <li><a href="/contact" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_contact">Contact</a></li>
+                    <!-- Language Switcher Dropdown (Vedic Premium) -->
                     <li class="relative group ml-4">
                         <button class="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2 rounded-full text-[12px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:bg-gold group-hover:text-nature transition-all duration-500 shadow-sm shadow-black/20">
                             <span id="current-lang">English</span>
@@ -397,29 +419,47 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                     </li>
 
                     <li><a href="/donate" class="bg-saffron text-white px-8 py-2 rounded-full hover:bg-gold hover:text-nature transition-all duration-500 shadow-xl shadow-saffron/20 border border-saffron/20 font-bold text-[15px] flex items-center justify-center" data-lang="nav_donate">Donate</a></li>
-            </a></li>
-            </ul>
+                </ul>
 
-            <!-- Mobile Burger Icon -->
-            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
+                <!-- Mobile Burger Icon -->
+                <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
         </div>
 
         <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white backdrop-blur-3xl border-t border-gold/10 shadow-2xl overflow-hidden py-10">
             <ul class="flex flex-col gap-8 font-display text-2xl text-nature items-center">
                 <li><a href="/" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_home">Home</a></li>
-                <li><a href="/about" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_our_story">Our Story</a></li>
-                <li><a href="/founders" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_founders">Founders & Trustees</a></li>
-                <li><a href="/team" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_team">Our Team</a></li>
+                <li class="flex flex-col items-center w-full">
+                    <button onclick="toggleMobileSub('about-mob-sub', this)" class="mobile-nav-link hover:text-saffron transition-colors flex items-center gap-2">
+                        <span data-lang="nav_about">About</span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                    </button>
+                    <div id="about-mob-sub" class="hidden flex-col items-center gap-4 mt-4 bg-nature/5 w-full py-4 rounded-2xl border border-gold/5">
+                        <a href="/about" class="text-lg font-bold text-nature/70 hover:text-saffron transition-colors" data-lang="nav_our_story">Our Story</a>
+                        <a href="/founders" class="text-lg font-bold text-nature/70 hover:text-saffron transition-colors" data-lang="nav_founders">Founders</a>
+                        <a href="/team" class="text-lg font-bold text-nature/70 hover:text-saffron transition-colors" data-lang="nav_team">Our Team</a>
+                    </div>
+                </li>
+
                 <li><a href="/gallery" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_gallery">Gallery</a></li>
-                <li><a href="/events" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_events">Events</a></li>
-                <li><a href="/announcements" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_announcements">Updates</a></li>
-                <li><a href="/donors" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_donors">Hall of Fame</a></li>
+
+                <li class="flex flex-col items-center w-full">
+                    <button onclick="toggleMobileSub('updates-mob-sub', this)" class="mobile-nav-link hover:text-saffron transition-colors flex items-center gap-2">
+                        <span data-lang="nav_updates">Updates</span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                    </button>
+                    <div id="updates-mob-sub" class="hidden flex-col items-center gap-4 mt-4 bg-nature/5 w-full py-4 rounded-2xl border border-gold/5">
+                        <a href="/events" class="text-lg font-bold text-nature/70 hover:text-saffron transition-colors" data-lang="nav_events">Events</a>
+                        <a href="/announcements" class="text-lg font-bold text-nature/70 hover:text-saffron transition-colors" data-lang="nav_announcements">Announcements</a>
+                    </div>
+                </li>
+
+                <li><a href="/donors" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_donors">Donate Wall</a></li>
                 <li><a href="/contact" class="mobile-nav-link hover:text-saffron transition-colors" data-lang="nav_contact">Contact</a></li>
 
                 <!-- Mobile Language Selector -->
@@ -433,5 +473,43 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
             </ul>
         </div>
     </nav>
+    <script>
+        function toggleMobileSub(id, btn) {
+            const sub = document.getElementById(id);
+            const icon = btn.querySelector('i');
+            if (sub) {
+                const isHidden = sub.classList.contains('hidden');
+                // Close all other subs first for accordion effect
+                document.querySelectorAll('[id$="-mob-sub"]').forEach(el => {
+                    if (el.id !== id) el.classList.add('hidden');
+                });
+                document.querySelectorAll('.mobile-nav-link i').forEach(i => {
+                    if (i !== icon) i.classList.remove('rotate-180');
+                });
+
+                sub.classList.toggle('hidden');
+                sub.classList.toggle('flex');
+                icon.classList.toggle('rotate-180');
+            }
+        }
+
+        // Immediate Header State Fix (Prevents Glitch on Reload)
+        (function() {
+            const nav = document.querySelector('.nav-main');
+            const navContainer = document.querySelector('.nav-container');
+            const topBar = document.querySelector('.top-announcement');
+            if (window.scrollY > 30) {
+                if (nav) {
+                    nav.classList.add('shadow-2xl', 'top-0');
+                    nav.classList.remove('shadow-lg', 'top-[40px]', 'md:top-[45px]');
+                }
+                if (navContainer) {
+                    navContainer.classList.add('py-1', 'md:py-2');
+                    navContainer.classList.remove('py-2', 'md:py-3');
+                }
+                if (topBar) topBar.classList.add('-translate-y-full');
+            }
+        })();
+    </script>
 
     <main>

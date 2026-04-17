@@ -51,7 +51,7 @@
 <section class="py-24 overflow-hidden relative bg-white">
     <!-- Subtle Pattern Overlay -->
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
-        <img src="/asset/img/pattern/footer-pattern.png" class="w-full h-full object-cover">
+        <!-- Pattern removed due to missing resource -->
     </div>
 
     <div class="container mx-auto px-6 lg:px-24 relative z-10">

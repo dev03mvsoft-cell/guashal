@@ -79,10 +79,7 @@ try {
             <!-- Right Half: Sacred Whisper (Content) -->
             <div class="sacred-modal-text-wrap">
 
-                <!-- Decorative Corner Patterns -->
-                <div class="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 opacity-5 pointer-events-none">
-                    <img src="/asset/img/pattern/footer-pattern.png" class="w-full h-full object-contain rotate-90">
-                </div>
+                <!-- Decorative Corner Patterns (Removed due to missing resource) -->
 
                 <div class="relative z-10 w-full">
                     <span class="text-saffron font-black uppercase tracking-[0.4em] text-[8px] md:text-[12px] mb-4 md:mb-6 block" data-trans="en">Divine update</span>
@@ -591,11 +588,11 @@ try {
 
 
 
-<!-- Donors Hall of Fame: High-Fidelity Multi-Row Marquee -->
+<!-- Donors Donate Wall: High-Fidelity Multi-Row Marquee -->
 <section id="noble-donors" class="py-24 relative overflow-hidden bg-[#fdfaf7] border-y border-nature/5">
     <div class="container mx-auto px-6 relative z-10 text-center mb-16">
         <div data-aos="fade-up">
-            <span class="text-saffron uppercase tracking-[0.6em] text-[10px] md:text-xs font-black mb-4 block">Hall of Fame</span>
+            <span class="text-saffron uppercase tracking-[0.6em] text-[10px] md:text-xs font-black mb-4 block">Donate Wall</span>
             <h2 class="text-5xl md:text-7xl font-display text-nature mb-6">Our Noble <span class="italic text-gold underline decoration-gold/20 underline-offset-8">Donors</span></h2>
             <div class="flex items-center justify-center gap-4 mt-12 bg-nature/5 w-fit mx-auto p-1.5 rounded-full border border-nature/10">
                 <button onclick="filterDonors('recent')" id="btn-recent-marquee" class="px-8 py-3 rounded-full bg-nature text-white font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-nature/20 active-pill">Recent</button>
@@ -851,7 +848,7 @@ try {
                 <div class="space-y-6 text-white/80 text-lg leading-relaxed mb-12">
                     <div class="lang-en">
                         <p class="mb-4">Living in a city often makes it impossible to keep our sacred Gau Mata at home. But your devotion shouldn't have to wait.</p>
-                        <p class="font-medium text-gold italic">Through **Gau Datt Seva**, you can 'Adopt' a cow in our sanctuary. She stays in our loving care, while you support her monthly fodder and medical expenses.</p>
+                        <p class="font-medium text-gold italic">Through "Gau Datt Seva", you can 'Adopt' a cow in our sanctuary. She stays in our loving care, while you support her monthly fodder and medical expenses.</p>
                     </div>
 
                     <div class="lang-hi hidden font-hindi text-xl leading-relaxed">
@@ -1039,7 +1036,7 @@ try {
                                         <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
                                         <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
                                     </div>
-                                    
+
                                     <!-- Sacred QR Quick Scan -->
                                     <div class="shrink-0 w-32 h-32 md:w-48 md:h-48 bg-white p-3 rounded-2xl border-2 border-gold/10 shadow-2xl flex items-center justify-center group hover:scale-105 transition-transform duration-500">
                                         <div class="w-full h-full rounded-lg overflow-hidden">
