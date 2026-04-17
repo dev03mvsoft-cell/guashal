@@ -247,7 +247,7 @@ try {
                 formData.append('recaptcha_token', token);
                 submitText.innerText = "Processing...";
 
-                fetch('./api/donation_handler.php', {
+                fetch(`${window.GA_BASE_URL}/api/donation_handler.php`, {
                         method: 'POST',
                         body: formData
                     })
@@ -261,7 +261,7 @@ try {
 
                             // Optimized redirect flow to the payment integration page
                             setTimeout(() => {
-                                window.location.href = '/payment?status=success';
+                                window.location.href = `${window.GA_BASE_URL}/payment?status=success`;
                             }, 2000);
 
                             form.reset();

@@ -1,8 +1,10 @@
 <?php
 // Dynamic URL Base Generator for automated environment adaptation
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
-$current_url = $base_url . $_SERVER['REQUEST_URI'];
+// Auto-detect base folder to support subfolder installations
+$base_folder = rtrim(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '/');
+$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . $base_folder;
+$current_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 // Advanced Multi-City SEO Logic
 $seo_valid_locations = ['Gandhidham', 'Bhuj', 'Anjar', 'Mandvi', 'Mundra', 'Adipur', 'Bhachau', 'Nakhatrana', 'Rapar', 'Gujarat', 'Kutch', 'India'];
@@ -176,12 +178,12 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/asset/img/logo/logo.png">
-    <link rel="apple-touch-icon" href="/asset/img/logo/logo.png">
+    <link rel="icon" type="image/png" href="<?= $base_url ?>/asset/img/logo/logo.png">
+    <link rel="apple-touch-icon" href="<?= $base_url ?>/asset/img/logo/logo.png">
 
 
     <!-- Custom CSS (Cache Busting version) -->
-    <link rel="stylesheet" href="/asset/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?= $base_url ?>/asset/css/style.css?v=<?php echo time(); ?>">
 
 
     <script>
@@ -246,25 +248,26 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2M01098BDS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
         gtag('config', 'G-2M01098BDS');
     </script>
+    <script>
+        // Global variables for AJAX and Routing consistency
+        window.GA_BASE_URL = '<?= $base_url ?>';
+    </script>
 </head>
 
-<body class="bg-secondary text-primary font-sans overflow-x-hidden">
+<body class="bg-white font-sans text-nature selection:bg-gold selection:text-nature overflow-x-hidden">
 
     <!-- Premium Announcement Marquee (Top Bar) -->
     <?php
+    // Marquee logic
     $marquee_items = [];
     try {
-        $stmt = $pdo->query("SELECT * FROM announcements ORDER BY created_at DESC LIMIT 3");
-        if ($stmt) {
-            $marquee_items = $stmt->fetchAll();
-        }
+        $marquee_items = $pdo->query("SELECT content_en, content_hi, content_gu FROM marquee_announcements WHERE status = 'active' ORDER BY created_at DESC")->fetchAll();
     } catch (Exception $e) {
         $marquee_items = []; // Fallback to static if table doesn't exist
     }
@@ -330,7 +333,7 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                     <div class="relative bg-gradient-to-r from-white via-white to-[#fff9f2] border-2 border-gold rounded-full flex items-center px-1 py-1 gap-4 shadow-xl h-20 max-w-[90vw] pr-6 sm:pr-[60px] ml-6 sm:ml-10 scale-90 sm:scale-100 origin-left">
                         <!-- Logo Circle POP OUT -->
                         <div class="h-20 w-20 -ml-9 rounded-full flex items-center justify-center flex-shrink-0 bg-white border-2 border-gold shadow-lg p-0">
-                            <img src="/asset/img/logo/logo.png" class="h-full w-full object-contain" alt="Logo">
+                            <img src="<?= $base_url ?>/asset/img/logo/logo.png" class="h-full w-full object-contain" alt="Logo">
                         </div>
                         <!-- Brand Typography Integrated -->
                         <div class="flex flex-col overflow-hidden">

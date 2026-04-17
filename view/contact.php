@@ -175,7 +175,7 @@
                 formData.append('recaptcha_token', token);
                 submitText.innerText = "Transmitting...";
 
-                fetch('/api/contact_handler.php', {
+                fetch(`${window.GA_BASE_URL}/api/contact_handler.php`, {
                         method: 'POST',
                         body: formData
                     })

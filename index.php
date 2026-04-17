@@ -19,13 +19,14 @@ if (
     exit('Access denied.');
 }
 
-// Block suspicious file access attempts
-if (
-    !empty($_SERVER['REQUEST_URI']) &&
-    strpos($_SERVER['REQUEST_URI'], '/admin') !== 0 &&
-    preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $_SERVER['REQUEST_URI'])
-) {
-    log_suspicious_activity('Suspicious file access');
+// Block suspicious file access attempts (prevent direct access to .php files except index.php)
+$request_uri = $_SERVER['REQUEST_URI'] ?? '';
+$is_admin_path = (strpos($request_uri, '/admin') !== false);
+$is_direct_php_request = preg_match('/\.(php[0-9]?|phtml|phps|bak|swp|orig|save)$/i', $request_uri);
+$is_index_php = preg_match('/index\.php$/i', $request_uri);
+
+if ($is_direct_php_request && !$is_admin_path && !$is_index_php) {
+    log_suspicious_activity('Suspicious file access: ' . $request_uri);
     header('HTTP/1.1 403 Forbidden');
     exit('Access denied.');
 }
@@ -53,7 +54,8 @@ $routes = [
 
 // Get current URL and strip query strings for routing
 $request_uri = $_SERVER['REQUEST_URI'];
-$base_path = '/'; // Adjust if site is in subfolder
+// Auto-detect base path (works for both root and subfolders)
+$base_path = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
 $url = strtok(str_replace($base_path, '/', $request_uri), '?');
 if ($url !== '/' && substr($url, 0, 1) !== '/') $url = '/' . $url;
 

@@ -47,8 +47,10 @@ if ($_SESSION['lockout_time'] > time()) {
         
         // In production, you would fetch to google's verification API here 
         // using file_get_contents('https://www.google.com/recaptcha/api/siteverify...
-        // For now, simple presence check
-        if (empty($recaptcha_token) && empty($_POST['otp'])) {
+        // Simple presence check (Bypass for localhost development - ignoring ports)
+        $host = strtok($_SERVER['HTTP_HOST'] ?? 'localhost', ':');
+        $is_localhost = ($host === 'localhost' || $host === '127.0.0.1');
+        if (empty($recaptcha_token) && empty($_POST['otp']) && !$is_localhost) {
             $error = "Bot activity detected. reCAPTCHA challenge failed.";
             $_SESSION['login_attempts']++;
         } else {
@@ -121,7 +123,8 @@ if ($_SESSION['lockout_time'] > time()) {
                 } catch (PDOException $e) {
                     $error = "System Error: " . $e->getMessage();
                 }
-            } // ends normal login branch
+            } // ends validation block
+        } // ends normal login branch
         } // ends empty token check
     } // ends honeypot check
 } // ends POST check
@@ -131,17 +134,10 @@ header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Permissions-Policy: geolocation=(), microphone=()');
-header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com data:; connect-src 'self'; frame-ancestors 'self';');
+header("Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://cdnjs.cloudflare.com data:; connect-src 'self'; frame-ancestors 'self';");
 header('Cross-Origin-Opener-Policy: same-origin');
 header('Cross-Origin-Resource-Policy: same-origin');
 header_remove('X-Powered-By');
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
-    ini_set('session.use_strict_mode', '1');
-    ini_set('session.cookie_samesite', 'Strict');
-    session_start();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -393,12 +389,18 @@ if (session_status() === PHP_SESSION_NONE) {
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Authenticating... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'admin_login'}).then(function(token) {
-                    document.getElementById('recaptcha_token').value = token;
-                    form.submit();
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', {action: 'admin_login'}).then(function(token) {
+                        document.getElementById('recaptcha_token').value = token;
+                        form.submit();
+                    });
                 });
-            });
+            } else {
+                // Fallback for offline/local development
+                console.warn('reCAPTCHA could not be loaded. Proceeding in Local Mode.');
+                form.submit();
+            }
         });
     </script>
 </body>

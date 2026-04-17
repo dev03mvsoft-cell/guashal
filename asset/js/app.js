@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!window.viewer) {
                     window.viewer = pannellum.viewer('panorama', {
                         "type": "equirectangular",
-                        "panorama": "/asset/img/cow/ohhh.png",
+                        "panorama": `${window.GA_BASE_URL}/asset/img/cow/ohhh.png`,
                         "autoLoad": true,
                         "showControls": false
                     });
@@ -685,7 +685,7 @@ async function getAutoTranslation(text, targetLang) {
 
     // 2. Call Internal Server-side Bridge (MySQL + Google Engine)
     try {
-        const response = await fetch(`/api/translate.php?q=${encodeURIComponent(text)}&lang=${targetLang}`);
+        const response = await fetch(`${window.GA_BASE_URL}/api/translate.php?q=${encodeURIComponent(text)}&lang=${targetLang}`);
         const data = await response.json();
 
         if (data && data.translatedText) {

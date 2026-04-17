@@ -24,6 +24,12 @@ RewriteRule .* - [F]
 	Deny from all
 </FilesMatch>
 
+# Allow access to the router and sitemap
+<FilesMatch "^(index|sitemap)\.php$">
+	Order Allow,Deny
+	Allow from all
+</FilesMatch>
+
 # Prevent access to sensitive files
 <FilesMatch "\.(env|git|htaccess|htpasswd|ini|log|sh|bak|swp|orig|save)$">
 	Order allow,deny
@@ -32,6 +38,12 @@ RewriteRule .* - [F]
 
 # Prevent access to backup/config files
 <FilesMatch "(config|backup|db|mailer)\.(php|sql|bak|zip|tar|gz|7z)$">
+	Order allow,deny
+	Deny from all
+</FilesMatch>
+
+# Block development and setup scripts from public access
+<FilesMatch "^(setup_|db_|check_|test_|debug_|seed_|scratch/).*\.php$">
 	Order allow,deny
 	Deny from all
 </FilesMatch>

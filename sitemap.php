@@ -3,8 +3,9 @@ header("Content-Type: application/xml; charset=utf-8");
 
 // Detect protocol and host
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$base_url = $protocol . "://" . $host;
+// Auto-detect base folder to support subfolder installations
+$base_folder = rtrim(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '/');
+$base_url = $protocol . "://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $base_folder;
 
 // Define priority routes with SEO weight
 $routes = [

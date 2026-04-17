@@ -5,8 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Check if user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    // Redirect to login page
-    header('Location: /admin/login.php');
+    // Redirect to login page (using relative path to support subfolders)
+    header('Location: login.php');
     exit;
 }
 ?>

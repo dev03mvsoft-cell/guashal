@@ -35,7 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // reCAPTCHA Token Check
     $recaptcha_token = $_POST['recaptcha_token'] ?? '';
-    if (empty($recaptcha_token)) {
+    // Bypass for localhost development
+    $host = strtok($_SERVER['HTTP_HOST'] ?? 'localhost', ':');
+    $is_localhost = ($host === 'localhost' || $host === '127.0.0.1');
+
+    if (empty($recaptcha_token) && !$is_localhost) {
         echo json_encode(['success' => false, 'message' => 'Security challenge failed. Please refresh the page.']);
         exit;
     }
