@@ -1,6 +1,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Map sitemap.xml to sitemap.php
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
 # Redirect all requests that are not existing files or folders to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
