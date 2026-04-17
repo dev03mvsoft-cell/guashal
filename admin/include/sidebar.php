@@ -43,91 +43,91 @@
         <?php $current_page = $_SERVER['SCRIPT_NAME']; ?>
 
         <!-- Dashboard -->
-        <a href="/admin/index.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/index.php') !== false) ? 'bg-white/10 font-bold text-white shadow-lg' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
+        <a href="/admin/index.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/index.php') !== false) ? 'bg-white/10 font-bold text-white shadow-lg' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
             <i class="fas fa-home w-5 text-gold/80"></i>
-            <span class="text-xs uppercase tracking-widest">Dashboard</span>
+            <span class="text-[13px] uppercase tracking-widest">Dashboard</span>
         </a>
 
         <!-- Website Pages -->
         <?php $is_web = strpos($current_page, '/admin/gallery.php') !== false || strpos($current_page, '/admin/events/') !== false; ?>
         <details class="group" <?= $is_web ? 'open' : '' ?>>
-            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_web ? 'bg-white/5 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
+            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_web ? 'bg-white/5 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
                 <div class="flex items-center gap-4">
                     <i class="fas fa-globe w-5 text-saffron/80"></i>
-                    <span class="text-xs uppercase tracking-widest whitespace-nowrap">Website Edits</span>
+                    <span class="text-[13px] uppercase tracking-widest whitespace-nowrap">Website Edits</span>
                 </div>
                 <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
             </summary>
             <div class="pl-6 pr-4 py-2 ml-6 mt-1 border-l border-white/10 space-y-4">
-                <a href="/admin/gallery.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/gallery.php') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Gallery</a>
-                <a href="/admin/events/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/events/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Events</a>
+                <a href="/admin/gallery.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/gallery.php') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Gallery</a>
+                <a href="/admin/events/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/events/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Events</a>
             </div>
         </details>
 
         <!-- Our Info -->
         <?php $is_info = strpos($current_page, '/admin/team/') !== false || strpos($current_page, '/admin/founders/') !== false || strpos($current_page, '/admin/testimonials/') !== false; ?>
         <details class="group" <?= $is_info ? 'open' : '' ?>>
-            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_info ? 'bg-white/5 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
+            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_info ? 'bg-white/5 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
                 <div class="flex items-center gap-4">
                     <i class="fas fa-info-circle w-5 text-gold/80"></i>
-                    <span class="text-xs uppercase tracking-widest whitespace-nowrap">Our Info</span>
+                    <span class="text-[13px] uppercase tracking-widest whitespace-nowrap">Our Info</span>
                 </div>
                 <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
             </summary>
             <div class="pl-6 pr-4 py-2 ml-6 mt-1 border-l border-white/10 space-y-4">
-                <a href="/admin/team/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/team/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Team</a>
-                <a href="/admin/founders/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/founders/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Founders</a>
-                <a href="/admin/testimonials/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/testimonials/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Testimonials</a>
+                <a href="/admin/team/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/team/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Team</a>
+                <a href="/admin/founders/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/founders/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Founders</a>
+                <a href="/admin/testimonials/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/testimonials/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Testimonials</a>
             </div>
         </details>
 
         <!-- Donations -->
-        <?php $is_don = strpos($current_page, '/admin/transparency/') !== false || strpos($current_page, '/admin/contributions.php') !== false || strpos($current_page, '/admin/seva/') !== false || strpos($current_page, '/admin/donations.php') !== false; ?>
+        <?php $is_don = strpos($current_page, '/admin/transparency/') !== false || strpos($current_page, '/admin/contributions.php') !== false || strpos($current_page, '/admin/seva/') !== false || strpos($current_page, '/admin/donors/') !== false; ?>
         <details class="group" <?= $is_don ? 'open' : '' ?>>
-            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_don ? 'bg-white/5 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
+            <summary class="flex items-center justify-between p-4 rounded-2xl cursor-pointer list-none transition-all <?= $is_don ? 'bg-white/5 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
                 <div class="flex items-center gap-4">
                     <i class="fas fa-hand-holding-heart w-5 text-saffron/80"></i>
-                    <span class="text-xs uppercase tracking-widest whitespace-nowrap">Donations</span>
+                    <span class="text-[13px] uppercase tracking-widest whitespace-nowrap">Donations</span>
                 </div>
                 <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
             </summary>
             <div class="pl-6 pr-4 py-2 ml-6 mt-1 border-l border-white/10 space-y-4">
-                <a href="/admin/donations.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/donations.php') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Donation Logs</a>
-                <a href="/admin/transparency/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/transparency/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Transparency</a>
-                <a href="/admin/contributions.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/contributions.php') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Contributions</a>
-                <a href="/admin/seva/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/seva/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Add Seva</a>
-                <a href="/admin/donors/index.php" class="block text-[11px] uppercase tracking-widest <?= strpos($current_page, '/admin/donors/') !== false ? 'text-saffron font-bold' : 'text-white/50 hover:text-saffron transition-colors' ?>">Donate Wall</a>
+                <a href="/admin/donations.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/donations.php') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Donation Logs</a>
+                <a href="/admin/transparency/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/transparency/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Transparency</a>
+                <a href="/admin/contributions.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/contributions.php') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Contributions</a>
+                <a href="/admin/seva/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/seva/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Add Seva</a>
+                <a href="/admin/donors/index.php" class="block text-[12px] uppercase tracking-widest <?= strpos($current_page, '/admin/donors/') !== false ? 'text-saffron font-bold' : 'text-white/70 hover:text-saffron transition-colors' ?>">Donate Wall</a>
             </div>
         </details>
 
         <!-- Standalone -->
-        <a href="/admin/announcements.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/announcements.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
-            <i class="fas fa-bullhorn w-5 text-white/50"></i>
-            <span class="text-xs uppercase tracking-widest">Announcements</span>
+        <a href="/admin/announcements.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/announcements.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
+            <i class="fas fa-bullhorn w-5 text-gold/60"></i>
+            <span class="text-[13px] uppercase tracking-widest">Announcements</span>
         </a>
 
-        <a href="/admin/contact_requests.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/contact_requests.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
-            <i class="fas fa-envelope-open w-5 text-white/50"></i>
-            <span class="text-xs uppercase tracking-widest">Contact Leads</span>
+        <a href="/admin/contact_requests.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/contact_requests.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
+            <i class="fas fa-envelope-open w-5 text-saffron/60"></i>
+            <span class="text-[13px] uppercase tracking-widest">Contact Leads</span>
         </a>
 
         <?php if (($_SESSION['admin_role'] ?? '') === 'Super Admin'): ?>
-            <a href="/admin/manage_users.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/manage_users.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/60 hover:text-white hover:bg-white/5' ?>">
-                <i class="fas fa-user-lock w-5 text-white/50"></i>
-                <span class="text-xs uppercase tracking-widest">Access Mgmt</span>
+            <a href="/admin/manage_users.php" class="flex items-center gap-4 group p-4 rounded-2xl transition-all <?= (strpos($current_page, '/admin/manage_users.php') !== false) ? 'bg-white/10 font-bold text-white' : 'text-white/80 hover:text-white hover:bg-white/5' ?>">
+                <i class="fas fa-user-lock w-5 text-white/70"></i>
+                <span class="text-[13px] uppercase tracking-widest">Access Mgmt</span>
             </a>
         <?php endif; ?>
 
         <!-- Portal Actions -->
         <div class="pt-8 border-t border-white/5 mt-8 space-y-2">
-            <a href="/" target="_blank" class="flex items-center gap-4 text-white/40 hover:text-white p-3 hover:bg-white/5 rounded-2xl transition-all">
-                <i class="fas fa-external-link-alt w-5 text-[12px]"></i>
-                <span class="text-[11px] font-black uppercase tracking-widest">Live Website</span>
+            <a href="/" target="_blank" class="flex items-center gap-4 text-white/80 hover:text-white p-3 hover:bg-white/5 rounded-2xl transition-all">
+                <i class="fas fa-external-link-alt w-5 text-[14px]"></i>
+                <span class="text-[12px] font-black uppercase tracking-widest">Live Website</span>
             </a>
 
             <a href="/admin/logout.php" class="flex items-center gap-4 text-red-400 p-3 hover:bg-red-500/10 rounded-2xl transition-all mt-2 font-black border border-transparent hover:border-red-900/20 group">
-                <i class="fas fa-power-off w-5 text-[12px] group-hover:scale-110 transition-transform"></i>
-                <span class="text-[11px] uppercase tracking-widest">Secure Logout</span>
+                <i class="fas fa-power-off w-5 text-[14px] group-hover:scale-110 transition-transform"></i>
+                <span class="text-[12px] uppercase tracking-widest">Secure Logout</span>
             </a>
         </div>
     </nav>

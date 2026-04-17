@@ -48,125 +48,159 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seva Management - Admin Dashboard</title>
     <?php include '../include/head.php'; ?>
+    <?php include '../include/head.php'; ?>
     <style>
-        .grid-card {
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 4rem !important;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        .system-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0.25rem;
+        }
+        .system-table th {
+            text-align: left;
+            padding: 1rem 1rem;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            background: #2c4c3b;
+        }
+        .system-table thead tr th:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table thead tr th:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .system-table td {
+            padding: 0.5rem 1rem;
+            background: #fff;
+            vertical-align: middle;
+            transition: all 0.3s;
+        }
+        .system-table tr:hover td {
+            background: #f1f5f9;
+        }
+        .system-table tr td:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table tr td:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .glass-card {
             background: white;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .grid-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 40px 80px rgba(44, 76, 59, 0.12);
-            border-color: #FF6A00/20;
-        }
-
-        .icon-box {
-            height: 160px;
-            overflow: hidden;
-            position: relative;
-            border-radius: 3rem;
-            margin: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fff9f2;
-            border: 1px solid rgba(255, 106, 0, 0.1);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 
-<body class="md:h-screen bg-[#f9f7f4] flex flex-col md:flex-row overflow-hidden">
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
-
-    <main class="flex-1 p-6 lg:p-16 overflow-y-auto h-full">
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
         <div class="max-w-7xl mx-auto">
-            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
-                    <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature">Seva <span class="italic text-saffron">Opportunities</span></h1>
-                    <p class="text-gray-400 mt-3 text-[12px] font-black uppercase tracking-[0.3em]">Divine Service Configuration</p>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[13px] mb-2 block">Service Configuration</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight">Seva <span class="text-saffron italic">Opportunities</span></h1>
+                    <p class="text-nature/40 mt-1 text-[13px] font-medium tracking-wide">Registry of divine service options and holy offerings</p>
                 </div>
-                <div class="flex items-center gap-6">
-                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected?', 'The selected seva options will be deleted forever.');">
+                <div class="flex items-center gap-4">
+                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected sevas?', 'The selected divine services will be removed forever.');">
                         <input type="hidden" name="action" value="bulk_delete">
-                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10">
+                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10 transition-all">
                             <span class="text-[12px] font-black uppercase tracking-widest">Selected: <span id="selected-count">0</span></span>
-                            <button type="submit" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+                            <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:scale-110 transition-transform">
                                 <i class="fas fa-trash-alt text-[12px]"></i>
                             </button>
                         </div>
                     </form>
-                    <a href="editor.php" class="bg-nature text-white px-12 py-5 rounded-3xl font-black uppercase tracking-widest text-[11px] shadow-2xl shadow-nature/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-4">
-                        <i class="fa-solid fa-plus text-xs"></i> Create Seva Option
+                    <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
+                        <i class="fas fa-hand-holding-heart text-xs"></i> <span>Create Opportunity</span>
                     </a>
                 </div>
             </header>
 
-            <div class="mb-10 flex items-center px-4">
+            <?php if ($message || isset($_GET['msg'])): ?>
+                <div class="bg-nature/10 text-nature p-4 rounded-xl mb-8 font-bold text-sm border border-nature/20 animate-fade-in shadow-sm shadow-nature/5">
+                    <i class="fas fa-check-circle mr-2"></i> Seva archive successfully updated.
+                </div>
+            <?php endif; ?>
+
+            <div class="mb-6 flex items-center px-4">
                 <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded-lg border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
+                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
                     <span class="text-[12px] font-black uppercase tracking-widest text-nature/40 group-hover:text-nature transition-colors">Select All Sevas</span>
                 </label>
             </div>
 
-            <?php if ($message || isset($_GET['msg'])): ?>
-                <div class="bg-nature text-white p-6 rounded-[2.5rem] text-xs mb-16 flex items-center gap-4 border-l-8 border-saffron font-black uppercase tracking-widest animate-pulse">
-                    <i class="fa-solid fa-circle-check text-lg"></i> Sacred Seva Successfully Updated
-                </div>
-            <?php endif; ?>
-
-            <?php if (empty($sevas)): ?>
-                <div class="glass p-32 rounded-[5rem] border-2 border-dashed border-gray-100 text-center flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-hand-holding-heart text-8xl text-gray-100 mb-10"></i>
-                    <h3 class="text-2xl font-bold text-nature mb-4 uppercase tracking-widest">No Seva Options Found</h3>
-                    <p class="text-gray-400 text-sm max-w-sm leading-relaxed">Initialize the mission by creating your first service opportunity.</p>
-                </div>
-            <?php else: ?>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-                    <?php foreach ($sevas as $item): ?>
-                        <div class="grid-card">
-                            <div class="icon-box">
-                                <div class="flex flex-col items-center justify-center text-saffron">
-                                    <i class="<?= htmlspecialchars($item['icon_class'] ?: 'fas fa-heart') ?> text-6xl mb-4"></i>
-                                    <span class="text-[12px] font-black uppercase tracking-widest bg-saffron/10 px-4 py-1.5 rounded-full"><?= htmlspecialchars($item['color_class'] ?: 'Saffron') ?></span>
-                                </div>
-                                <div class="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-2 rounded-2xl shadow-sm text-center">
-                                    <p class="text-[9px] uppercase font-black text-gray-400">Sort: <?= $item['sort_order'] ?></p>
-                                </div>
-                            </div>
-
-                            <div class="p-10 pt-4 flex-1 flex flex-col">
-                                <h4 class="text-2xl font-bold text-nature mb-4 line-clamp-1 leading-tight"><?= htmlspecialchars($item['title_en']) ?></h4>
-                                <p class="text-gray-400 text-md mb-10 line-clamp-2 leading-relaxed italic"><?= htmlspecialchars($item['description_en'] ?: 'No description provided...') ?></p>
-
-                                <div class="mt-auto pt-8 border-t border-gray-50 flex items-center gap-6">
-                                    <a href="editor.php?id=<?= $item['id'] ?>" class="flex-1 bg-gray-50 text-nature py-5 rounded-[1.5rem] font-black uppercase tracking-widest text-[15px] hover:bg-saffron hover:text-white hover:shadow-xl transition-all text-center">
-                                        Refine Details
-                                    </a>
-                                    <div class="flex items-center gap-4">
-                                        <form method="POST" onsubmit="return confirmAction(event, 'Erase this seva?', 'This will remove the seva forever.');" class="inline">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                            <button type="submit" class="w-14 h-14 rounded-[1.5rem] bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
-                                                <i class="fa-solid fa-trash-can text-sm"></i>
-                                            </button>
-                                        </form>
-                                        <!-- Multi Select Checkbox -->
-                                        <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-6 h-6 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
+            <div class="glass-card !p-0 overflow-hidden shadow-sm">
+                <table class="system-table">
+                    <thead>
+                        <tr>
+                            <th class="w-12 h-16 pl-6">#</th>
+                            <th class="w-20">Symbol</th>
+                            <th>Seva Details</th>
+                            <th>Branding</th>
+                            <th class="w-24">Order</th>
+                            <th class="w-32 text-right pr-6">Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($sevas)): ?>
+                            <tr>
+                                <td colspan="6" class="text-center py-24">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-20 h-20 bg-nature/5 text-nature/10 rounded-full flex items-center justify-center text-4xl mb-4 italic"><i class="fas fa-hands-praying"></i></div>
+                                        <p class="text-nature/30 uppercase font-black tracking-widest text-[11px]">No seva opportunities defined yet</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($sevas as $item): ?>
+                                <tr class="group">
+                                    <td class="pl-6">
+                                        <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron cursor-pointer">
+                                    </td>
+                                    <td>
+                                        <div class="w-12 h-12 rounded-xl bg-nature/5 flex items-center justify-center text-nature text-xl border border-nature/5 shadow-inner">
+                                            <i class="<?= htmlspecialchars($item['icon_class'] ?: 'fas fa-heart') ?>"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-medium text-nature text-[16px] leading-tight mb-0.5"><?= htmlspecialchars($item['title_en']) ?></div>
+                                        <div class="text-[12px] text-nature/50 line-clamp-1 italic font-normal"><?= htmlspecialchars($item['description_en'] ?: 'No description provided...') ?></div>
+                                    </td>
+                                    <td>
+                                        <span class="px-4 py-1.5 rounded-full text-[11px] font-medium uppercase tracking-widest bg-saffron/10 text-saffron border border-saffron/20 leading-none">
+                                            <?= htmlspecialchars($item['color_class'] ?: 'Classic') ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="w-10 h-10 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center font-normal text-slate-400 text-xs">
+                                            <?= $item['sort_order'] ?>
+                                        </div>
+                                    </td>
+                                    <td class="pr-6 text-right">
+                                        <div class="flex justify-end items-center gap-3">
+                                            <a href="editor.php?id=<?= $item['id'] ?>" class="w-10 h-10 rounded-xl bg-nature/5 text-nature flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm border border-nature/10">
+                                                <i class="fas fa-edit text-[14px]"></i>
+                                            </a>
+                                            <form method="POST" onsubmit="return confirmAction(event, 'Purge Seva?', 'This will remove the divine service offering.');" class="inline">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                                                <button type="submit" class="w-10 h-10 rounded-xl bg-red-100/50 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center shadow-sm border border-red-200">
+                                                    <i class="fas fa-trash-alt text-[10px]"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
+</body>
+
+</html>
 </body>
 
 </html>

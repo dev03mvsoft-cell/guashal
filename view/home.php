@@ -817,7 +817,7 @@ try {
     </div>
 </section>
 
-<!-- 🐄 GAU DATT SEVA: Foster a Cow (Premium Call-to-Action) 🐄 -->
+<!-- 🐄 Gau Dattak SEVA: Foster a Cow (Premium Call-to-Action) 🐄 -->
 <section id="gau-datt" class="py-24 relative overflow-hidden bg-nature">
     <!-- Divine Pattern Overlay -->
     <div class="absolute inset-0 opacity-[0.05] pointer-events-none">
@@ -830,7 +830,7 @@ try {
             <!-- Visual Element -->
             <div class="lg:w-1/2 relative" data-aos="fade-right">
                 <div class="relative w-full aspect-square md:aspect-video rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/10 group">
-                    <img src="/asset/img/cow/gushala20.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[3s]" alt="Gau Datt Seva">
+                    <img src="/asset/img/cow/gushala20.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[3s]" alt="Gau Dattak Seva">
                     <div class="absolute inset-0 bg-gradient-to-t from-nature via-transparent to-transparent opacity-60"></div>
 
                     <!-- Emotional Badge -->
@@ -843,12 +843,13 @@ try {
             <!-- Content Element -->
             <div class="lg:w-1/2 text-white" data-aos="fade-left">
                 <span class="text-saffron uppercase tracking-[0.5em] text-[12px] font-black mb-4 block" data-lang="gau_datt_sub">Divine Foster Care</span>
-                <h2 class="text-4xl md:text-6xl font-display leading-tight mb-8 text-white" data-lang="gau_datt_title">Gau Datt <span class="italic text-gold italic">Seva</span></h2>
+                <h2 class="text-4xl md:text-6xl font-display leading-tight mb-8 text-white" data-lang="gau_datt_title">Gau Dattak <span class="italic text-gold italic">Seva</span></h2>
 
                 <div class="space-y-6 text-white/80 text-lg leading-relaxed mb-12">
                     <div class="lang-en">
                         <p class="mb-4">Living in a city often makes it impossible to keep our sacred Gau Mata at home. But your devotion shouldn't have to wait.</p>
-                        <p class="font-medium text-gold italic">Through "Gau Datt Seva", you can 'Adopt' a cow in our sanctuary. She stays in our loving care, while you support her monthly fodder and medical expenses.</p>
+                        <p class="font-medium text-gold italic">Now you can ‘raise’ your cow in our gaushala.
+                            You take care of her monthly expenses (fodder and medical care), and we will take care of her with love and service.</p>
                     </div>
 
                     <div class="lang-hi hidden font-hindi text-xl leading-relaxed">
@@ -1267,8 +1268,8 @@ try {
     <div class="container mx-auto px-10 md:px-16 lg:px-24 relative z-10">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-20" data-aos="fade-down">
-                <span class="text-saffron uppercase tracking-[0.5em] text-[12px] font-black mb-4 block">Help Center</span>
-                <h2 class="text-4xl md:text-6xl font-display leading-tight text-nature mb-6">
+                <span class="text-saffron uppercase tracking-[0.5em] text-[12px] font-black mb-4 block" data-lang="faq_help_center">Help Center</span>
+                <h2 class="text-4xl md:text-6xl font-display leading-tight text-nature mb-6" data-lang="faq_title">
                     Frequently <span class="italic text-gold">Asked</span> Questions
                 </h2>
                 <div class="section-divider mx-auto mt-8"></div>

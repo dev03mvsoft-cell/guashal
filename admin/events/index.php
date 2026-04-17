@@ -5,14 +5,26 @@ require_once '../../config/db.php';
 $message = '';
 $error = '';
 
-// Handle Delete (now inside Dashboard)
+// Handle Delete
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'delete') {
         $id = $_POST['id'];
         try {
+            // First fetch the image path to delete the file
+            $stmt = $pdo->prepare("SELECT image_path FROM events WHERE id = ?");
+            $stmt->execute([$id]);
+            $item = $stmt->fetch();
+            
+            if ($item && $item['image_path']) {
+                $file_path = '../../' . $item['image_path'];
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+
             $stmt = $pdo->prepare("DELETE FROM events WHERE id = ?");
             $stmt->execute([$id]);
-            $message = "Event expunged successfully!";
+            $message = "Sacred event erased from the holy chronicle.";
         } catch (PDOException $e) {
             $error = $e->getMessage();
         }
@@ -21,10 +33,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'bulk_delete' && !empty($_POST['selected_ids'])) {
         $ids = $_POST['selected_ids'];
         try {
+            // Fetch multiple image paths
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            $stmt = $pdo->prepare("SELECT image_path FROM events WHERE id IN ($placeholders)");
+            $stmt->execute($ids);
+            $files = $stmt->fetchAll();
+
+            foreach ($files as $f) {
+                if ($f['image_path']) {
+                    $file_path = '../../' . $f['image_path'];
+                    if (file_exists($file_path)) unlink($file_path);
+                }
+            }
+
             $stmt = $pdo->prepare("DELETE FROM events WHERE id IN ($placeholders)");
             $stmt->execute($ids);
-            $message = count($ids) . " events expunged successfully!";
+            $message = count($ids) . " chronicles purged successfully!";
         } catch (PDOException $e) {
             $error = $e->getMessage();
         }
@@ -37,141 +61,171 @@ try {
     $stmt = $pdo->query("SELECT * FROM events ORDER BY start_date DESC");
     if ($stmt) $events = $stmt->fetchAll();
 } catch (PDOException $e) {
-    $error = "Events archive unreachable.";
+    $error = "The archive is currently unreachable.";
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divine Chronicle - Admin Dashboard</title>
+    <title>Sacred Events Registry</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .grid-card {
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 4rem !important;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        .system-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0.25rem;
+        }
+        .system-table th {
+            text-align: left;
+            padding: 1rem 1rem;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            background: #2c4c3b;
+        }
+        .system-table thead tr th:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table thead tr th:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .system-table td {
+            padding: 0.5rem 1rem;
+            background: #fff;
+            vertical-align: middle;
+            transition: all 0.3s;
+        }
+        .system-table tr:hover td {
+            background: #f1f5f9;
+        }
+        .system-table tr td:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table tr td:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .glass-card {
             background: white;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .grid-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 40px 80px rgba(44, 76, 59, 0.12);
-            border-color: #FF6A00/20;
-        }
-
-        .image-box {
-            aspect-ratio: 16/10;
-            overflow: hidden;
-            position: relative;
-            border-radius: 3rem;
-            margin: 1rem;
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
     </style>
 </head>
-
-<body class="md:h-screen bg-[#f9f7f4] flex flex-col md:flex-row overflow-hidden">
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
-
-    <main class="flex-1 p-6 lg:p-16 overflow-y-auto h-full">
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
         <div class="max-w-7xl mx-auto">
-            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
-                    <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature">Divine <span class="italic text-saffron">Chronicle</span></h1>
-                    <p class="text-gray-400 mt-3 text-[12px] font-black uppercase tracking-[0.3em]">Guardian Mission Control</p>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[13px] mb-2 block">Divine Chronicles</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight">Master <span class="text-saffron italic">Events</span></h1>
+                    <p class="text-nature/40 mt-1 text-[13px] font-medium tracking-wide">Registry of historical and upcoming holy gatherings</p>
                 </div>
-                <div class="flex items-center gap-6">
-                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected events?', 'The selected gatherings will be removed from history forever.');">
+                <div class="flex items-center gap-4">
+                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected events?', 'The selected gatherings will be removed from history.');">
                         <input type="hidden" name="action" value="bulk_delete">
-                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10">
+                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10 transition-all">
                             <span class="text-[12px] font-black uppercase tracking-widest">Selected: <span id="selected-count">0</span></span>
-                            <button type="submit" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+                            <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:scale-110 transition-transform">
                                 <i class="fas fa-trash-alt text-[12px]"></i>
                             </button>
                         </div>
                     </form>
-                    <a href="editor.php" class="bg-nature text-white px-12 py-5 rounded-3xl font-black uppercase tracking-widest text-[11px] shadow-2xl shadow-nature/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-4">
-                        <i class="fa-solid fa-plus text-xs"></i> Schedule New Event
+                    <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
+                        <i class="fas fa-calendar-plus text-xs"></i> <span>Schedule New</span>
                     </a>
                 </div>
             </header>
 
-            <div class="mb-10 flex items-center px-4">
+            <?php if ($message || isset($_GET['msg'])): ?>
+                <div class="bg-nature/10 text-nature p-4 rounded-xl mb-8 font-bold text-sm border border-nature/20 animate-fade-in shadow-sm shadow-nature/5">
+                    <i class="fas fa-check-circle mr-2"></i> Event registry successfully updated.
+                </div>
+            <?php endif; ?>
+
+            <div class="mb-6 flex items-center px-4">
                 <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded-lg border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
+                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
                     <span class="text-[12px] font-black uppercase tracking-widest text-nature/40 group-hover:text-nature transition-colors">Select All Chronicles</span>
                 </label>
             </div>
 
-            <?php if ($message || isset($_GET['msg'])): ?>
-                <div class="bg-nature text-white p-6 rounded-[2.5rem] text-xs mb-16 flex items-center gap-4 border-l-8 border-saffron font-black uppercase tracking-widest animate-pulse">
-                    <i class="fa-solid fa-circle-check text-lg"></i> Sacred Update Successfully Synchronized
-                </div>
-            <?php endif; ?>
-
-            <?php if (empty($events)): ?>
-                <div class="glass p-32 rounded-[5rem] border-2 border-dashed border-gray-100 text-center flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-calendar-alt text-8xl text-gray-100 mb-10"></i>
-                    <h3 class="text-2xl font-bold text-nature mb-4 uppercase tracking-widest">Chronicle is Empty</h3>
-                    <p class="text-gray-400 text-sm max-w-sm leading-relaxed">No holy gatherings have been recorded in history yet. Start your journey today.</p>
-                </div>
-            <?php else: ?>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-                    <?php foreach ($events as $item):
-                        $is_past = strtotime($item['end_date'] ?: $item['start_date']) < time();
-                    ?>
-                        <div class="grid-card">
-                            <div class="image-box">
-                                <?php if ($item['image_path']): ?>
-                                    <img src="<?= htmlspecialchars($item['image_path']) ?>" class="w-full h-full object-cover">
-                                <?php else: ?>
-                                    <div class="w-full h-full bg-nature/5 flex items-center justify-center text-nature/10 text-6xl italic"><i class="fas fa-om"></i></div>
-                                <?php endif; ?>
-
-                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur px-6 py-4 rounded-3xl shadow-xl text-center min-w-[75px]">
-                                    <p class="text-[12px] uppercase font-black text-gray-400 mb-1"><?= date('M', strtotime($item['start_date'])) ?></p>
-                                    <p class="text-3xl font-bold text-nature leading-none"><?= date('d', strtotime($item['start_date'])) ?></p>
-                                </div>
-                            </div>
-
-                            <div class="p-10 pt-4 flex-1 flex flex-col">
-                                <h4 class="text-2xl font-bold text-nature mb-4 line-clamp-1 leading-tight"><?= htmlspecialchars($item['title']) ?></h4>
-                                <div class="flex items-center gap-2 mb-6 text-gray-400">
-                                    <i class="fa-solid fa-map-pin text-[12px] text-saffron"></i>
-                                    <span class="text-[11px] font-black uppercase tracking-widest"><?= htmlspecialchars($item['location'] ?: 'Main Campus') ?></span>
-                                </div>
-
-                                <p class="text-gray-400 text-md mb-10 line-clamp-2 leading-relaxed italic"><?= htmlspecialchars($item['description'] ?: 'Sacred details awaiting record...') ?></p>
-
-                                <div class="mt-auto pt-8 border-t border-gray-50 flex items-center gap-6">
-                                    <a href="editor.php?id=<?= $item['id'] ?>" class="flex-1 bg-gray-50 text-nature py-5 rounded-[1.5rem] font-black uppercase tracking-widest text-[12px] hover:bg-saffron hover:text-white hover:shadow-xl transition-all text-center">
-                                        Refine Event
-                                    </a>
-                                    <div class="flex items-center gap-4">
-                                        <form method="POST" onsubmit="return confirmAction(event, 'Erase from history?', 'This event record will be lost.');" class="inline">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                            <button type="submit" class="w-14 h-14 rounded-[1.5rem] bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
-                                                <i class="fa-solid fa-trash-can text-sm"></i>
-                                            </button>
-                                        </form>
-                                        <!-- Multi Select Checkbox -->
-                                        <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-6 h-6 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
+            <div class="glass-card !p-0 overflow-hidden shadow-sm">
+                <table class="system-table">
+                    <thead>
+                        <tr>
+                            <th class="w-12 h-16 pl-6">#</th>
+                            <th class="w-20">Media</th>
+                            <th>Event Details</th>
+                            <th>Date & Time</th>
+                            <th>Venue Info</th>
+                            <th class="w-32 text-right pr-6">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($events)): ?>
+                            <tr>
+                                <td colspan="6" class="text-center py-24">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-20 h-20 bg-nature/5 text-nature/10 rounded-full flex items-center justify-center text-4xl mb-4 italic"><i class="fas fa-calendar-alt"></i></div>
+                                        <p class="text-nature/30 uppercase font-black tracking-widest text-[11px]">No chronicles recorded yet</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($events as $item): 
+                                $is_past = strtotime($item['end_date'] ?: $item['start_date']) < time();
+                            ?>
+                                <tr class="group">
+                                    <td class="pl-6">
+                                        <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron cursor-pointer">
+                                    </td>
+                                    <td>
+                                        <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-nature/5">
+                                            <?php if ($item['image_path']): ?>
+                                                <img src="../../<?= htmlspecialchars($item['image_path']) ?>" class="w-full h-full object-cover">
+                                            <?php else: ?>
+                                                <div class="w-full h-full bg-nature/5 flex items-center justify-center font-black text-nature/10 text-xs italic"><i class="fas fa-om"></i></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-medium text-nature text-[16px] leading-tight mb-0.5"><?= htmlspecialchars($item['title']) ?></div>
+                                        <div class="text-[11px] font-medium uppercase tracking-widest <?= $is_past ? 'text-gray-400' : 'text-saffron' ?>">
+                                            <?= $is_past ? 'Concluded' : 'Active' ?>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-[14px] font-medium text-nature/80"><?= date('d M, Y', strtotime($item['start_date'])) ?></div>
+                                        <div class="text-[11px] font-normal uppercase text-nature/30 tracking-tighter italic"><?= date('l', strtotime($item['start_date'])) ?></div>
+                                    </td>
+                                    <td>
+                                        <div class="flex items-center gap-2 text-nature/60">
+                                            <i class="fas fa-map-marker-alt text-[10px] text-saffron"></i>
+                                            <span class="text-[12px] font-medium"><?= htmlspecialchars($item['location'] ?: 'Main Campus') ?></span>
+                                        </div>
+                                    </td>
+                                    <td class="pr-6 text-right">
+                                        <div class="flex justify-end items-center gap-3">
+                                            <a href="editor.php?id=<?= $item['id'] ?>" class="w-10 h-10 rounded-xl bg-nature/5 text-nature flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm border border-nature/10">
+                                                <i class="fas fa-edit text-[14px]"></i>
+                                            </a>
+                                            <form method="POST" onsubmit="return confirmAction(event, 'Purge Event?', 'This record will be removed from history.');" class="inline">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                                                <button type="submit" class="w-10 h-10 rounded-xl bg-red-100/50 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center shadow-sm border border-red-200">
+                                                    <i class="fas fa-trash-alt text-[10px]"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
-
 </html>

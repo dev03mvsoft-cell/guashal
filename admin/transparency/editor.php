@@ -52,161 +52,156 @@ if (isset($_GET['id'])) {
     <title><?= $edit_data ? 'Update' : 'Initialize' ?> Expenditure - Admin Dashboard</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .editor-container {
-            background: white;
-            border-radius: 4rem;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
-        }
-
-        .input-premium {
-            background: #f9f9f9;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 1.5rem;
-            padding: 1.25rem 1.75rem;
+        .system-input {
+            background: #fff;
+            border: 2px solid #f8fafc;
+            border-radius: 1rem;
+            padding: 0.6rem 1.25rem;
             width: 100%;
-            transition: all 0.3s;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #2c4c3b;
+            transition: all 0.4s;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
-
-        .input-premium:focus {
-            outline: none;
-            border-color: #FF6A00;
-            background: white;
-            box-shadow: 0 0 0 5px rgba(255, 106, 0, 0.1);
-        }
-
-        .color-card {
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-            border-radius: 2rem;
-            overflow: hidden;
-        }
-
-        .color-card:hover {
-            transform: scale(1.05);
-        }
-
-        .peer:checked+.color-card {
+        .system-input:focus {
             border-color: #2c4c3b;
-            transform: scale(1.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(44, 76, 59, 0.1);
+            outline: none;
+        }
+        .glass-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
+        }
+        .label-system {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #475569;
+            margin-bottom: 0.5rem;
+            display: block;
+            margin-left: 0.25rem;
+        }
+        .color-dot {
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 1rem;
+            border: 2px solid transparent;
+        }
+        .peer:checked + .color-dot {
+            border-color: #2c4c3b;
+            transform: scale(1.05);
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-[#f7f5f2] flex flex-col md:flex-row">
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 lg:p-16 overflow-y-auto">
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
         <div class="max-w-4xl mx-auto">
-            <header class="mb-16 flex justify-between items-center">
+            <header class="mb-8 flex justify-between items-center">
                 <div>
-                    <a href="index.php" class="text-gray-400 hover:text-nature flex items-center gap-2 font-black text-[12px] uppercase tracking-widest mb-4">
-                        <i class="fa-solid fa-arrow-left"></i> Return to Ledger
-                    </a>
+                    <span class="text-saffron font-bold uppercase tracking-[0.3em] text-[12px] mb-1 block">Ledger Registry</span>
                     <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature"><?= $edit_data ? 'Refine' : 'Add' ?> <span class="italic text-saffron">Expenditure</span></h1>
-                    <p class="text-[12px] font-black uppercase text-gray-300 tracking-[0.2em] mt-2">Financial Integrity Protocol • Manual Entry</p>
                 </div>
+                <a href="index.php" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-nature/40 hover:text-red-500 hover:rotate-90 transition-all shadow-md border border-gray-100">
+                    <i class="fas fa-times text-lg"></i>
+                </a>
             </header>
 
             <?php if ($error): ?>
-                <div class="bg-red-50 text-red-500 p-6 rounded-3xl mb-12 font-bold text-[12px] border-l-4 border-red-500 shadow-sm"><?= $error ?></div>
+                <div class="bg-red-50 text-red-500 p-4 rounded-xl mb-8 font-bold text-xs border border-red-100 shadow-sm"><?= $error ?></div>
             <?php endif; ?>
 
-            <div class="editor-container">
-                <form method="POST" class="p-12 lg:p-20 space-y-12">
-                    <input type="hidden" name="action" value="save">
-                    <?php if ($edit_data): ?>
-                        <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
-                    <?php endif; ?>
+            <form method="POST" class="space-y-6 pb-20">
+                <input type="hidden" name="action" value="save">
+                <?php if ($edit_data): ?>
+                    <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
+                <?php endif; ?>
 
-                    <!-- Spectral Classification (Color Selection) -->
+                <div class="glass-card" data-aos="fade-up">
                     <div class="space-y-6">
-                        <label class="block text-[12px] uppercase tracking-[0.3em] text-gray-400 font-black mb-8 text-center">Vedic Color Classification</label>
-                        <div class="grid grid-cols-3 gap-8">
-                            <?php
-                            $pallatte = [
-                                'bg-saffron' => ['hex' => '#FF6A00', 'label' => 'Strategic Charge'],
-                                'bg-nature' => ['hex' => '#2c4c3b', 'label' => 'Natural Flow'],
-                                'bg-gold' => ['hex' => '#FFD700', 'label' => 'Abundant Value']
-                            ];
-                            foreach ($pallatte as $class => $meta): ?>
-                                <label class="relative block">
-                                    <input type="radio" name="color_class" value="<?= $class ?>" class="hidden peer" <?= (!$edit_data && $class == 'bg-saffron') || ($edit_data && $edit_data['color_class'] == $class) ? 'checked' : '' ?>>
-                                    <div class="color-card h-24 <?= $class ?> flex flex-col items-center justify-center p-4">
-                                        <i class="fas fa-check text-white opacity-0 peer-checked:opacity-100 transition-opacity mb-2"></i>
-                                        <p class="text-[12px] font-black uppercase tracking-widest text-white/70"><?= $meta['label'] ?></p>
-                                    </div>
-                                </label>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div class="md:col-span-2">
-                            <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3 px-1">Expenditure Title</label>
-                            <input type="text" name="name_en" class="input-premium lg:text-2xl" value="<?= $edit_data ? htmlspecialchars($edit_data['name_en']) : '' ?>" placeholder="e.g. Pure Green Fodder" required>
-                        </div>
-
-                        <div class="md:col-span-2 bg-nature/[0.02] p-10 rounded-[3rem] border border-nature/5">
-                            <label class="block text-[12px] uppercase tracking-widest text-nature/40 font-black mb-8 text-center italic">Metric Values</label>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <div>
-                                    <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3">Quantity</label>
-                                    <input type="text" name="quantity" class="input-premium text-center" value="<?= $edit_data ? htmlspecialchars($edit_data['quantity']) : '' ?>" placeholder="2000" required>
-                                </div>
-                                <div>
-                                    <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3">Unit Type</label>
-                                    <select name="unit_name" class="input-premium appearance-none bg-white">
-                                        <?php
-                                        $units = ['Units', 'KG', 'Gram', 'Litre', 'SQ. FT', 'System', 'Sets', 'Monthly', 'Annual'];
-                                        foreach ($units as $u): ?>
-                                            <option value="<?= $u ?>" <?= ($edit_data && $edit_data['unit_name'] == $u) ? 'selected' : '' ?>><?= $u ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3">Price Per Unit (₹)</label>
-                                    <input type="text" name="unit_price" class="input-premium text-center" value="<?= $edit_data ? htmlspecialchars($edit_data['unit_price']) : '' ?>" placeholder="500" required>
-                                </div>
-                                <div>
-                                    <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3">Sort Order</label>
-                                    <input type="number" name="sort_order" class="input-premium text-center" value="<?= $edit_data ? $edit_data['sort_order'] : '0' ?>">
-                                </div>
-                                <div class="col-span-4">
-                                    <label class="block text-[12px] uppercase tracking-widest text-nature/40 font-black mb-3 border-t border-nature/5 pt-4">Manual Progress Tracking (Target vs Current)</label>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-2 opacity-50">Target Goal</label>
-                                            <input type="number" name="target_val" class="input-premium bg-saffron/5" value="<?= $edit_data ? ($edit_data['target_val'] ?? 10000) : '10000' ?>" placeholder="10000">
-                                        </div>
-                                        <div>
-                                            <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-2 opacity-50">Current Progress</label>
-                                            <input type="number" name="current_val" class="input-premium bg-nature/5" value="<?= $edit_data ? ($edit_data['current_val'] ?? 0) : '0' ?>" placeholder="5000">
-                                        </div>
-                                    </div>
+                        <!-- Header Row: Title & Colors -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                            <div class="md:col-span-2 space-y-1">
+                                <label class="label-system">Expenditure Title</label>
+                                <input type="text" name="name_en" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['name_en']) : '' ?>" placeholder="e.g. Pure Green Fodder" required>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="label-system text-center">Vedic Theme</label>
+                                <div class="flex justify-center gap-3">
+                                    <?php
+                                    $pallatte = [
+                                        'bg-saffron' => '#FF6A00',
+                                        'bg-nature' => '#2c4c3b',
+                                        'bg-gold' => '#FFD700'
+                                    ];
+                                    foreach ($pallatte as $class => $hex): ?>
+                                        <label class="relative block">
+                                            <input type="radio" name="color_class" value="<?= $class ?>" class="hidden peer" <?= (!$edit_data && $class == 'bg-saffron') || ($edit_data && $edit_data['color_class'] == $class) ? 'checked' : '' ?>>
+                                            <div class="color-dot w-9 h-9 <?= $class ?> flex items-center justify-center p-1 border-2 border-white shadow-sm cursor-pointer">
+                                                <i class="fas fa-check text-white text-[9px] opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                            </div>
+                                        </label>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="md:col-span-2">
-                            <label class="block text-[12px] uppercase tracking-widest text-gray-400 font-black mb-3 px-1 text-center">Total Channel Value (Display String)</label>
-                            <input type="text" name="total_amount" class="input-premium bg-gold/5 border-gold/10 text-center text-3xl font-display italic tracking-tighter" value="<?= $edit_data ? htmlspecialchars($edit_data['total_amount']) : '' ?>" placeholder="₹ 1,300,000" required>
+                        <!-- Metrics Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-50/50 p-6 rounded-2xl border border-slate-100/50">
+                            <div class="space-y-1">
+                                <label class="label-system">Quantity</label>
+                                <input type="text" name="quantity" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['quantity']) : '' ?>" placeholder="2000" required>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="label-system">Unit Type</label>
+                                <select name="unit_name" class="system-input">
+                                    <?php
+                                    $units = ['Units', 'KG', 'Gram', 'Litre', 'SQ. FT', 'System', 'Sets', 'Monthly', 'Annual'];
+                                    foreach ($units as $u): ?>
+                                        <option value="<?= $u ?>" <?= ($edit_data && $edit_data['unit_name'] == $u) ? 'selected' : '' ?>><?= $u ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="label-system">Price/Unit (₹)</label>
+                                <input type="text" name="unit_price" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['unit_price']) : '' ?>" placeholder="500" required>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="label-system">Sort Order</label>
+                                <input type="number" name="sort_order" class="system-input" value="<?= $edit_data ? $edit_data['sort_order'] : '0' ?>">
+                            </div>
+                        </div>
+
+                        <!-- Total & Progress -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-1 space-y-1">
+                                <label class="label-system">Target Goal</label>
+                                <input type="number" name="target_val" class="system-input" value="<?= $edit_data ? ($edit_data['target_val'] ?? 10000) : '10000' ?>">
+                            </div>
+                            <div class="md:col-span-1 space-y-1">
+                                <label class="label-system">Current Progress</label>
+                                <input type="number" name="current_val" class="system-input" value="<?= $edit_data ? ($edit_data['current_val'] ?? 0) : '0' ?>">
+                            </div>
+                            <div class="md:col-span-1 space-y-1">
+                                <label class="label-system">Total Amount (Display)</label>
+                                <input type="text" name="total_amount" class="system-input font-bold text-nature" value="<?= $edit_data ? htmlspecialchars($edit_data['total_amount']) : '' ?>" placeholder="₹ 1,30,000" required>
+                            </div>
+                        </div>
+
+                        <div class="pt-6">
+                            <button type="submit" class="w-full bg-nature text-white py-4 rounded-2xl font-bold uppercase tracking-[0.2em] text-[13px] shadow-lg hover:bg-black transition-all duration-300 transform hover:scale-[1.01]">
+                                <i class="fas fa-check-circle mr-2 opacity-50"></i> <?= $edit_data ? 'Update Expenditure' : 'Commit to Ledger' ?>
+                            </button>
                         </div>
                     </div>
-
-                    <button type="submit" class="w-full bg-nature text-white py-6 rounded-[2.5rem] font-black uppercase tracking-widest text-[15px] shadow-2xl hover:bg-black hover:scale-[1.02] active:scale-95 transition-all">
-                        <?= $edit_data ? 'Update Financial Record' : 'Commit to Ledger' ?>
-                    </button>
-
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </main>
 </body>
-
 </html>

@@ -351,7 +351,20 @@ const translations = {
         'footer_quick_links': 'Quick Links', 'footer_contact_us': 'Get In Touch',
         'footer_address': 'Shri Gau Rakshak Seva Samiti,<br>Survey No. 129, Behind Rajvi Resort, <br>Galpadar, Gandhidham - Kutch.',
         'footer_open_daily': 'Open Daily: 6:00 AM – 8:00 PM', 'footer_privacy': 'Privacy Policy', 'footer_terms': 'Terms of Use',
-        'footer_rights': 'All Rights Reserved.'
+        'footer_rights': 'All Rights Reserved.',
+        'faq_help_center': 'Help Center',
+        'faq_title': 'Frequently <span class="italic text-gold">Asked</span> Questions',
+        'donate_now': 'Donate Now',
+        'faq1_q': 'How are donations used at Gaushala?',
+        'faq1_a': '100% of your donation goes directly towards the care of our cows — including feed, medicines, veterinary surgeries, shelter construction, and staff salaries.',
+        'faq2_q': 'Can I visit the Gaushala and meet the cows?',
+        'faq2_a': 'Absolutely! We welcome visitors and devotees. You can visit our sanctuary, participate in Gau Seva, and even feed the cows yourself.',
+        'faq3_q': 'How do I adopt a cow or calf for a month?',
+        'faq3_a': 'You can select the "Adopt Cow for 1 Month" option from our Seva menu and complete a simple donation form.',
+        'faq4_q': 'Is Gaushala registered and tax-exempt?',
+        'faq4_a': 'Yes. Our organization is a registered trust and all donations are eligible for tax deduction under Section 80G.',
+        'faq5_q': 'What happens to the stray cattle you rescue?',
+        'faq5_a': 'Each rescued cow undergoes a full health assessment. They receive emergency treatment and are assigned a permanent space in our sanctuary.'
     },
     'hi': {
         'nav_home': 'मुख्य पृष्ठ', 'nav_about': 'हमारे बारे में', 'nav_contact': 'संपर्क', 'nav_donate': 'दान दें',
@@ -474,7 +487,20 @@ const translations = {
         'footer_quick_links': 'महत्वपूर्ण लिंक', 'footer_contact_us': 'संपर्क',
         'footer_address': 'श्री गौ रक्षक सेवा समिति,<br>सर्वे नं. 129, राजवी रिसॉर्ट के पीछे, <br>गलपादर, गांधीधाम - कच्छ।',
         'footer_open_daily': 'प्रतिदिन खुला: सुबह 6:00 - रात 8:00', 'footer_privacy': 'गोपनीयता नीति', 'footer_terms': 'उपयोग की शर्तें',
-        'footer_rights': 'सर्वाधिकार सुरक्षित।'
+        'footer_rights': 'सर्वाधिकार सुरक्षित।',
+        'faq_help_center': 'सहायता केंद्र',
+        'faq_title': 'अक्सर पूछे जाने वाले <span class="italic text-gold">प्रश्न</span>',
+        'donate_now': 'दान दें',
+        'faq1_q': 'गौशाला में दान का उपयोग कैसे किया जाता है?',
+        'faq1_a': 'आपके दान का 100% सीधे हमारी गायों की देखभाल में जाता है - जिसमें चारा, दवाएं, पशु चिकित्सा सर्जरी, आश्रय निर्माण और कर्मचारियों का वेतन शामिल है।',
+        'faq2_q': 'क्या मैं गौशाला जा सकता हूँ और गायों से मिल सकता हूँ?',
+        'faq2_a': 'बिल्कुल! हम आगंतुकों और भक्तों का स्वागत करते हैं। आप हमारे अभयारण्य में आ सकते हैं, गौ सेवा में भाग ले सकते हैं, और यहाँ तक कि गायों को खुद खिला भी सकते हैं।',
+        'faq3_q': 'मैं एक महीने के लिए गाय या बछड़ा कैसे गोद ले सकता हूँ?',
+        'faq3_a': 'आप हमारे सेवा मेनू से "1 महीने के लिए गाय गोद लें" विकल्प चुन सकते हैं और एक सरल दान फॉर्म पूरा कर सकते हैं।',
+        'faq4_q': 'क्या गौशाला पंजीकृत और कर-मुक्त है?',
+        'faq4_a': 'हाँ। हमारा संगठन एक पंजीकृत ट्रस्ट है और सभी दान धारा 80G के तहत आयकर छूट के लिए पात्र हैं।',
+        'faq5_q': 'आपके द्वारा बचाए गए आवारा पशुओं का क्या होता है?',
+        'faq5_a': 'प्रत्येक बचाई गई गाय का पूर्ण स्वास्थ्य मूल्यांकन किया जाता है। उन्हें आपातकालीन उपचार मिलता है और हमारे अभयारण्य में एक स्थायी स्थान दिया जाता है।'
     },
     'gu': {
         'nav_home': 'હોમ', 'nav_about': 'અમારા વિશે', 'nav_contact': 'સંપર્ક કરો', 'nav_donate': 'દાન આપો',
@@ -597,7 +623,20 @@ const translations = {
         'footer_quick_links': 'મહત્વપૂર્ણ લિંક્સ', 'footer_contact_us': 'સંપર્ક',
         'footer_address': 'શ્રી ગૌ રક્ષક સેવા સમિતિ,<br>સર્વે નં. ૧૨૯, રાજવી રીસોર્ટ ની પાછળ, <br>ગળપાદર, ગાંધીધામ - કચ્છ.',
         'footer_open_daily': 'દરરોજ ખુલ્લું: સવારે ૬:૦૦ – રાત્રે ૮:૦૦', 'footer_privacy': 'ગોપનીયતા નીતિ', 'footer_terms': 'વપરાશની શરતો',
-        'footer_rights': 'તમામ હકો અનામત.'
+        'footer_rights': 'તમામ હકો અનામત.',
+        'faq_help_center': 'મદદ કેન્દ્ર',
+        'faq_title': 'વારંવાર પૂછાતા <span class="italic text-gold">પ્રશ્નો</span>',
+        'donate_now': 'દાન આપો',
+        'faq1_q': 'ગૌશાળામાં દાનનો ઉપયોગ કેવી રીતે થાય છે?',
+        'faq1_a': 'તમારા દાનના 100% સીધા જ અમારી ગાયોની સંભાળમાં વપરાય છે - જેમાં ઘાસચારો, દવાઓ, પશુ ચિકિત્સા સર્જરી, આશ્રય નિર્માણ અને સ્ટાફના પગારનો સમાવેશ થાય છે.',
+        'faq2_q': 'શું હું ગૌશાળાની મુલાકાત લઈ શકું અને ગાયોને મળી શકું?',
+        'faq2_a': 'ચોક્કસ! અમે મુલાકાતીઓ અને ભક્તોનું સ્વાગત કરીએ છીએ. તમે અમારા આશ્રમની મુલાકાત લઈ શકો છો, ગૌ સેવામાં ભાગ લઈ શકો છો અને ગાયોને જાતે ખવડાવી પણ શકો છો.',
+        'faq3_q': 'હું એક મહિના માટે ગાય અથવા વાછરડાને કેવી રીતે દત્તક લઈ શકું?',
+        'faq3_a': 'તમે અમારા સેવા મેનૂમાંથી "1 મહિના માટે ગાય દત્તક લો" વિકલ્પ પસંદ કરી શકો છો અને એક સરળ દાન ફોર્મ ભરી શકો છો.',
+        'faq4_q': 'શું ગૌશાળા નોંધાયેલ છે અને કરમુક્ત છે?',
+        'faq4_a': 'હા. અમારી સંસ્થા એક રજિસ્ટર્ડ ટ્રસ્ટ છે અને તમામ દાન આવકવેરાની કલમ 80G હેઠળ કર મુક્તિ માટે પાત્ર છે.',
+        'faq5_q': 'તમે બચાવેલા રઝળતા પશુઓનું શું થાય છે?',
+        'faq5_a': 'દરેક બચાવેલ ગાયનું સંપૂર્ણ સ્વાસ્થ્ય પરીક્ષણ કરવામાં આવે છે. તેમને તાત્કાલિક સારવાર આપવામાં આવે છે અને અમારા આશ્રમમાં કાયમી જગ્યા આપવામાં આવે છે.'
     }
 };
 

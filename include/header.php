@@ -248,6 +248,7 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2M01098BDS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -373,7 +374,7 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
                         </div>
                     </li>
                     <li><a href="/gallery" class="hover:text-gold transition-colors text-[15px]" data-lang="nav_gallery">Gallery</a></li>
-                    
+
                     <!-- Updates Dropdown -->
                     <li class="relative group">
                         <a href="/announcements" class="hover:text-gold transition-all duration-500 flex items-center gap-2 py-4 text-[15px]" data-lang="nav_updates">

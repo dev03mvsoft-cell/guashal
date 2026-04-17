@@ -97,7 +97,7 @@
                                     <option value="Volunteer Sewa & Service" class="text-nature">Volunteer Sewa & Service</option>
                                     <option value="Donation Inquiry" class="text-nature">Donation Inquiry</option>
                                     <option value="Visit Sacred Sanctuary" class="text-nature">Visit Sacred Sanctuary</option>
-                                    <option value="Gau Datt (Cow Foster Care)" class="text-nature">Gau Datt (Cow Foster Care)</option>
+                                    <option value="Gau Dattak (Cow Foster Care)" class="text-nature">Gau Dattak (Cow Foster Care)</option>
                                 </select>
                                 <div class="absolute right-0 bottom-4 pointer-events-none text-gold">
                                     <i class="fas fa-chevron-down text-xs"></i>

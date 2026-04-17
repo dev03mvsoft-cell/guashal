@@ -6,7 +6,7 @@ require_once '../../config/db.php';
 // Handle Delete
 if (isset($_POST['action']) && $_POST['action'] === 'delete') {
     $id = $_POST['id'];
-    
+
     // Cleanup Image File
     $stmt = $pdo->prepare("SELECT image_path FROM team WHERE id = ?");
     $stmt->execute([$id]);
@@ -22,7 +22,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete') {
 if (isset($_POST['action']) && $_POST['action'] === 'bulk_delete' && !empty($_POST['selected_ids'])) {
     $ids = $_POST['selected_ids'];
     $placeholders = implode(',', array_fill(0, count($ids), '?'));
-    
+
     // Cleanup Image Files for all selected
     $stmt = $pdo->prepare("SELECT image_path FROM team WHERE id IN ($placeholders)");
     $stmt->execute($ids);
@@ -53,124 +53,161 @@ try {
     <title>Sacred Guardians - Gaushala Admin</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .guardian-card {
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .system-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0.25rem;
         }
-
-        .guardian-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 50px 100px -20px rgba(44, 76, 59, 0.15);
-            border-color: #FF6A00;
+        .system-table th {
+            text-align: left;
+            padding: 1rem 1rem;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            background: #2c4c3b;
         }
-
-        .image-glow {
-            position: absolute;
-            inset: -1px;
-            background: linear-gradient(to bottom, #FF6A00, transparent);
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 1;
-            border-radius: inherit;
+        .system-table thead tr th:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table thead tr th:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .system-table td {
+            padding: 0.5rem 1rem;
+            background: #fff;
+            vertical-align: middle;
+            transition: all 0.3s;
         }
-
-        .guardian-card:hover .image-glow {
-            opacity: 0.1;
+        .system-table tr:hover td {
+            background: #f1f5f9;
+        }
+        .system-table tr td:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table tr td:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .glass-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 
-<body class="md:h-screen flex flex-col md:flex-row bg-[#faf8f6] text-nature/80 overflow-hidden">
-
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
-
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto h-full">
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
         <div class="max-w-7xl mx-auto">
-
-            <!-- Hero Header -->
-            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
-                    <h1 style="font-family: 'Playfair Display';" class="text-6xl font-bold text-nature mb-4 tracking-tight">Management <span class="italic text-[#FF6A00]">Team</span></h1>
-                    <div class="flex items-center gap-6 text-[12px] tracking-[0.4em] font-black text-nature/40 uppercase">
-                        <span>Sanctuary Guardians</span>
-                        <div class="w-1.5 h-1.5 bg-[#FF6A00] rounded-full animate-pulse"></div>
-                        <span class="text-[#FF6A00]"><?= count($items) ?> Divine Souls</span>
-                    </div>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[13px] mb-2 block">Personnel Oversight</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight">Management <span class="text-saffron italic">Team</span></h1>
+                    <p class="text-nature/40 mt-1 text-[13px] font-medium tracking-wide">Registry of divine souls serving the sanctuary</p>
                 </div>
-                <div class="flex items-center gap-6">
-                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected?', 'The selected members will be released from the council.');">
+                <div class="flex items-center gap-4">
+                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected members?', 'The selected personnel will be released from the council.');">
                         <input type="hidden" name="action" value="bulk_delete">
-                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-[2rem] border border-red-100 shadow-xl shadow-red-500/10 transition-all">
+                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10 transition-all">
                             <span class="text-[12px] font-black uppercase tracking-widest">Selected: <span id="selected-count">0</span></span>
-                            <button type="submit" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+                            <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:scale-110 transition-transform">
                                 <i class="fas fa-trash-alt text-[12px]"></i>
                             </button>
                         </div>
                     </form>
-                    <a href="editor.php" class="bg-nature text-white px-10 py-5 rounded-[2rem] font-bold text-[15px] shadow-2xl hover:shadow-[#FF6A00]/20 hover:bg-[#FF6A00] transition-all flex items-center gap-4 group">
-                        <i class="fas fa-plus-circle text-xl group-hover:rotate-90 transition-transform"></i>
-                        <span>Onboard Member</span>
+                    <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
+                        <i class="fas fa-plus text-xs"></i> <span>Onboard Member</span>
                     </a>
                 </div>
             </header>
 
-            <div class="mb-12 flex items-center px-4">
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-6 h-6 rounded-lg border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
-                    <span class="text-[12px] font-black uppercase tracking-[0.3em] text-nature/20 group-hover:text-nature transition-colors">Select All Guardians</span>
-                </label>
-            </div>
-
             <?php if (isset($_GET['msg'])): ?>
-                <div class="bg-white border-l-8 border-nature p-8 rounded-[2.5rem] mb-16 shadow-2xl flex items-center gap-6 animate-slide-in">
-                    <div class="w-12 h-12 bg-nature/5 text-nature rounded-full flex items-center justify-center text-xl shadow-inner italic font-display">G</div>
-                    <span class="text-[15px] font-bold tracking-widest leading-loose text-nature/60 italic"><?= htmlspecialchars($_GET['msg']) ?></span>
+                <div class="bg-nature/10 text-nature p-4 rounded-xl mb-8 font-bold text-sm border border-nature/20 animate-fade-in shadow-sm shadow-nature/5">
+                    <i class="fas fa-check-circle mr-2"></i> <?= htmlspecialchars($_GET['msg']) ?>
                 </div>
             <?php endif; ?>
 
-            <!-- Grid Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-                <?php if (empty($items)): ?>
-                    <div class="col-span-full py-40 text-center glass rounded-[4rem] border-2 border-dashed border-nature/10">
-                        <i class="fas fa-users-cog text-9xl text-nature/5 mb-10"></i>
-                        <h2 class="text-2xl font-display italic text-nature/30 uppercase tracking-[0.2em]">The management council is currently quiet...</h2>
-                        <a href="editor.php" class="text-[#FF6A00] font-black uppercase text-[12px] tracking-widest mt-8 inline-block hover:underline">Begin Onboarding <i class="fas fa-arrow-right ml-2 text-[12px]"></i></a>
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($items as $item): ?>
-                        <div class="guardian-card glass p-8 rounded-[3.5rem] bg-white border border-nature/5 flex flex-col items-center text-center group relative overflow-hidden h-full">
-                            <div class="image-glow"></div>
+            <div class="mb-6 flex items-center px-4">
+                <label class="flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
+                    <span class="text-[12px] font-black uppercase tracking-widest text-nature/40 group-hover:text-nature transition-colors">Select All Guardians</span>
+                </label>
+            </div>
 
-                            <!-- Profile Image Container -->
-                            <div class="w-48 h-48 rounded-[3rem] overflow-hidden mb-8 relative z-10 border-4 border-nature/5 shadow-2xl group-hover:scale-105 transition-transform duration-700">
-                                <?php if ($item['image_path']): ?>
-                                    <img src="<?= htmlspecialchars($item['image_path']) ?>" class="w-full h-full object-cover" alt="<?= htmlspecialchars($item['name_en']) ?>">
-                                <?php else: ?>
-                                    <div class="w-full h-full bg-nature/5 flex items-center justify-center text-5xl text-nature/10 italic font-display"><?= substr($item['name_en'], 0, 1) ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="relative z-10 w-full">
-                                <span class="bg-nature/5 text-nature py-1 px-4 rounded-full text-[12px] font-black tracking-widest uppercase mb-4 inline-block"><?= htmlspecialchars($item['designation_en']) ?></span>
-                                <h3 class="text-2xl font-bold text-nature mb-2 leading-tight"><?= htmlspecialchars($item['name_en']) ?></h3>
-                            </div>
-
-                            <!-- Actions Overlay -->
-                            <div class="mt-10 flex gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-10 group-hover:translate-y-0 relative z-10">
-                                <a href="editor.php?id=<?= $item['id'] ?>" class="w-12 h-12 bg-nature text-white rounded-2xl flex items-center justify-center hover:bg-[#FF6A00] transition-all shadow-xl"><i class="fas fa-pen text-sm"></i></a>
-                                <form method="POST" class="inline" onsubmit="return confirm('Release this member from the digital council?');">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                    <button type="submit" class="w-12 h-12 bg-white border border-red-100 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-xl"><i class="fas fa-trash text-sm"></i></button>
-                                </form>
-                                <!-- Multi Select Checkbox -->
-                                <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-6 h-6 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+            <div class="glass-card !p-0 overflow-hidden shadow-sm">
+                <table class="system-table">
+                    <thead>
+                        <tr>
+                            <th class="w-12 h-16 pl-6">#</th>
+                            <th class="w-20">Preview</th>
+                            <th>Personnel Profile</th>
+                            <th>Designation</th>
+                            <th class="w-24">Order</th>
+                            <th class="w-32 text-right pr-6">Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($items)): ?>
+                            <tr>
+                                <td colspan="6" class="text-center py-24">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-20 h-20 bg-nature/5 text-nature/10 rounded-full flex items-center justify-center text-4xl mb-4 italic">G</div>
+                                        <p class="text-nature/30 uppercase font-black tracking-widest text-[11px]">The council is currently silent</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($items as $item): ?>
+                                <tr class="group">
+                                    <td class="pl-6">
+                                        <input type="checkbox" name="selected_ids[]" value="<?= $item['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron cursor-pointer">
+                                    </td>
+                                    <td>
+                                        <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-nature/5">
+                                            <?php if ($item['image_path']): ?>
+                                                <img src="<?= htmlspecialchars($item['image_path']) ?>" class="w-full h-full object-cover">
+                                            <?php else: ?>
+                                                <div class="w-full h-full bg-nature/5 flex items-center justify-center font-black text-nature/20"><?= substr($item['name_en'], 0, 1) ?></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-medium text-nature text-[16px] leading-tight mb-0.5"><?= htmlspecialchars($item['name_en']) ?></div>
+                                        <div class="text-[12px] text-nature/50 font-normal uppercase tracking-tighter">Joined: <?= date('M Y', strtotime($item['created_at'])) ?></div>
+                                    </td>
+                                    <td>
+                                        <span class="px-4 py-1.5 rounded-full text-[11px] font-medium uppercase tracking-widest bg-nature/10 text-nature border border-nature/5">
+                                            <?= htmlspecialchars($item['designation_en']) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="w-10 h-10 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center font-normal text-slate-400 text-xs">
+                                            <?= $item['sort_order'] ?>
+                                        </div>
+                                    </td>
+                                    <td class="pr-6 text-right">
+                                        <div class="flex justify-end items-center gap-3">
+                                            <a href="editor.php?id=<?= $item['id'] ?>" class="w-10 h-10 rounded-xl bg-nature/5 text-nature flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm border border-nature/10">
+                                                <i class="fas fa-edit text-[14px]"></i>
+                                            </a>
+                                            <form method="POST" onsubmit="return confirmAction(event, 'Release Personnel?', 'This member will be removed from the digital council.');" class="inline">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                                                <button type="submit" class="w-10 h-10 rounded-xl bg-red-100/50 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center shadow-sm border border-red-200">
+                                                    <i class="fas fa-trash-alt text-[10px]"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
+</body>
+
+</html>
 
 </body>
 

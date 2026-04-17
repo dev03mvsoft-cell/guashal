@@ -17,18 +17,8 @@ Options -Indexes
 RewriteCond %{REQUEST_URI} \.(php|phtml|php3|php4|php5|php7|phps)\.(jpg|jpeg|gif|png|bmp|webp|svg|ico|pdf|txt|doc|docx|xls|xlsx|ppt|pptx|zip|rar|tar|gz|7z)$ [NC]
 RewriteRule .* - [F]
 
-# Restrict PHP file uploads to specific folders only (if any)
-# Example: Only allow uploads to asset/img/events/uploads, asset/img/gallery/uploads
-<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps)$">
-	Order Deny,Allow
-	Deny from all
-</FilesMatch>
-
-# Allow access to the router and sitemap
-<FilesMatch "^(index|sitemap)\.php$">
-	Order Allow,Deny
-	Allow from all
-</FilesMatch>
+# Block access to private folders (Internal logic and config)
+RewriteRule ^(include|view|config|admin/include)/.*$ - [F,L]
 
 # Prevent access to sensitive files
 <FilesMatch "\.(env|git|htaccess|htpasswd|ini|log|sh|bak|swp|orig|save)$">

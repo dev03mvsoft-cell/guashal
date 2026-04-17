@@ -47,84 +47,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Voice Editor - Gaushala Admin</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .input-premium {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(184, 134, 11, 0.1);
-            border-radius: 1.5rem;
-            padding: 1.25rem 1.5rem;
+        .system-input {
+            background: #fff;
+            border: 2px solid #f8fafc;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
             width: 100%;
             transition: all 0.4s;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
-
-        .input-premium:focus {
+        .system-input:focus {
+            border-color: #FF6A00;
+            box-shadow: 0 10px 30px -10px rgba(255, 106, 0, 0.2);
             outline: none;
-            border-color: #B8860B;
+        }
+        .glass-card {
             background: white;
-            box-shadow: 0 15px 30px -10px rgba(184, 134, 11, 0.1);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
+        }
+        .label-system {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #475569;
+            margin-bottom: 0.6rem;
+            display: block;
+            margin-left: 0.25rem;
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col md:flex-row bg-[#fdfaf7]">
-
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
 
     <main class="flex-1 p-6 md:p-12 overflow-y-auto">
         <div class="max-w-4xl mx-auto">
 
-            <header class="mb-12">
-                <a href="index.php" class="text-nature/30 hover:text-gold transition-colors flex items-center gap-2 mb-6 uppercase text-[12px] font-black tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Back to Voices
+            <header class="mb-8 flex items-center justify-between">
+                <div>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[12px] mb-1 block">Devotee Voice</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight"><?= $edit_id ? 'Refine' : 'Add' ?> <span class="italic text-gold">Devotion</span></h1>
+                </div>
+                <a href="index.php" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-nature/40 hover:text-red-500 hover:rotate-90 transition-all shadow-lg border border-gray-100">
+                    <i class="fas fa-times text-xl"></i>
                 </a>
-                <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature"><?= $edit_id ? 'Refine' : 'Publish' ?> <span class="italic text-gold">Devotion</span></h1>
             </header>
 
             <?php if ($error): ?>
-                <div class="bg-red-50 text-red-600 p-6 rounded-3xl mb-8 border border-red-100 font-bold text-[12px] uppercase tracking-widest leading-relaxed">
-                    <i class="fas fa-exclamation-triangle mr-2"></i> <?= $error ?>
+                <div class="bg-red-50 text-red-600 p-6 rounded-2xl border border-red-100 font-bold mb-8 text-xs">
+                    <i class="fas fa-shield-alt mr-3"></i> <?= $error ?>
                 </div>
             <?php endif; ?>
 
-            <form method="POST" class="space-y-10 bg-white/40 backdrop-blur-xl p-10 md:p-16 rounded-[4rem] border border-gold/10 shadow-2xl relative overflow-hidden">
-                <!-- Decorative Corner -->
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold/5 rounded-full blur-3xl"></div>
+            <form method="POST" class="space-y-6 pb-20">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-1">
+                            <label class="label-system">Devotee Name</label>
+                            <input type="text" name="name" class="system-input" placeholder="e.g. Rajesh Sharma" value="<?= htmlspecialchars($data['name']) ?>" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="label-system">Sacred Role / Tag</label>
+                            <input type="text" name="role" class="system-input" placeholder="e.g. Monthly Donor" value="<?= htmlspecialchars($data['role']) ?>" required>
+                        </div>
+                        <div class="md:col-span-2 space-y-1">
+                            <label class="label-system">Spiritual Experience</label>
+                            <textarea name="testimonial" class="system-input h-32 italic leading-relaxed" placeholder="Share experience..." required><?= htmlspecialchars($data['testimonial']) ?></textarea>
+                        </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <label class="block text-[12px] font-black uppercase tracking-widest text-nature/40 ml-4">Devotee Name</label>
-                        <input type="text" name="name" class="input-premium font-bold" placeholder="e.g. Rajesh Sharma" value="<?= htmlspecialchars($data['name']) ?>" required>
+                        <div class="md:col-span-2 space-y-1">
+                            <label class="label-system">Divine Rating</label>
+                            <div class="flex gap-2">
+                                <?php for ($i = 5; $i >= 1; $i--): ?>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="rating" value="<?= $i ?>" class="hidden peer" <?= $data['rating'] == $i ? 'checked' : '' ?>>
+                                        <div class="p-3 rounded-2xl border border-slate-100 bg-slate-50 text-center transition-all peer-checked:bg-gold peer-checked:text-nature peer-checked:border-gold hover:border-gold shadow-sm">
+                                            <div class="text-[13px] font-black"><?= $i ?> <i class="fas fa-star text-[12px]"></i></div>
+                                        </div>
+                                    </label>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2 pt-6">
+                            <button type="submit" class="w-full bg-nature text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[13px] shadow-xl hover:bg-gold hover:text-nature transition-all duration-300 transform hover:scale-[1.02]">
+                                <?= $edit_id ? 'Update Voice' : 'Publish Devotion' ?>
+                            </button>
+                        </div>
                     </div>
-                    <div class="space-y-4">
-                        <label class="block text-[12px] font-black uppercase tracking-widest text-nature/40 ml-4">Sacred Role / Tag</label>
-                        <input type="text" name="role" class="input-premium font-bold" placeholder="e.g. Monthly Donor" value="<?= htmlspecialchars($data['role']) ?>" required>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <label class="block text-[12px] font-black uppercase tracking-widest text-nature/40 ml-4">Spiritual Experience (Testimonial)</label>
-                    <textarea name="testimonial" class="input-premium h-48 font-display italic text-lg leading-relaxed" placeholder="Share the heartfelt experience..." required><?= htmlspecialchars($data['testimonial']) ?></textarea>
-                </div>
-
-                <div class="space-y-4">
-                    <label class="block text-[12px] font-black uppercase tracking-widest text-nature/40 ml-4">Divine Rating</label>
-                    <div class="flex gap-4">
-                        <?php for ($i = 5; $i >= 1; $i--): ?>
-                            <label class="flex-1 cursor-pointer group">
-                                <input type="radio" name="rating" value="<?= $i ?>" class="hidden peer" <?= $data['rating'] == $i ? 'checked' : '' ?>>
-                                <div class="p-4 rounded-2xl border border-gold/5 bg-white text-center transition-all peer-checked:bg-gold peer-checked:text-nature peer-checked:shadow-lg hover:border-gold">
-                                    <div class="text-sm font-black mb-1"><?= $i ?></div>
-                                    <div class="text-[12px] uppercase font-black opacity-40">Stars</div>
-                                </div>
-                            </label>
-                        <?php endfor; ?>
-                    </div>
-                </div>
-
-                <div class="pt-8">
-                    <button type="submit" class="w-full bg-nature text-white py-6 rounded-3xl font-black uppercase tracking-[0.3em] text-[15px] shadow-2xl hover:bg-gold hover:text-nature transition-all duration-700 transform hover:-translate-y-1">
-                        <?= $edit_id ? 'Confirm Refinement' : 'Publish to Sanctuary' ?>
-                    </button>
-                    <p class="text-center text-[12px] text-nature/30 uppercase tracking-widest mt-8 font-bold">This voice will be mirrored on the public landing page instantly</p>
                 </div>
             </form>
         </div>

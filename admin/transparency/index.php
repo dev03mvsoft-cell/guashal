@@ -68,200 +68,181 @@ try {
     <title>Financial Ledger - Admin Dashboard</title>
     <?php include '../include/head.php'; ?>
     <style>
-        .premium-table {
+        .system-table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 1rem;
+            border-spacing: 0 0.25rem;
         }
-
-        .premium-table tr {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .system-table th {
+            text-align: left;
+            padding: 1rem 1rem;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            background: #2c4c3b;
         }
-
-        .premium-table tr td {
+        .system-table thead tr th:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table thead tr th:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .system-table td {
+            padding: 0.5rem 1rem;
+            background: #fff;
+            vertical-align: middle;
+            transition: all 0.3s;
+        }
+        .system-table tr:hover td {
+            background: #f1f5f9;
+        }
+        .system-table tr td:first-child { border-radius: 1.25rem 0 0 1.25rem; }
+        .system-table tr td:last-child { border-radius: 0 1.25rem 1.25rem 0; }
+        
+        .glass-card {
             background: white;
-            padding: 1.5rem 2rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.03);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        }
-
-        .premium-table tr td:first-child {
-            border-left: 1px solid rgba(0, 0, 0, 0.03);
-            border-radius: 2.5rem 0 0 2.5rem;
-        }
-
-        .premium-table tr td:last-child {
-            border-right: 1px solid rgba(0, 0, 0, 0.03);
-            border-radius: 0 2.5rem 2.5rem 0;
-        }
-
-        .premium-table tr:hover {
-            transform: scale(1.015);
-            box-shadow: 0 20px 40px rgba(44, 76, 59, 0.05);
-            z-index: 10;
-            position: relative;
-        }
-
-        .premium-table tr:hover td {
-            border-color: #FF6A00/20;
-            background: #fffcf9;
-        }
-
-        .stat-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 
-<body class="md:h-screen bg-[#f9f7f4] flex flex-col md:flex-row shadow-inner overflow-hidden">
+<body class="bg-[#f8fafc] flex">
     <?php include '../include/sidebar.php'; ?>
-
-    <main class="flex-1 p-6 lg:p-16 overflow-y-auto h-full">
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
         <div class="max-w-7xl mx-auto">
-            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
-                    <h1 style="font-family: 'Playfair Display';" class="text-5xl font-bold text-nature leading-tight">Financial <span class="italic text-saffron">Transparency</span></h1>
-                    <p class="text-gray-400 mt-2 text-[12px] tracking-widest uppercase font-black italic">centralized mission accounting control</p>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[13px] mb-2 block">Financial Integrity</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight">Sacred <span class="text-saffron italic">Ledger</span></h1>
+                    <p class="text-nature/40 mt-1 text-[13px] font-medium tracking-wide">Centralized mission accounting and transparency control</p>
                 </div>
-                <div class="flex items-center gap-6">
-                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected records?', 'The selected expenditure entries will be erased from the ledger.');">
+                <div class="flex items-center gap-4">
+                    <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected records?', 'The selected entries will be removed from the ledger.');">
                         <input type="hidden" name="action" value="bulk_delete">
-                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10">
+                        <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10 transition-all">
                             <span class="text-[12px] font-black uppercase tracking-widest">Selected: <span id="selected-count">0</span></span>
-                            <button type="submit" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+                            <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:scale-110 transition-transform">
                                 <i class="fas fa-trash-alt text-[12px]"></i>
                             </button>
                         </div>
                     </form>
-                    <a href="editor.php" class="bg-nature text-white px-12 py-5 rounded-3xl font-black uppercase tracking-widest text-[15px] shadow-2xl shadow-nature/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-4">
-                        <i class="fa-solid fa-plus text-xs"></i> New Expenditure Entry
+                    <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
+                        <i class="fas fa-file-invoice-dollar text-xs"></i> <span>New Expenditure</span>
                     </a>
                 </div>
             </header>
 
-            <div class="mb-12 flex items-center px-4">
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded-lg border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
-                    <span class="text-[12px] font-black uppercase tracking-widest text-nature/40 group-hover:text-nature transition-colors">Select All Archives</span>
-                </label>
-            </div>
-
             <?php if ($message): ?>
-                <div class="bg-nature text-white p-6 rounded-[2.5rem] text-[12px] mb-16 flex items-center gap-4 border-l-8 border-saffron font-black uppercase tracking-widest animate-pulse shadow-lg">
-                    <i class="fa-solid fa-circle-check text-lg text-saffron"></i> <?= $message ?>
+                <div class="bg-nature/10 text-nature p-4 rounded-xl mb-8 font-bold text-sm border border-nature/20 animate-fade-in">
+                    <i class="fas fa-check-circle mr-2"></i> <?= htmlspecialchars($message) ?>
                 </div>
             <?php endif; ?>
 
-            <!-- Fundraising Target Tracker Card -->
-            <div class="mb-14 glass p-10 md:p-14 rounded-[5rem] border-t-8 border-saffron shadow-2xl relative overflow-hidden group">
-                <div class="absolute -right-20 -top-20 w-[400px] h-[400px] bg-saffron/5 rounded-full blur-[80px]"></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fa-solid fa-bullseye text-saffron text-2xl"></i>
-                        <h3 class="text-xl font-black uppercase tracking-widest text-nature/40 italic">Fundraising Synchronization</h3>
+            <!-- Fundraising Sync Card -->
+            <div class="glass-card mb-10 !py-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-bullseye text-saffron text-lg"></i>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-nature/60">Mission Goal Synchronization</h3>
+                </div>
+                <form method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                    <input type="hidden" name="action" value="update_settings">
+                    <div class="space-y-2">
+                        <label class="text-[11px] uppercase font-bold tracking-widest text-gray-400 ml-2">Raised To Date (₹)</label>
+                        <input type="number" name="donation_raised" value="<?= $raised_val ?>" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-3 font-medium text-nature outline-none focus:border-saffron focus:ring-4 focus:ring-saffron/5 transition-all">
                     </div>
-                    <form method="POST" class="flex flex-col lg:flex-row gap-8 items-end">
-                        <input type="hidden" name="action" value="update_settings">
-                        <div class="flex-1 w-full space-y-3">
-                            <label class="text-[12px] uppercase font-black tracking-widest text-gray-400 ml-4">Raised To Date (₹)</label>
-                            <input type="number" name="donation_raised" value="<?= $raised_val ?>" class="w-full bg-white border border-nature/5 rounded-3xl p-6 text-2xl font-bold text-nature outline-none focus:border-saffron focus:ring-4 focus:ring-saffron/10 transition-all text-center placeholder-nature/10">
-                        </div>
-                        <div class="flex-1 w-full space-y-3">
-                            <label class="text-[12px] uppercase font-black tracking-widest text-gray-400 ml-4">Target Mission Goal (₹)</label>
-                            <input type="number" name="donation_goal" value="<?= $goal_val ?>" class="w-full bg-white border border-nature/5 rounded-3xl p-6 text-2xl font-bold text-nature outline-none focus:border-saffron focus:ring-4 focus:ring-saffron/10 transition-all text-center placeholder-nature/10">
-                        </div>
-                        <button type="submit" class="bg-saffron text-white h-[84px] aspect-square rounded-3xl flex items-center justify-center hover:bg-black transition-all shadow-xl shadow-saffron/20 group-hover:scale-105">
-                            <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
-                        </button>
-                    </form>
-                </div>
+                    <div class="space-y-2">
+                        <label class="text-[11px] uppercase font-bold tracking-widest text-gray-400 ml-2">Target Goal (₹)</label>
+                        <input type="number" name="donation_goal" value="<?= $goal_val ?>" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-3 font-medium text-nature outline-none focus:border-saffron focus:ring-4 focus:ring-saffron/5 transition-all">
+                    </div>
+                    <button type="submit" class="bg-nature text-white h-[48px] rounded-xl flex items-center justify-center gap-2 font-bold uppercase text-[12px] tracking-widest hover:bg-black transition-all shadow-lg shadow-nature/20">
+                        <i class="fas fa-sync-alt"></i> Update Targets
+                    </button>
+                </form>
             </div>
 
-            <!-- Ledger Entries (Tabular Form) -->
-            <div class="flex items-center gap-6 mb-12">
-                <h2 class="text-[12px] font-black uppercase tracking-[0.6em] text-nature/30 whitespace-nowrap">Sacred Accounting Ledger</h2>
-                <div class="h-px flex-1 bg-nature/[0.04]"></div>
-                <span class="text-[12px] font-black uppercase tracking-widest text-gray-300"><?= count($materials) ?> Entries</span>
+            <div class="mb-6 flex items-center px-4">
+                <label class="flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron transition-all cursor-pointer">
+                    <span class="text-[12px] font-black uppercase tracking-widest text-nature/40 group-hover:text-nature transition-colors">Select All Chronicles</span>
+                </label>
             </div>
 
-            <?php if (empty($materials)): ?>
-                <div class="glass p-32 rounded-[5rem] border-2 border-dashed border-gray-100 text-center flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-file-invoice-dollar text-8xl text-gray-100 mb-10"></i>
-                    <h3 class="text-2xl font-bold text-nature mb-4 uppercase tracking-widest">Accounting Archive Empty</h3>
-                    <p class="text-gray-400 text-[15px] max-w-sm leading-relaxed">Financial transparency records await your first sanctified entry.</p>
-                </div>
-            <?php else: ?>
-                <div class="overflow-visible pb-32 px-4">
-                    <table class="premium-table">
-                        <thead>
-                            <tr class="text-[12px] font-black uppercase tracking-[0.3em] text-nature/30 text-center">
-                                <th class="py-4 px-10 text-left">Expenditure Channel</th>
-                                <th class="py-4 px-4 text-center">Qty / Price</th>
-                                <th class="py-4 px-10 text-right">Channel Value</th>
-                                <th class="py-4 px-10 opacity-0">Actions</th>
+            <div class="glass-card !p-0 overflow-hidden shadow-sm">
+                <table class="system-table">
+                    <thead>
+                        <tr>
+                            <th class="w-12 h-16 pl-6">#</th>
+                            <th>Expenditure Channel</th>
+                            <th class="w-48 text-center">Quantities</th>
+                            <th class="w-48 text-right">Channel Value</th>
+                            <th class="w-32 text-right pr-6">Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($materials)): ?>
+                            <tr>
+                                <td colspan="5" class="text-center py-24">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-20 h-20 bg-nature/5 text-nature/10 rounded-full flex items-center justify-center text-4xl mb-4 italic"><i class="fas fa-file-invoice"></i></div>
+                                        <p class="text-nature/30 uppercase font-black tracking-widest text-[11px]">Accounting Archive Empty</p>
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($materials as $m): ?>
+                        <?php else: ?>
+                            <?php foreach ($materials as $m): 
+                                $target_v = isset($m['target_val']) ? (int)$m['target_val'] : 10000;
+                                $current_v = isset($m['current_val']) ? (int)$m['current_val'] : 0;
+                                $perc = ($target_v > 0) ? ($current_v / $target_v) * 100 : 0;
+                                $perc = min(100, $perc);
+                            ?>
                                 <tr class="group">
+                                    <td class="pl-6">
+                                        <input type="checkbox" name="selected_ids[]" value="<?= $m['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded border-2 border-nature/10 text-saffron focus:ring-saffron cursor-pointer">
+                                    </td>
                                     <td>
-                                        <div class="flex items-center gap-6">
-                                            <div class="w-12 h-12 rounded-2xl <?= $m['color_class'] ?> flex items-center justify-center text-white/50 text-[12px] font-black shadow-lg <?= $m['color_class'] ?>/10">#<?= $m['sort_order'] ?></div>
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-10 h-10 rounded-xl <?= $m['color_class'] ?: 'bg-nature' ?> flex items-center justify-center text-white/40 text-[10px] font-black shadow-sm">#<?= $m['sort_order'] ?></div>
                                             <div class="flex-1">
-                                                <p class="text-xl font-bold text-nature group-hover:text-saffron transition-colors leading-none mb-3"><?= htmlspecialchars($m['name_en']) ?></p>
-                                                <!-- Mini Progress Bar -->
-                                                <div class="w-full max-w-[200px] bg-gray-100 h-2 rounded-full overflow-hidden flex">
-                                                    <?php
-                                                    $target_v = isset($m['target_val']) ? (int)$m['target_val'] : 10000;
-                                                    $current_v = isset($m['current_val']) ? (int)$m['current_val'] : 0;
-                                                    $perc = ($target_v > 0) ? ($current_v / $target_v) * 100 : 0;
-                                                    $perc = min(100, $perc);
-                                                    ?>
-                                                    <div class="<?= $m['color_class'] ?> h-full transition-all duration-1000" style="width: <?= $perc ?>%"></div>
-                                                </div>
-                                                <div class="flex justify-between w-full max-w-[200px] mt-2">
-                                                    <span class="text-[12px] font-black text-gray-300 uppercase"><?= number_format($current_v) ?> Raised</span>
-                                                    <span class="text-[12px] font-black text-gray-300 uppercase"><?= number_format($target_v) ?> Target</span>
+                                                <div class="font-medium text-nature text-[16px] leading-tight mb-2"><?= htmlspecialchars($m['name_en']) ?></div>
+                                                <div class="flex items-center gap-3">
+                                                    <div class="w-32 bg-slate-50 h-1.5 rounded-full overflow-hidden border border-slate-100">
+                                                        <div class="<?= $m['color_class'] ?: 'bg-nature' ?> h-full transition-all duration-1000" style="width: <?= $perc ?>%"></div>
+                                                    </div>
+                                                    <span class="text-[10px] font-bold text-nature/30 uppercase tracking-widest whitespace-nowrap">₹<?= number_format($current_v) ?> / ₹<?= number_format($target_v) ?></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-lg font-bold text-nature/70"><?= htmlspecialchars($m['quantity']) ?> <span class="text-[12px] text-gray-300"><?= htmlspecialchars($m['unit_name'] ?? 'Units') ?></span></p>
-                                        <p class="text-[12px] font-black uppercase tracking-widest text-gray-300">@ ₹<?= htmlspecialchars($m['unit_price']) ?> / <?= htmlspecialchars($m['unit_name'] ?? 'Unit') ?></p>
+                                        <div class="text-[14px] font-medium text-nature"><?= htmlspecialchars($m['quantity']) ?> <span class="text-[11px] text-nature/30"><?= htmlspecialchars($m['unit_name'] ?? 'Units') ?></span></div>
+                                        <div class="text-[11px] font-normal text-nature/40 italic">@ ₹<?= number_format((float)$m['unit_price']) ?></div>
                                     </td>
                                     <td class="text-right">
-                                        <p class="text-3xl font-display italic text-nature font-bold tracking-tight"><?= htmlspecialchars($m['total_amount']) ?></p>
+                                        <div class="text-[16px] font-medium text-nature tracking-tight">₹<?= number_format((float)str_replace(',', '', $m['total_amount'])) ?></div>
                                     </td>
-                                    <td class="text-right">
-                                        <div class="flex justify-end gap-3 translate-x-4 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0">
-                                            <a href="editor.php?id=<?= $m['id'] ?>" class="w-14 h-14 rounded-2xl bg-white shadow-premium flex items-center justify-center text-nature hover:bg-nature hover:text-white transition-all border border-gray-50">
-                                                <i class="fa-solid fa-pen-nib text-sm"></i>
+                                    <td class="pr-6 text-right">
+                                        <div class="flex justify-end items-center gap-3">
+                                            <a href="editor.php?id=<?= $m['id'] ?>" class="w-10 h-10 rounded-xl bg-nature/5 text-nature flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm border border-nature/10">
+                                                <i class="fas fa-edit text-[14px]"></i>
                                             </a>
-                                            <div class="flex items-center gap-3">
-                                                <form method="POST" onsubmit="return confirmAction(event, 'Erase Record?', 'This permanent accounting record will be lost.');" class="inline">
-                                                    <input type="hidden" name="action" value="delete">
-                                                    <input type="hidden" name="id" value="<?= $m['id'] ?>">
-                                                    <button type="submit" class="w-14 h-14 rounded-2xl bg-white shadow-premium flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all border border-gray-50">
-                                                        <i class="fa-solid fa-trash-can text-sm"></i>
-                                                    </button>
-                                                </form>
-                                                <!-- Multiple Select Checkbox -->
-                                                <input type="checkbox" name="selected_ids[]" value="<?= $m['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
-                                            </div>
+                                            <form method="POST" onsubmit="return confirmAction(event, 'Purge Record?', 'This expenditure entry will be erased.');" class="inline">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="id" value="<?= $m['id'] ?>">
+                                                <button type="submit" class="w-10 h-10 rounded-xl bg-red-100/50 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center shadow-sm border border-red-200">
+                                                    <i class="fas fa-trash-alt text-[14px]"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
-
 </html>

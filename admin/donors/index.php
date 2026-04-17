@@ -21,8 +21,37 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
+// Handle Bulk Delete
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bulk_delete') {
+    if (!empty($_POST['selected_ids'])) {
+        $ids = $_POST['selected_ids'];
+        try {
+            // First cleanup images
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            $stmt = $pdo->prepare("SELECT profile_pic FROM donors WHERE id IN ($placeholders)");
+            $stmt->execute($ids);
+            $donors_to_delete = $stmt->fetchAll();
+
+            foreach ($donors_to_delete as $d) {
+                if ($d['profile_pic'] !== 'default_donor.png') {
+                    cleanup_file('asset/img/donors/' . $d['profile_pic']);
+                }
+            }
+
+            // Then delete records
+            $stmt = $pdo->prepare("DELETE FROM donors WHERE id IN ($placeholders)");
+            $stmt->execute($ids);
+            header("Location: index.php?msg=" . count($ids) . " donors purged from registry");
+            exit();
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+    }
+}
+
 $all_items = $pdo->query("SELECT * FROM donors ORDER BY donation_date DESC")->fetchAll();
 $message = $_GET['msg'] ?? '';
+$error = '';
 
 // Helper for special date notification
 function get_days_remaining($date)
@@ -85,27 +114,49 @@ $donors = $all_items;
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
             <div>
+                <span class="text-saffron font-black uppercase tracking-[0.3em] text-[13px] mb-2 block">Gratitude Registry</span>
                 <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature mb-2">Donors Donate Wall</h1>
                 <p class="text-nature/60 font-medium">Manage and celebrate the compassionate souls who support our cows.</p>
             </div>
-            <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
-                <i class="fas fa-plus"></i> Add New Donor
-            </a>
+            <div class="flex items-center gap-4">
+                <form id="bulk-form" method="POST" onsubmit="return confirmAction(event, 'Purge selected donors?', 'The records of these charitable souls will be removed from the Donate Wall.');">
+                    <input type="hidden" name="action" value="bulk_delete">
+                    <div id="bulk-delete-btn" style="display: none;" class="items-center gap-4 bg-red-50 text-red-600 px-6 py-3 rounded-2xl animate-fade-in border border-red-100 shadow-xl shadow-red-500/10">
+                        <span class="text-[12px] font-black uppercase tracking-widest">Selected: <span id="selected-count">0</span></span>
+                        <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:scale-110 transition-transform">
+                            <i class="fas fa-trash-alt text-[12px]"></i>
+                        </button>
+                    </div>
+                </form>
+                <a href="editor.php" class="bg-saffron text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-saffron/20 hover:scale-105 transition-all">
+                    <i class="fas fa-plus"></i> Add New Donor
+                </a>
+            </div>
         </div>
 
         <?php if ($message): ?>
-            <div class="bg-nature/5 text-nature p-4 rounded-2xl border border-nature/10 mb-8 flex items-center gap-4">
+            <div class="bg-nature/5 text-nature p-4 rounded-2xl border border-nature/10 mb-8 flex items-center gap-4 animate-fade-in text-sm font-bold uppercase tracking-widest">
                 <i class="fas fa-check-circle text-green-500"></i>
-                <span class="font-bold text-sm uppercase tracking-widest"><?= htmlspecialchars($message) ?></span>
+                <?= htmlspecialchars($message) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($error): ?>
+            <div class="bg-red-50 text-red-600 p-4 rounded-2xl border border-red-100 mb-8 flex items-center gap-4 text-sm font-bold">
+                <i class="fas fa-exclamation-triangle"></i>
+                <?= htmlspecialchars($error) ?>
             </div>
         <?php endif; ?>
 
         <!-- Donors Table View -->
-        <div class=" rounded-[1.5rem]  border border-nature/100 overflow-hidden">
+        <div class=" rounded-[1.5rem]  border border-nature/10 overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left donor-table border-collapse">
                     <thead>
-                        <tr class="bg-nature text-white text-[11px] uppercase font-black tracking-[0.2em] shadow-sm">
+                        <tr class="bg-nature text-white text-[13px] uppercase font-black tracking-[0.15em] shadow-sm">
+                            <th class="px-8 py-6 border-b border-white/10 w-10">
+                                <input type="checkbox" onchange="toggleSelectAll(this, 'multi-select-item')" class="w-5 h-5 rounded border-gray-300 text-saffron focus:ring-saffron bg-white/10">
+                            </th>
                             <th class="px-8 py-6 border-b border-white/10">Donor Profile</th>
                             <th class="px-8 py-6 border-b border-white/10">Contact & Outreach</th>
                             <th class="px-8 py-6 border-b border-white/10">Offering Details</th>
@@ -121,6 +172,9 @@ $donors = $all_items;
                             $is_alert = ($days_to_special <= 7);
                         ?>
                             <tr class="bg-white hover:bg-nature/[0.05] transition-all duration-200 <?= $is_alert ? '!bg-amber-50/50' : '' ?> group">
+                                <td class="px-8 py-7">
+                                    <input type="checkbox" name="selected_ids[]" value="<?= $donor['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded border-gray-300 text-saffron focus:ring-saffron">
+                                </td>
                                 <td class="px-8 py-7">
                                     <div class="flex items-center gap-5">
                                         <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-nature/10 shadow-sm flex-shrink-0">
@@ -255,11 +309,11 @@ $donors = $all_items;
                                         <a href="editor.php?id=<?= $donor['id'] ?>" class="w-10 h-10 bg-nature/5 text-nature rounded-xl flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm">
                                             <i class="fas fa-edit text-sm"></i>
                                         </a>
-                                        <a href="index.php?delete=<?= $donor['id'] ?>"
-                                            onclick="return confirm('Release this record from the Donate Wall?')"
-                                            class="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm">
-                                            <i class="fas fa-trash text-sm"></i>
-                                        </a>
+                                        <form action="index.php?delete=<?= $donor['id'] ?>" method="POST" onsubmit="return confirmAction(event, 'Release Record?', 'This donor will be removed from the Donate Wall.');" class="inline">
+                                            <button type="submit" class="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm">
+                                                <i class="fas fa-trash text-sm"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                                 </td>
