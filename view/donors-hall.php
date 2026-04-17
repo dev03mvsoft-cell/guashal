@@ -47,11 +47,12 @@ try {
                 <input type="text"
                     id="donorSearch"
                     placeholder="Search noble donors by name or purpose..."
+                    data-lang-placeholder="donors_search_placeholder"
                     class="w-full bg-white border-2 border-nature/5 focus:border-saffron/30 rounded-[2.5rem] py-8 pl-20 pr-10 text-nature font-display text-xl focus:outline-none shadow-xl shadow-nature/5 transition-all placeholder:text-nature/20 placeholder:italic">
 
                 <!-- Search Decoration -->
                 <div class="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-nature/20 hidden md:block">Instant Filter</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-nature/20 hidden md:block" data-lang="instant_filter">Instant Filter</span>
                     <div class="w-10 h-10 bg-nature/5 rounded-full flex items-center justify-center text-nature/20">
                         <i class="fas fa-filter text-xs"></i>
                     </div>
@@ -62,19 +63,19 @@ try {
         <?php if (empty($all_donors)): ?>
             <div class="text-center py-20 bg-secondary/30 rounded-[3rem] border-2 border-dashed border-nature/10" data-aos="fade-up">
                 <i class="fas fa-heart text-6xl text-nature/10 mb-6 border-gold"></i>
-                <h3 class="text-2xl font-display text-nature">Our family is growing</h3>
-                <p class="text-nature/40 mt-2 italic">Be the first to join our Sacred Donate Wall.</p>
-                <a href="/donate" class="inline-block mt-8 bg-saffron text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:shadow-xl transition-all">Support Now</a>
+                <h3 class="text-2xl font-display text-nature" data-lang="donors_empty_title">Our family is growing</h3>
+                <p class="text-nature/40 mt-2 italic" data-lang="donors_empty_desc">Be the first to join our Sacred Donate Wall.</p>
+                <a href="/donate" class="inline-block mt-8 bg-saffron text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:shadow-xl transition-all" data-lang="donate_now">Support Now</a>
             </div>
         <?php else: ?>
             <!-- Optimized Premium Table-List -->
             <div class="bg-white rounded-[3rem] shadow-2xl shadow-nature/5 border border-nature/5 overflow-hidden">
                 <!-- Header -->
                 <div class="hidden md:grid grid-cols-12 items-center px-12 py-6 bg-nature/5 border-b border-nature/10 text-nature/60 text-[11px] font-bold uppercase tracking-widest">
-                    <div class="col-span-1">Profile</div>
-                    <div class="col-span-4 ml-4">Donor Name & Purpose</div>
-                    <div class="col-span-3 text-center">Donation Details</div>
-                    <div class="col-span-4 text-right pr-4">Total Amount</div>
+                    <div class="col-span-1" data-lang="table_profile">Profile</div>
+                    <div class="col-span-4 ml-4" data-lang="table_donor_info">Donor Name & Purpose</div>
+                    <div class="col-span-3 text-center" data-lang="table_donation_details">Donation Details</div>
+                    <div class="col-span-4 text-right pr-4" data-lang="table_total_amount">Total Amount</div>
                 </div>
 
                 <!-- Body -->
@@ -96,18 +97,18 @@ try {
 
                             <!-- Column 2: Name & Purpose -->
                             <div class="col-span-4 md:ml-4 text-center md:text-left">
-                                <h4 class="text-lg font-bold text-nature leading-tight">
+                                <h4 class="text-lg font-bold text-nature leading-tight" data-trans="en">
                                     <?= htmlspecialchars($donor['name'] ?: 'Noble Donor') ?>
                                 </h4>
-                                <p class="text-nature/60 text-xs mt-1 font-medium">
+                                <p class="text-nature/60 text-xs mt-1 font-medium" data-trans="en">
                                     <?= htmlspecialchars($donor['purpose']) ?>
                                 </p>
                             </div>
 
                             <!-- Column 3: Date & Meta -->
                             <div class="col-span-3 flex flex-col items-center justify-center text-center">
-                                <span class="text-nature/80 font-bold text-sm"><?= date('d M, Y', strtotime($donor['donation_date'])) ?></span>
-                                <span class="text-[9px] font-bold uppercase tracking-widest text-nature/30 mt-1">Verified Offering</span>
+                                <span class="text-nature/80 font-bold text-sm" data-trans="en"><?= date('d M, Y', strtotime($donor['donation_date'])) ?></span>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-nature/30 mt-1" data-lang="verified_offering">Verified Offering</span>
                             </div>
 
                             <!-- Column 4: Amount -->
@@ -121,7 +122,7 @@ try {
                             </div>
 
                             <!-- Row Interaction Decoration (The BG Text Effect) -->
-                            <div class="absolute right-10 top-1/2 -translate-y-1/2 text-[100px] text-nature/[0.01] pointer-events-none group-hover:text-nature/[0.04] transition-all duration-700 font-bold uppercase select-none hidden lg:block tracking-tighter">
+                            <div class="absolute right-10 top-1/2 -translate-y-1/2 text-[100px] text-nature/[0.01] pointer-events-none group-hover:text-nature/[0.04] transition-all duration-700 font-bold uppercase select-none hidden lg:block tracking-tighter" data-lang="gratitude_bg">
                                 GRATITUDE
                             </div>
                         </div>
@@ -130,7 +131,7 @@ try {
 
                 <!-- Table Footer Decor -->
                 <div class="px-12 py-10 bg-nature/[0.03] text-center border-t border-nature/10">
-                    <p class="text-nature/40 text-[11px] font-black uppercase tracking-[0.6em]">Sacred Contributions for Perpetual Protection of Gaia</p>
+                    <p class="text-nature/40 text-[11px] font-black uppercase tracking-[0.6em]" data-lang="donors_footer_text">Sacred Contributions for Perpetual Protection of Gaia</p>
                 </div>
             </div>
     </div>
@@ -198,13 +199,13 @@ try {
                 <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mb-10 mx-auto text-gold border border-white/20">
                     <i class="fas fa-om text-4xl animate-pulse"></i>
                 </div>
-                <h2 class="text-4xl md:text-7xl font-display text-white mb-8 leading-tight">
+                <h2 class="text-4xl md:text-7xl font-display text-white mb-8 leading-tight" data-lang="donors_cta_title">
                     Join Our <span class="italic text-gold underline decoration-gold/30 underline-offset-8">Divine Circle</span>
                 </h2>
-                <p class="text-xl text-white/70 mb-12 max-w-2xl mx-auto italic font-light">
+                <p class="text-xl text-white/70 mb-12 max-w-2xl mx-auto italic font-light" data-lang="donors_cta_desc">
                     Your contribution ensures the dignity and protection of our sacred Gaia. Become a guardian of the divine today.
                 </p>
-                <a href="/donate" class="bg-saffron text-white px-16 py-6 rounded-full font-bold text-lg hover:shadow-[0_20px_60px_rgba(255,106,0,0.4)] transition-all uppercase tracking-[0.3em] inline-block">
+                <a href="/donate" class="bg-saffron text-white px-16 py-6 rounded-full font-bold text-lg hover:shadow-[0_20px_60px_rgba(255,106,0,0.4)] transition-all uppercase tracking-[0.3em] inline-block" data-lang="donors_cta_btn">
                     Become a Donor
                 </a>
             </div>

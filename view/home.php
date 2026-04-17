@@ -756,16 +756,16 @@ try {
             <?php if (empty($seva_options)): ?>
                 <!-- Fallback if DB is empty -->
                 <div class="col-span-full py-20 text-center glass rounded-[3rem] opacity-50">
-                    <p class="italic text-nature/40 font-display text-xl">Divine opportunities are being prepared...</p>
+                    <p class="italic text-nature/40 font-display text-xl" data-lang="seva_fallback">Divine opportunities are being prepared...</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($seva_options as $index => $seva):
                     // Determine which language to show initially
                     $lang = $_SESSION['lang'] ?? 'en';
-                    $title = $seva['title_' . $lang] ?: $seva['title_en'];
-                    $desc = $seva['description_' . $lang] ?: $seva['description_en'];
-                    $icon = $seva['icon_class'] ?: 'fas fa-heart';
-                    $color = $seva['color_class'] ?: 'saffron';
+                    $title = ($seva['title_' . $lang] ?? null) ?: ($seva['title_en'] ?? 'Sacred Seva');
+                    $desc = ($seva['description_' . $lang] ?? null) ?: ($seva['description_en'] ?? 'No description available.');
+                    $icon = ($seva['icon_class'] ?? null) ?: 'fas fa-heart';
+                    $color = ($seva['color_class'] ?? null) ?: 'saffron';
 
                     // Specific color adjustments for the UI
                     $bg_icon_class = "bg-$color/10";
@@ -788,14 +788,14 @@ try {
                             <i class="<?= $icon ?> text-3xl <?= $text_icon_class ?> group-hover:text-white"></i>
                         </div>
                         <h4 class="text-2xl font-display text-nature mb-4 italic group-hover:text-white transition-colors">
-                            <span class="lang-en"><?= htmlspecialchars($seva['title_en'] ?? 'Sacred Seva') ?></span>
-                            <span class="lang-hi hidden"><?= htmlspecialchars(($seva['title_hi'] ?? null) ?: ($seva['title_en'] ?? 'पवित्र सेवा')) ?></span>
-                            <span class="lang-gu hidden"><?= htmlspecialchars(($seva['title_gu'] ?? null) ?: ($seva['title_en'] ?? 'પવિત્ર સેવા')) ?></span>
+                            <span class="lang-en" data-trans="en"><?= htmlspecialchars($seva['title_en'] ?? 'Sacred Seva') ?></span>
+                            <span class="lang-hi hidden" <?= empty($seva['title_hi']) ? 'data-trans="en"' : '' ?>><?= htmlspecialchars(($seva['title_hi'] ?? null) ?: ($seva['title_en'] ?? 'Sacred Seva')) ?></span>
+                            <span class="lang-gu hidden" <?= empty($seva['title_gu']) ? 'data-trans="en"' : '' ?>><?= htmlspecialchars(($seva['title_gu'] ?? null) ?: ($seva['title_en'] ?? 'Sacred Seva')) ?></span>
                         </h4>
                         <p class="text-nature/60 text-[15px] mb-8 leading-relaxed group-hover:text-white/90 transition-colors">
-                            <span class="lang-en"><?= htmlspecialchars($seva['description_en'] ?? 'No description available.') ?></span>
-                            <span class="lang-hi hidden"><?= htmlspecialchars(($seva['description_hi'] ?? null) ?: ($seva['description_en'] ?? 'विवरण उपलब्ध नहीं है।')) ?></span>
-                            <span class="lang-gu hidden"><?= htmlspecialchars(($seva['description_gu'] ?? null) ?: ($seva['description_en'] ?? 'વર્ણન ઉપલબ્ધ નથી.')) ?></span>
+                            <span class="lang-en" data-trans="en"><?= htmlspecialchars($seva['description_en'] ?? 'No description available.') ?></span>
+                            <span class="lang-hi hidden" <?= empty($seva['description_hi']) ? 'data-trans="en"' : '' ?>><?= htmlspecialchars(($seva['description_hi'] ?? null) ?: ($seva['description_en'] ?? 'No description available.')) ?></span>
+                            <span class="lang-gu hidden" <?= empty($seva['description_gu']) ? 'data-trans="en"' : '' ?>><?= htmlspecialchars(($seva['description_gu'] ?? null) ?: ($seva['description_en'] ?? 'No description available.')) ?></span>
                         </p>
                         <a href="/donate" class="bg-saffron/10 text-saffron px-10 py-4 rounded-full font-bold uppercase tracking-widest text-[15px] group-hover:bg-white group-hover:text-saffron transition-all shadow-sm block" data-lang="donate_now">Donate Now</a>
                     </div>
