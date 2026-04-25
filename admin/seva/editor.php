@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     <main class="flex-1 p-4 lg:p-12 md:overflow-y-auto h-full">
         <div class="max-w-4xl mx-auto">
             
-            <header class="mb-8 flex items-center justify-between">
+            <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-0">
                 <div>
                     <span class="text-saffron font-bold uppercase tracking-[0.3em] text-[12px] mb-1 block">Mission Configurator</span>
                     <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight"><?= $id ? 'Refine' : 'Add' ?> <span class="text-saffron italic">Seva</span></h1>

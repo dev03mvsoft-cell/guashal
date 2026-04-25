@@ -82,13 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 
-<body class="bg-[#f8fafc] flex">
+<body class="bg-[#f8fafc] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include '../include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
         <div class="max-w-4xl mx-auto">
 
-            <header class="mb-8 flex items-center justify-between">
+            <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-0">
                 <div>
                     <span class="text-saffron font-black uppercase tracking-[0.3em] text-[12px] mb-1 block">Devotee Voice</span>
                     <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature leading-tight"><?= $edit_id ? 'Refine' : 'Add' ?> <span class="italic text-gold">Devotion</span></h1>

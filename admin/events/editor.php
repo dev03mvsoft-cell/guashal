@@ -110,115 +110,147 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 
-<body class="bg-[#f8fafc] flex">
+<body class="bg-[#fcfdfd] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include '../include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
         <div class="max-w-5xl mx-auto">
-            <header class="mb-8 flex justify-between items-center">
+            <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-0" data-aos="fade-down">
                 <div>
-                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[12px] mb-1 block">Divine Events</span>
-                    <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature"><?= $edit_data ? 'Update' : 'Compose' ?> <span class="italic text-saffron">Revelation</span></h1>
+                    <span class="text-saffron font-black uppercase tracking-[0.3em] text-[12px] mb-2 block">Sacred Chronicles</span>
+                    <h1 style="font-family: 'Playfair Display';" class="text-4xl md:text-5xl font-bold text-nature leading-tight">
+                        <?= $edit_data ? 'Refine' : 'Orchestrate' ?> <span class="italic text-saffron">Event</span>
+                    </h1>
                 </div>
-                <a href="index.php" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-nature/40 hover:text-red-500 hover:rotate-90 transition-all shadow-lg border border-gray-100">
-                    <i class="fas fa-times text-xl"></i>
+                <a href="index.php" class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-nature/20 hover:text-red-500 hover:rotate-90 transition-all shadow-xl border border-gray-100 group">
+                    <i class="fas fa-times text-xl group-hover:scale-110"></i>
                 </a>
             </header>
 
-            <form method="POST" enctype="multipart/form-data" class="space-y-6 pb-20">
+            <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-32">
                 <input type="hidden" name="action" value="save">
                 <?php if ($edit_data): ?>
                     <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
                     <input type="hidden" name="existing_image" value="<?= $edit_data['image_path'] ?>">
                 <?php endif; ?>
 
-                <div class="glass-card" data-aos="fade-up">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        
-                        <!-- Col 1: Flyer -->
-                        <div class="flex flex-col items-center">
-                            <label class="label-system text-center w-full">Event Flyer</label>
-                            <div class="relative group w-32 h-32 mb-3">
-                                <div class="w-full h-full rounded-2xl border-2 border-white shadow-lg overflow-hidden relative bg-slate-50">
-                                    <?php if ($edit_data && $edit_data['image_path']): ?>
-                                        <img id="preview_img" src="<?= htmlspecialchars($edit_data['image_path']) ?>" class="absolute inset-0 w-full h-full object-cover">
-                                    <?php else: ?>
-                                        <img id="preview_img" src="#" class="absolute inset-0 w-full h-full object-cover hidden">
-                                        <div id="drop_text" class="absolute inset-0 flex flex-col items-center justify-center text-slate-200">
-                                            <i class="fas fa-calendar-plus text-3xl"></i>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <label for="image_file" class="absolute bottom-0 right-0 w-8 h-8 bg-saffron text-white rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition-transform border-2 border-white">
-                                    <i class="fas fa-camera text-xs"></i>
-                                </label>
-                                <input type="file" name="image_file" id="image_file" class="hidden" accept="image/*" onchange="previewImage(this)">
+                <!-- Layout Sidebar: Image & Organizers -->
+                <div class="space-y-8">
+                    <!-- Image Card -->
+                    <div class="glass-card bg-white p-8" data-aos="fade-right">
+                        <label class="label-system text-center mb-6">Ceremony Visual</label>
+                        <div class="relative group mx-auto w-full aspect-square max-w-[240px]">
+                            <div class="w-full h-full rounded-[2.5rem] border-4 border-gray-50 shadow-2xl overflow-hidden relative bg-slate-50">
+                                <?php if ($edit_data && $edit_data['image_path']): ?>
+                                    <img id="preview_img" src="<?= htmlspecialchars($edit_data['image_path']) ?>" class="absolute inset-0 w-full h-full object-cover">
+                                <?php else: ?>
+                                    <img id="preview_img" src="#" class="absolute inset-0 w-full h-full object-cover hidden">
+                                    <div id="drop_text" class="absolute inset-0 flex flex-col items-center justify-center text-slate-200">
+                                        <i class="fas fa-calendar-stars text-5xl mb-4"></i>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-nature/20">Awaiting Cover</span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-tight">Moment Cover</p>
+                            <label for="image_file" class="absolute -bottom-4 -right-4 w-12 h-12 bg-nature text-white rounded-2xl flex items-center justify-center cursor-pointer shadow-2xl hover:scale-110 active:scale-95 transition-all border-4 border-white z-10">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                            <input type="file" name="image_file" id="image_file" class="hidden" accept="image/*" onchange="previewImage(this)">
                         </div>
+                        <p class="text-center text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-8 leading-relaxed px-4">
+                            Upload a high-fidelity visual to represent this sacred gathering.
+                        </p>
+                    </div>
 
-                        <!-- Col 2 & 3: Details -->
-                        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+                    <!-- Organizers Card -->
+                    <div class="glass-card bg-white p-8" data-aos="fade-right" data-aos-delay="100">
+                        <label class="label-system mb-4">Event Guardians</label>
+                        <div id="organizer-container" class="space-y-3">
+                            <?php foreach ($organizer_array as $org): ?>
+                                <div class="flex gap-2 group">
+                                    <input type="text" name="organizers_list[]" value="<?= htmlspecialchars($org) ?>" 
+                                           class="system-input text-sm" placeholder="e.g. Temple Trust">
+                                    <button type="button" onclick="this.parentElement.remove()" class="w-10 h-10 flex items-center justify-center text-red-100 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <button type="button" onclick="addOrganizer()" class="mt-6 w-full py-3 border-2 border-dashed border-gray-100 rounded-xl text-gray-300 hover:border-nature/20 hover:text-nature transition-all text-[11px] font-bold uppercase tracking-widest">
+                            <i class="fas fa-plus-circle mr-2"></i> Add Host
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Details Card -->
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="glass-card bg-white p-10" data-aos="fade-left">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             <div class="md:col-span-2 space-y-1">
-                                <label class="label-system">Event Title</label>
-                                <input type="text" name="title" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['title']) : '' ?>" placeholder="e.g. Mahotsav 2026 Celebration" required>
+                                <label class="label-system">Event Revelation Title</label>
+                                <input type="text" name="title" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['title']) : '' ?>" placeholder="e.g. Grand Aarti Mahotsav" required>
+                            </div>
+
+                            <div class="md:col-span-2 space-y-1">
+                                <label class="label-system">Sanctuary Location / Venue</label>
+                                <div class="relative">
+                                    <i class="fas fa-map-marker-alt absolute left-5 top-1/2 -translate-y-1/2 text-saffron opacity-40"></i>
+                                    <input type="text" name="location" class="system-input pl-12" value="<?= $edit_data ? htmlspecialchars($edit_data['location']) : '' ?>" placeholder="e.g. Main Hall, Gaushala Complex" required>
+                                </div>
                             </div>
 
                             <div class="space-y-1">
-                                <label class="label-system">Venue Name</label>
-                                <input type="text" name="location" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['location']) : '' ?>" placeholder="e.g. Main Sanctuary" required>
-                            </div>
-
-                            <div class="space-y-1">
-                                <label class="label-system">Start Date</label>
+                                <label class="label-system">Commencement Date</label>
                                 <input type="date" name="start_date" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['start_date']) : '' ?>" required>
                             </div>
 
                             <div class="space-y-1">
-                                <label class="label-system">End Date (Optional)</label>
+                                <label class="label-system">Conclusion (Optional)</label>
                                 <input type="date" name="end_date" class="system-input" value="<?= $edit_data ? htmlspecialchars($edit_data['end_date']) : '' ?>">
                             </div>
 
                             <div class="md:col-span-2 space-y-1">
-                                <label class="label-system">Full Description</label>
-                                <textarea name="description" class="system-input h-32" placeholder="Tell the full story of this gathering..."><?= $edit_data ? htmlspecialchars($edit_data['description']) : '' ?></textarea>
+                                <label class="label-system">Divine Narrative / description</label>
+                                <textarea name="description" class="system-input h-64 font-normal text-nature/70 leading-relaxed" placeholder="Chronicle the details of this event..."><?= $edit_data ? htmlspecialchars($edit_data['description']) : '' ?></textarea>
                             </div>
+                        </div>
 
-                            <div class="md:col-span-2 flex items-end pt-2">
-                                <button type="submit" class="w-full bg-saffron text-white py-3 rounded-xl font-black uppercase tracking-[0.2em] text-[11px] shadow-lg hover:scale-[1.02] active:scale-95 transition-all">
-                                    <?= $edit_data ? 'Apply Updates' : 'Publish to Chronicle' ?>
-                                </button>
-                            </div>
+                        <div class="mt-12 flex justify-end">
+                            <button type="submit" class="bg-nature text-white px-12 py-5 rounded-[1.25rem] font-bold uppercase tracking-[0.25em] text-[13px] shadow-2xl hover:bg-black transition-all transform hover:-translate-y-1 active:scale-95">
+                                <i class="fas fa-check-double mr-3 opacity-30"></i> <?= $edit_data ? 'Update Event' : 'Commit to History' ?>
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
-            </div>
         </div>
     </main>
 
     <script>
+        function addOrganizer() {
+            const container = document.getElementById('organizer-container');
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 group animate-in fade-in slide-in-from-top-2 duration-300';
+            div.innerHTML = `
+                <input type="text" name="organizers_list[]" class="system-input text-sm" placeholder="e.g. Temple Trust">
+                <button type="button" onclick="this.parentElement.remove()" class="w-10 h-10 flex items-center justify-center text-red-500 transition-colors">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
         function previewImage(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('preview_img').src = e.target.result;
-                    document.getElementById('preview_img').classList.remove('hidden');
-                    document.getElementById('drop_text').classList.add('opacity-0');
+                    const img = document.getElementById('preview_img');
+                    const text = document.getElementById('drop_text');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                    if (text) text.classList.add('hidden');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
-        }
-
-        function addOrganizer() {
-            const container = document.getElementById('organizer_list');
-            const row = document.createElement('div');
-            row.className = 'organizer-row flex gap-2';
-            row.innerHTML = `
-                <input type="text" name="organizers_list[]" class="system-input" placeholder="Name" required>
-                <button type="button" onclick="this.parentElement.remove()" class="w-10 h-10 rounded-xl bg-red-50 text-red-400 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><i class="fa-solid fa-xmark text-xs"></i></button>
-            `;
-            container.appendChild(row);
         }
     </script>
 </body>
