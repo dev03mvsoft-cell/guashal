@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             easing: 'ease-out-quad',
             mirror: false
         });
-        
+
         // Refresh AOS on full window load to account for images
         window.addEventListener('load', () => {
             AOS.refresh();
@@ -342,11 +342,13 @@ const translations = {
         'founders_quote_main': '"A sanctuary is not built of bricks, but of the silent prayers and unshakeable compassion of those who see divinity in the cow’s eyes. This sacred path of motherhood is eternal."',
         'founders_p1': 'Founded in the heart of Kutch, Shri Gau Rakshak Seva Samiti began with a singular, divine realization by our visionary founders: that the health of our civilization is mirrored in the care we give to the Gau Mata.',
         'heal_title': 'Cow Treatment Seva Initiative',
-        'heal_desc': "The cornerstone of our founders' vision was the establishment of a specialized medical wing. Today, our 24/7 ICU serves as a silent testament to their commitment to life, healing thousands of injured mother cows every year.",
+        'heal_desc': "The cornerstone of Gaushala Naitrutav' vision was the establishment of a specialized medical wing. Today, our 24/7 ICU serves as a silent testament to their commitment to life, healing thousands of injured mother cows every year.",
         'legacy_cont': 'Legacy of Compassion Continued...',
         'founders_cta_title': 'Keep the <span class="italic text-saffron underline decoration-gold/30 underline-offset-8">Vision Alive</span>',
-        'founders_cta_desc': 'Support the sanctuary and carry forward the legacy of our founders. Every contribution makes a difference.',
-        'founders_pillar_label': 'Legacy Pillar', 'founders_foundational_spirit': 'Foundational Spirit', 'founders_visionary': 'Chief Visionary',
+        'founders_cta_desc': 'Support the sanctuary and carry forward the legacy of Gaushala Naitrutav. Every contribution makes a difference.',
+        'founders_foundational_spirit': 'Foundational Spirit', 'founders_visionary': 'Chief Visionary',
+        'founders_h2': 'Gaushala Naitrutav', 'trustees_h2': 'Our Trustees',
+        'member_founder': 'Founding Member', 'member_trustee': 'Trustee Member',
         // Team Page
         'team_hero_span': 'The Custodians of Devotion', 'team_hero_h1': 'Our <span class="italic text-gold">Sacred</span> Guardians',
         'team_label': 'The Guardians', 'team_title': 'Sacred <span class="italic text-gold">Management</span> Council',
@@ -471,15 +473,17 @@ const translations = {
         'cta_label': 'गौ सेवा की पुकार', 'cta_title1': 'कभी जहाँ सम्मान मिलता था,', 'cta_title2': 'आज सड़कों पर लावारिस हैं', 'cta_title3': 'आइये उन्हें घर वापस लाएं।', 'cta_btn': 'गौ सेवा करें',
         // Founders Page
         'founders_hero_span': 'गौशाला के मार्गदर्शक', 'founders_hero_h1': 'हमारे <span class="italic text-gold">संस्थापक</span> सदस्य',
-        'founders_label': 'पवित्र वंश', 'founders_title': 'हमारे संस्थापक और उनके विचार',
+        'founders_label': 'पवित्र वंश', 'founders_title': 'गौशाला नेतृत्व और उनके विचार',
         'founders_quote_main': '"एक गौशाला ईंटों से नहीं, बल्कि उन लोगों की मौन प्रार्थनाओं और अडिग करुणा से बनती है जो गाय की आँखों में दिव्यता देखते हैं। मातृत्व का यह पावन पथ अनंत है।"',
         'founders_p1': 'कच्छ के हृदय में स्थित, श्री गौ रक्षक सेवा समिति की शुरुआत हमारे दूरदर्शी संस्थापकों द्वारा एक अद्वितीय, दिव्य बोध के साथ हुई थी: कि हमारी सभ्यता का स्वास्थ्य उसी देखभाल में प्रतिबिंबित होता है जो हम गौ माता को देते हैं।',
         'heal_title': 'गौ चिकित्सा सेवा पहल',
-        'heal_desc': 'हमारे संस्थापकों की दृष्टि का मुख्य आधार एक विशेष चिकित्सा विंग की स्थापना थी। आज, हमारा 24/7 ICU जीवन के प्रति उनकी प्रतिबद्धता के मूक प्रमाण के रूप में कार्य करता है, जो हर साल हजारों घायल गौ माताओं का उपचार करता है।',
+        'heal_desc': 'गौशाला नेतृत्वों की दृष्टि का मुख्य आधार एक विशेष चिकित्सा विंग की स्थापना थी। आज, हमारा 24/7 ICU जीवन के प्रति उनकी प्रतिबद्धता के मूक प्रमाण के रूप में कार्य करता है, जो हर साल हजारों घायल गौ माताओं का उपचार करता है।',
         'legacy_cont': 'करुणा की विरासत जारी है...',
         'founders_cta_title': 'संकल्प को <span class="italic text-saffron underline decoration-gold/30 underline-offset-8">जीवित रखें</span>',
-        'founders_cta_desc': 'गौशाला की सेवा का हिस्सा बनें और हमारे संस्थापकों के संकल्प को आगे बढ़ाएं।',
+        'founders_cta_desc': 'गौशाला की सेवा का हिस्सा बनें और गौशाला नेतृत्वों के संकल्प को आगे बढ़ाएं।',
         'founders_pillar_label': 'विरासत स्तंभ', 'founders_foundational_spirit': 'संस्थापक भावना', 'founders_visionary': 'मुख्य दूरदर्शी',
+        'founders_h2': 'गौशाला नेतृत्व', 'trustees_h2': 'हमारे ट्रस्टी',
+        'member_founder': 'संस्थापक सदस्य', 'member_trustee': 'ट्रस्टी सदस्य',
         // Team Page
         'team_hero_span': 'सेवा और समर्पण के रक्षक', 'team_hero_h1': 'हमारे <span class="italic text-gold">सेवादार</span> रक्षक',
         'team_label': 'सेवादार मंडल', 'team_title': 'पवित्र <span class="italic text-gold">संचालन</span> समिति',
@@ -600,11 +604,13 @@ const translations = {
         'founders_quote_main': '"એક ગૌશાળા માત્ર ઈંટોની દીવાલ નથી, પણ તે લોકોની મૌન પ્રાર્થના અને અડગ કરૂણાથી બનેલી છે જે ગાયની આંખોમાં દિવ્યતા જુએ છે. માતૃત્વનો આ પાવન માર્ગ અનંત છે."',
         'founders_p1': 'કચ્છના હૃદયમાં સ્થિત, શ્રી ગૌ રક્ષક સેવા સમિતિની શરૂઆત અમારા દુરદર્શી સ્થાપકો દ્વારા એક અનોખી, દિવ્ય પ્રાપ્તિ સાથે થઈ હતી: કે આપણી સભ્યતાનું સ્વાસ્થ્ય તે સંભાળમાં દેખાય છે જે આપણે ગૌ માતાને આપીએ છીએ.',
         'heal_title': 'ગૌ ચિકિત્સા સેવા પહેલ',
-        'heal_desc': 'અમારા સ્થાપકોના દ્રષ્ટિકોણનો મુખ્ય પાયો એક વિશેષ તબીબી વિંગની સ્થાપના હતી. આજે, આપણું 24/7 ICU જીવન પ્રત્યેની તેમની પ્રતિબદ્ધતાના મૌન પુરાવા તરીકે કાર્ય કરે છે, જે દર વર્ષે હજારો ઘાયલ ગૌ માતાઓની સારવાર કરે છે.',
+        'heal_desc': 'ગૌશાળા નેતૃત્વના દ્રષ્ટિકોણનો મુખ્ય પાયો એક વિશેષ તબીબી વિંગની સ્થાપના હતી. આજે, આપણું 24/7 ICU જીવન પ્રત્યેની તેમની પ્રતિબદ્ધતાના મૌન પુરાવા તરીકે કાર્ય કરે છે, જે દર વર્ષે હજારો ઘાયલ ગૌ માતાઓની સારવાર કરે છે.',
         'legacy_cont': 'કરુણાનો વારસો ચાલુ રહ્યો...',
         'founders_cta_title': 'સંકલ્પને <span class="italic text-saffron underline decoration-gold/30 underline-offset-8">જીવંત રાખો</span>',
-        'founders_cta_desc': 'ગૌશાળાની સેવાનો ભાગ બનો અને અમારા સ્થાપકોના સંકલ્પને આગળ ધપાવો.',
+        'founders_cta_desc': 'ગૌશાળાની સેવાનો ભાગ બનો અને ગૌશાળા નેતૃત્વના સંકલ્પને આગળ ધપાવો.',
         'founders_pillar_label': 'વારસો સ્તંભ', 'founders_foundational_spirit': 'સ્થાપક ભાવના', 'founders_visionary': 'મુખ્ય દુરદર્શી',
+        'founders_h2': 'ગૌશાળા નેતૃત્વ', 'trustees_h2': 'અમારા ટ્રસ્ટીઓ',
+        'member_founder': 'સ્થાપક સભ્ય', 'member_trustee': 'ટ્રસ્ટી સભ્ય',
         // Team Page
         'team_hero_span': 'સેવા અને સમર્પણના રક્ષકો', 'team_hero_h1': 'અમારા <span class="italic text-gold">સેવાભાવી</span> રક્ષકો',
         'team_label': 'સેવાભાવી મંડળ', 'team_title': 'પવિત્ર <span class="italic text-gold">સંચાલન</span> સમિતિ',
@@ -704,7 +710,7 @@ function applyLanguage() {
             if (s && s.el && typeof s.update === 'function') s.update();
         });
     }
-    
+
     // CRITICAL: Refresh AOS after language layout changes
     if (typeof AOS !== 'undefined') {
         setTimeout(() => {
@@ -768,10 +774,14 @@ window.translateAllDynamicContent = async function (lang) {
             'Acknowledge': 'स्वीकार करें',
             'Visit Bulletin': 'बुलेटिन देखें',
             'Heart of the Sanctuary': 'गौशाला का हृदय',
-            'Sacred Whisper': 'पवિત્ર સંદેશ',
-            'From The Sanctuary': 'ગૌશાળા થી',
-            'Divine Revelations': 'દિવ્ય દર્શન',
-            'Recent Stories': 'તાજેતરની વાર્તાઓ'
+            'Sacred Whisper': 'पवित्र संदेश',
+            'From The Sanctuary': 'गौशाला से',
+            'Divine Revelations': 'दिव्य दर्शन',
+            'Recent Stories': 'हाल ही की कहानियां',
+            'Founding Member': 'संस्थापक सदस्य',
+            'Trustee Member': 'ट्रस्टी सदस्य',
+            'Gaushala Naitrutav': 'गौशाला नेतृत्व',
+            'Our Trustees': 'हमारे ट्रस्टी'
         },
         'gu': {
             'Divine update': 'દિવ્ય સમાચાર',
@@ -784,7 +794,11 @@ window.translateAllDynamicContent = async function (lang) {
             'Sacred Whisper': 'પવિત્ર સંદેશ',
             'From The Sanctuary': 'ગૌશાળા થી',
             'Divine Revelations': 'દિવ્ય દર્શન',
-            'Recent Stories': 'તાજેતરની વાર્તાઓ'
+            'Recent Stories': 'તાજેતરની વાર્તાઓ',
+            'Founding Member': 'સ્થાપક સભ્ય',
+            'Trustee Member': 'ટ્રસ્ટી સભ્ય',
+            'Gaushala Naitrutav': 'ગૌશાળા નેતૃત્વ',
+            'Our Trustees': 'અમારા ટ્રસ્ટીઓ'
         }
     };
 
@@ -818,7 +832,7 @@ window.translateAllDynamicContent = async function (lang) {
             el.innerHTML = originalText;
         }
     }
-    
+
     // Final Layout Refresh after all translations
     if (typeof AOS !== 'undefined') AOS.refresh();
 }

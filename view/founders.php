@@ -28,7 +28,7 @@ try {
         <!-- SECTION 1: FOUNDERS -->
         <?php if (!empty($founder_items)): ?>
             <div class="mb-32 text-center">
-                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16">Our Founders</h2>
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16" data-lang="founders_h2">Gaushala Naitrutav</h2>
 
                 <div class="flex flex-wrap justify-center gap-10">
                     <?php foreach ($founder_items as $f): ?>
@@ -40,10 +40,10 @@ try {
                             </div>
                             <!-- Simple Content -->
                             <div class="p-6 text-center">
-                                <h3 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight">
+                                <h3 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight" data-trans="en">
                                     <?= htmlspecialchars($f['name_en']) ?>
                                 </h3>
-                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]">
+                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]" data-trans="en">
                                     <?= htmlspecialchars($f['designation_en'] ?: 'Founding Member') ?>
                                 </p>
                             </div>
@@ -56,7 +56,7 @@ try {
         <!-- SECTION 2: TRUSTEES -->
         <?php if (!empty($trustee_items)): ?>
             <div class="text-center">
-                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16">Our Trustees</h2>
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-3xl md:text-4xl font-bold text-nature uppercase tracking-widest mb-16" data-lang="trustees_h2">Our Trustees</h2>
 
                 <div class="flex flex-wrap justify-center gap-10">
                     <?php foreach ($trustee_items as $t): ?>
@@ -66,10 +66,10 @@ try {
                                     class="w-full h-full object-cover">
                             </div>
                             <div class="p-6 text-center">
-                                <h4 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight">
+                                <h4 class="text-nature font-black text-[16px] uppercase tracking-wider mb-2 leading-tight" data-trans="en">
                                     <?= htmlspecialchars($t['name_en']) ?>
                                 </h4>
-                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]">
+                                <p class="text-[#c0a50e] font-bold text-[10px] uppercase tracking-[0.2em]" data-trans="en">
                                     <?= htmlspecialchars($t['designation_en'] ?: 'Trustee Member') ?>
                                 </p>
                             </div>
