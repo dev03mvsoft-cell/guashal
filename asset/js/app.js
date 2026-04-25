@@ -203,10 +203,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Initialize AOS (CRITICAL: Otherwise data stays hidden)
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 600,
+            duration: 800,
             once: true,
-            offset: 50,
-            easing: 'ease-out-quad'
+            offset: 0, // Trigger immediately when entering viewport
+            easing: 'ease-out-quad',
+            mirror: false
+        });
+        
+        // Refresh AOS on full window load to account for images
+        window.addEventListener('load', () => {
+            AOS.refresh();
         });
     } else {
         console.error("AOS is not defined. Please check if the script is loaded.");
@@ -692,11 +698,18 @@ function applyLanguage() {
     const currentLangLabel = document.getElementById('current-lang');
     if (currentLangLabel) currentLangLabel.textContent = dict['lang_name'] || 'English';
 
-    // TRIGGER SWIPER UPDATES
+    // TRIGGER SWIPER & AOS UPDATES
     if (window.allSwipers) {
         Object.values(window.allSwipers).forEach(s => {
             if (s && s.el && typeof s.update === 'function') s.update();
         });
+    }
+    
+    // CRITICAL: Refresh AOS after language layout changes
+    if (typeof AOS !== 'undefined') {
+        setTimeout(() => {
+            AOS.refresh();
+        }, 100);
     }
 }
 
@@ -805,6 +818,9 @@ window.translateAllDynamicContent = async function (lang) {
             el.innerHTML = originalText;
         }
     }
+    
+    // Final Layout Refresh after all translations
+    if (typeof AOS !== 'undefined') AOS.refresh();
 }
 
 // Auto-apply language on load is already handled inside the main DOMContentLoaded at the top
