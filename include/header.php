@@ -244,6 +244,64 @@ if ($seo_location !== 'Gujarat' && $seo_location !== 'India') {
         .swal2-container {
             z-index: 999999 !important;
         }
+
+        /* 🕊️ Aggressive Symmetry Override for SweetAlert Buttons 🕊️ */
+        body .swal2-container .swal2-popup {
+            border-radius: 2.5rem !important;
+            padding: 3rem 2rem !important;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.2) !important;
+        }
+
+        body .swal2-container .swal2-actions {
+            margin-top: 2.5rem !important;
+            gap: 15px !important;
+        }
+
+        /* Target EVERYTHING with absolute priority */
+        body .swal2-container .swal2-styled,
+        body .swal2-container .swal2-confirm, 
+        body .swal2-container .swal2-cancel {
+            border-radius: 100px !important; /* Force Pill Shape */
+            padding: 14px 40px !important;
+            height: auto !important;
+            min-height: auto !important;
+            font-size: 0.9rem !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.15em !important;
+            text-transform: uppercase !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            min-width: 160px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+        }
+
+        /* Unified Color Strategy */
+        body .swal2-container .swal2-confirm {
+            background-color: #2c4c3b !important;
+            color: #ffffff !important;
+        }
+
+        body .swal2-container .swal2-cancel {
+            background-color: #c0a50e !important;
+            color: #ffffff !important;
+        }
+
+        body .swal2-container .swal2-styled:hover {
+            background-color: #FF6A00 !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 15px 35px rgba(255, 106, 0, 0.3) !important;
+            color: #ffffff !important;
+        }
+
+        body .swal2-container .swal2-icon {
+            transform: scale(1.1) !important;
+            margin-bottom: 2rem !important;
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2M01098BDS"></script>
     <script>

@@ -59,8 +59,13 @@ $base_path = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
 $url = strtok(str_replace($base_path, '/', $request_uri), '?');
 if ($url !== '/' && substr($url, 0, 1) !== '/') $url = '/' . $url;
 
-include 'include/header.php';
 // Simple Router
+if ($url === '/login') {
+    include 'admin/login.php';
+    exit;
+}
+
+include 'include/header.php';
 if (isset($routes[$url])) {
     include 'view/' . $routes[$url];
 } else {

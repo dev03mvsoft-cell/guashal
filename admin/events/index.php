@@ -1,5 +1,6 @@
 <?php
 require_once '../include/auth.php';
+require_once '../include/functions.php';
 require_once '../../config/db.php';
 
 $message = '';
@@ -10,17 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'delete') {
         $id = $_POST['id'];
         try {
-            // First fetch the image path to delete the file
+            // 🛡️ Cleanup physical file using universal function
             $stmt = $pdo->prepare("SELECT image_path FROM events WHERE id = ?");
             $stmt->execute([$id]);
-            $item = $stmt->fetch();
-            
-            if ($item && $item['image_path']) {
-                $file_path = '../../' . $item['image_path'];
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                }
-            }
+            $path = $stmt->fetchColumn();
+            if ($path) cleanup_file($path);
 
             $stmt = $pdo->prepare("DELETE FROM events WHERE id = ?");
             $stmt->execute([$id]);
@@ -33,17 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'bulk_delete' && !empty($_POST['selected_ids'])) {
         $ids = $_POST['selected_ids'];
         try {
-            // Fetch multiple image paths
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            
+            // 🛡️ Cleanup multiple physical files
             $stmt = $pdo->prepare("SELECT image_path FROM events WHERE id IN ($placeholders)");
             $stmt->execute($ids);
-            $files = $stmt->fetchAll();
-
-            foreach ($files as $f) {
-                if ($f['image_path']) {
-                    $file_path = '../../' . $f['image_path'];
-                    if (file_exists($file_path)) unlink($file_path);
-                }
+            $paths = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            foreach ($paths as $path) {
+                if ($path) cleanup_file($path);
             }
 
             $stmt = $pdo->prepare("DELETE FROM events WHERE id IN ($placeholders)");
@@ -111,9 +103,9 @@ try {
         }
     </style>
 </head>
-<body class="bg-[#f8fafc] flex">
+<body class="bg-[#f8fafc] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include '../include/sidebar.php'; ?>
-    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 lg:p-12 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
@@ -151,7 +143,8 @@ try {
             </div>
 
             <div class="glass-card !p-0 overflow-hidden shadow-sm">
-                <table class="system-table">
+                <div class="overflow-x-auto">
+                    <table class="system-table min-w-[900px] lg:min-w-full">
                     <thead>
                         <tr>
                             <th class="w-12 h-16 pl-6">#</th>
@@ -226,6 +219,7 @@ try {
                 </table>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 </html>

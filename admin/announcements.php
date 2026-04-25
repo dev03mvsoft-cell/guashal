@@ -98,12 +98,12 @@ if (isset($_GET['edit'])) {
     </style>
 </head>
 
-<body class="md:h-screen flex flex-col md:flex-row bg-[#fdfaf7] overflow-hidden">
+<body class="bg-[#fdfaf7] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
 
     <?php include 'include/sidebar.php'; ?>
 
     <!-- Main Content Area -->
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto h-full">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">

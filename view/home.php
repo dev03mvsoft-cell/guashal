@@ -1031,16 +1031,19 @@ try {
                             <!-- UPI Section -->
                             <div class="text-left">
                                 <h4 class="text-xs font-black uppercase tracking-[0.3em] text-nature/40 mb-4">UPI Payment</h4>
-                                <div class="bg-nature/5 p-4 rounded-2xl w-full flex items-center justify-between gap-6">
-                                    <div class="space-y-1">
-                                        <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Direct UPI Passage</p>
-                                        <p class="text-[14px] lg:text-[14px] text-saffron font-bold">0793065A0168004.BQR@KOTAK <i class="far fa-copy ml-1 opacity-40 hover:opacity-100 cursor-pointer"></i></p>
-                                        <p class="text-[10px] lg:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
+                                <div class="p-2 md:p-6 rounded-2xl w-full flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left border border-gold/5">
+                                    <div class="space-y-2 w-full md:w-auto order-2 md:order-1">
+                                        <p class="text-[9px] font-black uppercase tracking-widest text-nature/40 mb-1">Direct UPI Passage</p>
+                                        <p class="text-[14px] md:text-[15px] text-saffron font-bold break-all md:break-normal flex items-center justify-center md:justify-start gap-2">
+                                            <span>0793065A0168004.BQR@KOTAK</span>
+                                            <i class="far fa-copy text-xs opacity-40 hover:opacity-100 cursor-pointer transition-opacity"></i>
+                                        </p>
+                                        <p class="text-[9px] md:text-[10px] text-nature/80 font-bold uppercase tracking-widest mt-1">SHRI GAU RAKSHK SEVA SAMITI</p>
                                     </div>
 
                                     <!-- Sacred QR Quick Scan -->
-                                    <div class="shrink-0 w-32 h-32 md:w-48 md:h-48 bg-white p-3 rounded-2xl border-2 border-gold/10 shadow-2xl flex items-center justify-center group hover:scale-105 transition-transform duration-500">
-                                        <div class="w-full h-full rounded-lg overflow-hidden">
+                                    <div class="shrink-0 w-40 h-40 md:w-50 md:h-50 bg-white p-4 rounded-[2rem] border border-gold/10 shadow-2xl flex items-center justify-center group hover:scale-105 transition-transform duration-500 order-1 md:order-2">
+                                        <div class="w-full h-full rounded-xl overflow-hidden">
                                             <img src="/asset/img/kotak_qr.png" class="w-full h-full object-contain" style="image-rendering: pixelated;" alt="Donation QR">
                                         </div>
                                     </div>

@@ -11,15 +11,19 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/mailer.php';
 
+// Dynamic Redirect Logic to handle both root routing and direct admin access
+$admin_path_prefix = (basename(dirname($_SERVER['PHP_SELF'])) === 'admin') ? '' : 'admin/';
+
 // If already logged in, go to dashboard
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: index.php');
+    header('Location: ' . $admin_path_prefix . 'index.php');
     exit;
 }
 
 if (isset($_GET['cancel_otp'])) {
     unset($_SESSION['pending_otp'], $_SESSION['pending_user'], $_SESSION['login_otp']);
-    header('Location: login.php');
+    $login_path = (basename(dirname($_SERVER['PHP_SELF'])) === 'admin') ? 'login.php' : 'login';
+    header('Location: ' . $login_path);
     exit;
 }
 
@@ -69,7 +73,7 @@ if ($_SESSION['lockout_time'] > time()) {
                     $_SESSION['admin_role'] = $user['role'] ?? 'Editor';
                     
                     unset($_SESSION['pending_otp'], $_SESSION['pending_user'], $_SESSION['login_otp']);
-                    header('Location: index.php');
+                    header('Location: ' . $admin_path_prefix . 'index.php');
                     exit;
                 } else {
                     $error = 'Invalid verification code. Please check your email.';
@@ -194,7 +198,7 @@ header_remove('X-Powered-By');
     </style>
 </head>
 
-<body class="min-h-screen flex text-nature antialiased selection:bg-saffron selection:text-white relative overflow-hidden">
+<body class="min-h-screen flex text-nature antialiased selection:bg-saffron selection:text-white relative overflow-x-hidden overflow-y-auto">
 
     <!-- Background Layer (Immersive) -->
     <div class="absolute inset-0 z-0">

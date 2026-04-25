@@ -10,18 +10,16 @@ try {
 
 <!-- 🕊️ THE SACRED SPLIT: Emotional Donation Portal 🕊️ -->
 <!-- Adjusted pt-24 on mobile and pt-36 on desktop to clear fixed header -->
-<section id="donation-portal" class="min-h-screen pt-24 lg:pt-36 bg-white flex flex-col lg:flex-row relative overflow-hidden">
+<section id="donation-portal" class="min-h-screen bg-white flex flex-col lg:flex-row relative">
 
-
-
-    <!-- LEFT: Emotional Visual Anchor (50%) -->
-    <div class="lg:w-[45%] xl:w-[50%] h-[350px] md:h-[450px] lg:h-screen sticky top-0 relative overflow-hidden">
+    <!-- LEFT: Emotional Visual Anchor (45% - 50%) -->
+    <div class="w-full lg:w-[45%] xl:w-[50%] h-[400px] md:h-[500px] lg:h-screen lg:sticky lg:top-20 relative overflow-hidden z-10">
 
         <img src="/asset/img/sanctuary_peace.png" class="w-full h-full object-cover transform hover:scale-110 transition-all duration-[10s] ease-in-out" alt="Sacred Sanctuary Sanctuary">
         <div class="absolute inset-0 bg-gradient-to-tr from-nature/90 via-nature/40 to-transparent"></div>
 
         <!-- Text Overlay -->
-        <div class="absolute bottom-10 lg:bottom-20 left-6 lg:left-12 right-6 lg:right-12 p-6 lg:p-10 backdrop-blur-xl bg-white/10 rounded-[2rem] lg:rounded-[3rem] border border-white/20" data-aos="fade-up">
+        <div class="absolute bottom-10 lg:bottom-20 left-6 lg:left-12 right-6 lg:right-12 p-6 lg:p-10 backdrop-blur-sm bg-white/10 rounded-[2rem] lg:rounded-[3rem] border border-white/20" data-aos="fade-up">
             <span class="text-gold uppercase tracking-[0.5em] text-[12px] lg:text-[12px] font-black mb-3 lg:mb-4 block" data-lang="donate_label">Gau Mata Sanrakshan</span>
             <h2 class="text-2xl lg:text-4xl xl:text-6xl font-display text-white italic leading-tight mb-4 lg:mb-6" data-lang="donate_offer">
                 Your <span class="text-gold underline decoration-gold/20 underline-offset-8">Compassion</span> Is Their Miracle.
@@ -33,7 +31,7 @@ try {
     </div>
 
     <!-- RIGHT: Professional Form Portal (55%) -->
-    <div class="lg:w-[55%] xl:w-[50%] p-6 md:p-12 lg:p-24 overflow-y-auto flex flex-col justify-center">
+    <div class="w-full lg:w-[55%] xl:w-[50%] p-6 md:p-12 pt-40 lg:pt-52 flex flex-col justify-center">
         <div class="max-w-3xl mx-auto w-full">
 
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-8 lg:mb-10">
@@ -48,23 +46,15 @@ try {
                 </div>
 
                 <!-- QR Code Quick Scan -->
-                <div class="flex items-center gap-8 bg-white p-6 rounded-[2.5rem] border-2 border-nature/10 shadow-2xl hover:scale-[1.02] transition-all duration-500">
-                    <div class="w-48 h-48 md:w-64 md:h-64 bg-white rounded-2xl overflow-hidden flex items-center justify-center p-2">
+                <div class="flex flex-col sm:flex-row items-center gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-[2.5rem] border-2 border-nature/10 shadow-2xl hover:scale-[1.02] transition-all duration-500 text-center sm:text-left">
+                    <div class="w-52 h-52 md:w-60 md:h-60 bg-white rounded-[2rem] overflow-hidden flex items-center justify-center p-4 shadow-inner border border-gold/5">
                         <img src="/asset/img/kotak_qr.png" class="w-full h-full object-contain" style="image-rendering: pixelated;" alt="Kotak Mahindra Bank QR">
-                    </div>
-                    <div class="pr-6 max-w-[200px]">
-                        <h4 class="text-lg font-display text-nature font-bold mb-2 italic">Scan to Pay</h4>
-                        <p class="text-xs font-bold text-nature/60 leading-relaxed mb-6">Use any UPI app (PhonePe, Google Pay, Paytm) to send your offering.</p>
-                        <div class="flex items-center gap-4 py-3 px-4 bg-nature/5 rounded-xl border border-nature/5">
-                            <i class="fas fa-shield-alt text-saffron"></i>
-                            <span class="text-[9px] font-black uppercase tracking-widest text-nature/40 leading-tight">Secure Vedic Transmission</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="mb-10 text-left" data-aos="fade-up">
-                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-6 flex items-center justify-center md:justify-start gap-2">Bank Account Details <i class="far fa-copy opacity-40"></i></h4>
+                <h4 class="text-[12px] lg:text-[12px] font-black uppercase tracking-widest text-nature/30 mb-6 flex items-center justify-center md:justify-start gap-2" data-lang="donate_bank_label">Bank Account Details <i class="far fa-copy opacity-40"></i></h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-nature/5 p-6 rounded-2xl text-center md:text-left">
                     <div>
                         <p class="text-[10px] font-black uppercase tracking-widest text-nature/40 mb-1">Account Name</p>

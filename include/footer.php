@@ -64,7 +64,7 @@
                         ['Gallery Showcase', '/gallery'],
                         ['Spiritual Events', '/events'],
                         ['Latest Announcements', '/announcements'],
-                        ['Contact Seva', '/contact'],
+                        ['Contact', '/contact'],
                     ];
                     foreach ($links as $link): ?>
                         <li>
@@ -94,7 +94,8 @@
                         <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-phone text-saffron text-sm"></i>
                         </div>
-                        <a href="tel:+919998581811" class="text-white/70 text-[15px] hover:text-gold transition-colors">+91 9998581811 / +91 9824284733</a>
+                        <a href="tel:+919998581811" class="text-white/70 text-[15px] hover:text-gold transition-colors">+91 9998581811</a>
+                        <a href="tel:+919824284733" class="text-white/70 text-[15px] hover:text-gold transition-colors">+91 9824284733</a>
 
                     </div>
                     <div class="flex gap-4 items-center">
@@ -148,16 +149,10 @@
             <p class="text-white/30 text-[15px]">
                 &copy; <?php echo date('Y'); ?> <span class="text-gold/60" data-lang="brand_name">શ્રી ગૌ રક્ષક સેવા સમિતિ</span>. <span data-lang="footer_rights">All rights reserved.</span>
             </p>
-            <div class="flex gap-6 text-white/30 text-xs">
-                <a href="/privacy" class="hover:text-gold transition-colors" data-lang="footer_privacy">Privacy Policy</a>
-                <span>·</span>
-                <a href="/terms" class="hover:text-gold transition-colors" data-lang="footer_terms">Terms of Use</a>
-                <span>·</span>
-                <a href="/contact" class="hover:text-gold transition-colors" data-lang="nav_contact">Get in Touch</a>
-            </div>
+
             <div class="text-right">
                 <p class="text-white/20 text-[12px] italic mb-1">Crafted with reverence &amp; devotion</p>
-                <p class="text-white/40 text-[12px] font-bold tracking-widest uppercase opacity-60">Developed by <span class="text-gold/50">BCS Group</span></p>
+                <p class="text-white/40 text-[12px] font-bold tracking-widest uppercase opacity-60">Developed by <a href="https://bcsads.com/" target="_blank" class="hover:text-gold transition-colors"><span class="text-gold/50">BCS Group</span></a></p>
             </div>
         </div>
     </div>

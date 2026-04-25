@@ -1,5 +1,6 @@
 <?php
 require_once 'include/auth.php';
+require_once 'include/functions.php';
 require_once '../config/db.php';
 
 $message = '';
@@ -55,6 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $dest_path = $upload_dir . $new_filename;
 
                 if (move_uploaded_file($_FILES['image_file']['tmp_name'], $dest_path)) {
+                    // Update: Delete existing image if we are uploading a NEW one during edit
+                    if ($id && !empty($image_path)) {
+                         cleanup_file($image_path);
+                    }
                     $image_path = '/asset/img/gallery/uploads/' . $new_filename;
                 } else {
                     $error = "Failed to move uploaded file.";
@@ -88,6 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'delete') {
         $id = $_POST['id'];
         try {
+            // 🛡️ Cleanup physical file before DB deletion
+            $stmt = $pdo->prepare("SELECT image_path FROM gallery WHERE id = ?");
+            $stmt->execute([$id]);
+            $path = $stmt->fetchColumn();
+            if ($path) cleanup_file($path);
+
             $stmt = $pdo->prepare("DELETE FROM gallery WHERE id = ?");
             $stmt->execute([$id]);
             $message = "Memory removed from gallery.";
@@ -101,6 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $ids = $_POST['selected_ids']; // array
         try {
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            
+            // 🛡️ Cleanup multiple physical files
+            $stmt = $pdo->prepare("SELECT image_path FROM gallery WHERE id IN ($placeholders)");
+            $stmt->execute($ids);
+            $paths = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            foreach ($paths as $path) {
+                if ($path) cleanup_file($path);
+            }
+
             $stmt = $pdo->prepare("DELETE FROM gallery WHERE id IN ($placeholders)");
             $stmt->execute($ids);
             $message = count($ids) . " visuals purged from memory.";
@@ -188,9 +208,9 @@ if (isset($_GET['edit'])) {
     </style>
 </head>
 
-<body class="md:h-screen flex flex-col md:flex-row bg-[#fbf9f6] overflow-hidden">
+<body class="bg-[#fbf9f6] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include 'include/sidebar.php'; ?>
-    <main class="flex-1 p-6 lg:p-16 overflow-y-auto h-full">
+    <main class="flex-1 p-4 lg:p-16 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16">
                 <div>

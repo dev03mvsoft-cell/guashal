@@ -113,9 +113,9 @@ if (isset($_GET['edit'])) {
     </style>
 </head>
 
-<body class="bg-[#f8fafc] flex">
+<body class="bg-[#f8fafc] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include 'include/sidebar.php'; ?>
-    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 lg:p-12 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
@@ -192,17 +192,17 @@ if (isset($_GET['edit'])) {
                             </div>
                         <?php else: ?>
                             <?php foreach ($contributions as $c): ?>
-                                <div class="glass-card !p-6 flex justify-between items-center group hover:bg-nature/[0.02] transition-all border border-nature/5">
+                                <div class="glass-card !p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:bg-nature/[0.02] transition-all border border-nature/5">
                                     <div class="flex items-center gap-6">
-                                        <div class="w-12 h-12 bg-saffron/10 text-saffron rounded-xl flex items-center justify-center font-black relative overflow-hidden shadow-inner text-lg">
+                                        <div class="w-12 h-12 bg-saffron/10 text-saffron rounded-xl flex items-center justify-center font-black relative overflow-hidden shadow-inner text-lg flex-shrink-0">
                                             ₹
                                         </div>
                                         <div>
-                                            <h4 class="font-medium text-nature leading-tight mb-1 text-lg"><?= htmlspecialchars($c['donor_name']) ?> <span class="text-nature/40 text-[14px] ml-2 italic font-normal"><?= htmlspecialchars($c['location']) ?></span></h4>
-                                            <p class="text-saffron font-medium text-[16px] tracking-tight">₹<?= number_format($c['amount']) ?> <span class="text-nature/80 italic font-normal ml-2 text-[14px]">- "<?= htmlspecialchars($c['message'] ?: 'Sacred Seva') ?>"</span></p>
+                                            <h4 class="font-medium text-nature leading-tight mb-1 text-lg"><?= htmlspecialchars($c['donor_name']) ?> <span class="text-nature/40 text-[14px] md:ml-2 italic font-normal block md:inline"><?= htmlspecialchars($c['location']) ?></span></h4>
+                                            <p class="text-saffron font-medium text-[16px] tracking-tight">₹<?= number_format($c['amount']) ?> <span class="text-nature/80 italic font-normal md:ml-2 text-[14px] block md:inline">- "<?= htmlspecialchars($c['message'] ?: 'Sacred Seva') ?>"</span></p>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-3 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="flex items-center gap-3 w-full md:w-auto justify-end border-t md:border-t-0 pt-4 md:pt-0 border-nature/10 md:opacity-0 md:group-hover:opacity-100 md:translate-x-4 md:group-hover:translate-x-0 transition-all duration-300">
                                         <a href="?edit=<?= $c['id'] ?>" class="w-10 h-10 bg-nature/5 text-nature rounded-xl flex items-center justify-center hover:bg-nature hover:text-white transition-all shadow-sm"><i class="fas fa-edit text-[14px]"></i></a>
                                         <form method="POST" onsubmit="return confirmAction(event, 'Purge Record?', 'This contribution will be removed.');" class="inline">
                                             <input type="hidden" name="action" value="delete">

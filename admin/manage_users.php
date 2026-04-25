@@ -128,9 +128,9 @@ if (isset($_GET['edit'])) {
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col md:flex-row bg-[#fdfaf7]">
+<body class="bg-[#fdfaf7] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include 'include/sidebar.php'; ?>
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
                 <div class="mb-6 md:mb-0">
@@ -186,14 +186,19 @@ if (isset($_GET['edit'])) {
                             <div>
                                 <label class="block text-[12px] font-bold uppercase text-gray-400 mb-2">Role</label>
                                 <select name="role" class="input-round">
-                                    <option value="Super Admin" <?= ($edit_data && $edit_data['role'] == 'Super Admin') ? 'selected' : '' ?>>Super Admin</option>
-                                    <option value="Editor" <?= ($edit_data && $edit_data['role'] == 'Editor') ? 'selected' : '' ?>>Editor</option>
-                                    <option value="Viewer" <?= ($edit_data && $edit_data['role'] == 'Viewer') ? 'selected' : '' ?>>Viewer</option>
+                                    <option value="Super Admin" <?= ($edit_data && $edit_data['role'] == 'Super Admin') ? 'selected' : '' ?>>Admin</option>
+                                    <!-- <option value="Editor" <?= ($edit_data && $edit_data['role'] == 'Editor') ? 'selected' : '' ?>>Editor</option>
+                                    <option value="Viewer" <?= ($edit_data && $edit_data['role'] == 'Viewer') ? 'selected' : '' ?>>Viewer</option> -->
                                 </select>
                             </div>
-                            <div>
+                            <div class="relative">
                                 <label class="block text-[12px] font-bold uppercase text-gray-400 mb-2"><?= $edit_data ? 'New Password (Optional)' : 'Security Password' ?></label>
-                                <input type="password" name="password" class="input-round" <?= $edit_data ? '' : 'required' ?>>
+                                <div class="relative">
+                                    <input type="password" name="password" id="password-field" class="input-round w-full pr-12" <?= $edit_data ? '' : 'required' ?>>
+                                    <button type="button" onclick="togglePassVisibility('password-field', 'eye-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-nature transition-colors">
+                                        <i id="eye-icon" class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <button type="submit" class="w-full bg-[#2c4c3b] text-white py-4 rounded-2xl font-bold text-[15px] hover:shadow-xl transition-all">Save Account</button>
@@ -203,54 +208,71 @@ if (isset($_GET['edit'])) {
 
                 <div class="lg:col-span-2">
                     <div class="glass overflow-hidden rounded-[2rem] shadow-xl">
-                        <table class="w-full text-left">
-                            <thead class="bg-gray-50 border-b border-gray-100">
-                                <tr>
-                                    <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">User Details</th>
-                                    <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">Access Level</th>
-                                    <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-50">
-                                <?php foreach ($users as $u): ?>
-                                    <tr class="hover:bg-gray-50/50 transition-colors">
-                                        <td class="px-8 py-6">
-                                            <div class="flex items-center gap-4">
-                                                <div class="w-10 h-10 bg-nature/5 text-nature rounded-full flex items-center justify-center font-bold">
-                                                    <?= strtoupper(substr($u['username'], 0, 1)) ?>
-                                                </div>
-                                                <div>
-                                                    <p class="font-bold text-nature"><?= htmlspecialchars($u['full_name']) ?></p>
-                                                    <p class="text-[12px] text-gray-400"><?= htmlspecialchars($u['email']) ?></p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-6">
-                                            <span class="px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-widest <?= $u['role'] == 'Super Admin' ? 'bg-saffron text-white shadow-saffron/20' : 'bg-gold/10 text-gold' ?> shadow-lg">
-                                                <?= $u['role'] ?>
-                                            </span>
-                                        </td>
-                                        <td class="px-8 py-6">
-                                            <div class="flex items-center gap-4">
-                                                <a href="?edit=<?= $u['id'] ?>" class="text-gray-300 hover:text-nature transition-colors"><i class="fas fa-edit"></i></a>
-                                                <form method="POST" class="inline" onsubmit="return confirmAction(event, 'Revoke Access?', 'This user will no longer be able to enter the portal.');">
-                                                    <input type="hidden" name="action" value="delete">
-                                                    <input type="hidden" name="id" value="<?= $u['id'] ?>">
-                                                    <button type="submit" class="text-gray-300 hover:text-red-500 transition-colors"><i class="fas fa-trash"></i></button>
-                                                </form>
-                                                <!-- Multi Select Checkbox -->
-                                                <input type="checkbox" name="selected_ids[]" value="<?= $u['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
-                                            </div>
-                                        </td>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left min-w-[600px] md:min-w-full">
+                                <thead class="bg-gray-50 border-b border-gray-100">
+                                    <tr>
+                                        <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">User Details</th>
+                                        <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">Access Level</th>
+                                        <th class="px-8 py-5 text-[12px] font-bold uppercase text-gray-400">Action</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="divide-y divide-gray-50">
+                                    <?php foreach ($users as $u): ?>
+                                        <tr class="hover:bg-gray-50/50 transition-colors">
+                                            <td class="px-8 py-6">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-10 h-10 bg-nature/5 text-nature rounded-full flex items-center justify-center font-bold">
+                                                        <?= strtoupper(substr($u['username'], 0, 1)) ?>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-bold text-nature"><?= htmlspecialchars($u['full_name']) ?></p>
+                                                        <p class="text-[12px] text-gray-400"><?= htmlspecialchars($u['email']) ?></p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-8 py-6">
+                                                <span class="px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-widest <?= $u['role'] == 'Super Admin' ? 'bg-saffron text-white shadow-saffron/20' : 'bg-gold/10 text-gold' ?> shadow-lg">
+                                                    <?= $u['role'] ?>
+                                                </span>
+                                            </td>
+                                            <td class="px-8 py-6">
+                                                <div class="flex items-center gap-4">
+                                                    <a href="?edit=<?= $u['id'] ?>" class="text-gray-300 hover:text-nature transition-colors"><i class="fas fa-edit"></i></a>
+                                                    <form method="POST" class="inline" onsubmit="return confirmAction(event, 'Revoke Access?', 'This user will no longer be able to enter the portal.');">
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                                                        <button type="submit" class="text-gray-300 hover:text-red-500 transition-colors"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                    <!-- Multi Select Checkbox -->
+                                                    <input type="checkbox" name="selected_ids[]" value="<?= $u['id'] ?>" form="bulk-form" onchange="updateBulkButtonVisibility()" class="multi-select-item w-5 h-5 rounded-lg border-2 border-nature/5 text-saffron focus:ring-saffron cursor-pointer shadow-inner">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        function togglePassVisibility(fieldId, iconId) {
+            const field = document.getElementById(fieldId);
+            const icon = document.getElementById(iconId);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 
 </html>

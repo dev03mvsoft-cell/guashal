@@ -1,5 +1,6 @@
 <?php
 require_once '../include/auth.php';
+require_once '../include/functions.php';
 require_once '../../config/db.php';
 
 $message = "";
@@ -21,30 +22,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         $image_path = $_POST['existing_image'] ?? "";
 
-        // Image Handling
-        if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === 0) {
-            $target_dir = "../../asset/img/events/";
-            if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
-            $file_ext = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
-            $new_name = "event_" . time() . "." . $file_ext;
-            $target_path = $target_dir . $new_name;
-            if (move_uploaded_file($_FILES['image_file']['tmp_name'], $target_path)) {
-                $image_path = "/asset/img/events/" . $new_name;
+        // 🛡️ Optimized Image Handling via Universal Functions
+        if (!empty($_FILES['image_file']['name'])) {
+            $uploaded_path = upload_file($_FILES['image_file'], 'uploads/events');
+            if ($uploaded_path) {
+                // Delete old file if replacing
+                if ($id && !empty($_POST['existing_image'])) {
+                     cleanup_file($_POST['existing_image']);
+                }
+                $image_path = $uploaded_path;
+            } else {
+                $error = "Failed to process image upload.";
             }
         }
 
-        try {
-            if ($id) {
-                $stmt = $pdo->prepare("UPDATE events SET title = ?, description = ?, start_date = ?, end_date = ?, location = ?, organizers = ?, image_path = ? WHERE id = ?");
-                $stmt->execute([$title, $description, $start_date, $end_date, $location, $organizers, $image_path, $id]);
-            } else {
-                $stmt = $pdo->prepare("INSERT INTO events (title, description, start_date, end_date, location, organizers, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$title, $description, $start_date, $end_date, $location, $organizers, $image_path]);
+        if (empty($error)) {
+            try {
+                if ($id) {
+                    $stmt = $pdo->prepare("UPDATE events SET title = ?, description = ?, start_date = ?, end_date = ?, location = ?, organizers = ?, image_path = ? WHERE id = ?");
+                    $stmt->execute([$title, $description, $start_date, $end_date, $location, $organizers, $image_path, $id]);
+                } else {
+                    $stmt = $pdo->prepare("INSERT INTO events (title, description, start_date, end_date, location, organizers, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    $stmt->execute([$title, $description, $start_date, $end_date, $location, $organizers, $image_path]);
+                }
+                header("Location: index.php?msg=success");
+                exit;
+            } catch (PDOException $e) {
+                $error = "Error: " . $e->getMessage();
             }
-            header("Location: index.php?msg=success");
-            exit;
-        } catch (PDOException $e) {
-            $error = "Error: " . $e->getMessage();
         }
     }
 }

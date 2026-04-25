@@ -105,11 +105,11 @@ $donors = $all_items;
     </style>
 </head>
 
-<body class="flex bg-[#fcfdfd]">
+<body class="bg-[#fcfdfd] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
 
     <?php include '../include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 md:p-12 overflow-x-hidden">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
 
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
@@ -151,7 +151,7 @@ $donors = $all_items;
         <!-- Donors Table View -->
         <div class=" rounded-[1.5rem]  border border-nature/10 overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
-                <table class="w-full text-left donor-table border-collapse">
+                <table class="w-full text-left donor-table border-collapse min-w-[1000px] lg:min-w-full">
                     <thead>
                         <tr class="bg-nature text-white text-[13px] uppercase font-black tracking-[0.15em] shadow-sm">
                             <th class="px-8 py-6 border-b border-white/10 w-10">

@@ -116,9 +116,9 @@ try {
     </style>
 </head>
 
-<body class="bg-[#f8fafc] flex">
+<body class="bg-[#f8fafc] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
     <?php include 'include/sidebar.php'; ?>
-    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+    <main class="flex-1 p-4 lg:p-12 md:overflow-y-auto h-full">
         <div class="max-w-7xl mx-auto">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
                 <div>
@@ -143,8 +143,9 @@ try {
                 <div class="bg-nature/10 text-nature p-4 rounded-xl mb-6 font-bold text-sm border border-nature/20 animate-fade-in"><?= $message ?></div>
             <?php endif; ?>
 
-            <div class="glass-card" data-aos="fade-up">
-                <table class="system-table">
+            <div class="glass-card !p-0" data-aos="fade-up">
+                <div class="overflow-x-auto">
+                    <table class="system-table min-w-[800px] lg:min-w-full">
                     <thead>
                         <tr>
                             <th class="w-10">
@@ -207,7 +208,8 @@ try {
                 </table>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 
 </html>

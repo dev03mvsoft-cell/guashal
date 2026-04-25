@@ -60,12 +60,12 @@ try {
     <?php include 'include/head.php'; ?>
 </head>
 
-<body class="md:h-screen flex flex-col md:flex-row bg-[#faf8f6] overflow-hidden">
+<body class="bg-[#faf8f6] flex flex-col md:flex-row md:h-screen md:overflow-hidden">
 
     <?php include 'include/sidebar.php'; ?>
 
     <!-- Main Content Area -->
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto h-full">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
 
         <!-- Header Section -->
         <!-- Header Section -->

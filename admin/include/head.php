@@ -41,6 +41,31 @@
     .premium-gradient {
         background: linear-gradient(135deg, #FF6A00 0%, #FFB100 100%);
     }
+
+    /* 🕊️ Admin SweetAlert Symmetry 🕊️ */
+    body .swal2-container .swal2-popup {
+        border-radius: 2rem !important;
+        font-family: 'Outfit', sans-serif !important;
+    }
+    body .swal2-container .swal2-styled {
+        border-radius: 50px !important; /* Force identical rounding */
+        padding: 10px 30px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        font-size: 0.75rem !important;
+        min-width: 140px !important;
+        height: auto !important;
+        border: none !important;
+    }
+    body .swal2-container .swal2-confirm {
+        background-color: #FF6A00 !important;
+        box-shadow: 0 10px 20px rgba(255, 106, 0, 0.2) !important;
+    }
+    body .swal2-container .swal2-cancel {
+        background-color: #2c4c3b !important;
+        box-shadow: 0 10px 20px rgba(44, 76, 59, 0.2) !important;
+    }
 </style>
 
 <!-- Global Admin Utilities -->
@@ -54,16 +79,10 @@
             text: text,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FF6A00',
-            cancelButtonColor: '#2c4c3b',
             confirmButtonText: 'Yes, proceed!',
             cancelButtonText: 'Cancel',
             background: '#ffffff',
-            borderRadius: '2rem',
-            customClass: {
-                popup: 'rounded-[2rem] shadow-2xl border border-nature/5',
-                confirmButton: 'rounded-xl px-8 py-3 uppercase tracking-widest text-[12px] font-bold shadow-lg shadow-saffron/20'
-            }
+            borderRadius: '2rem'
         }).then((result) => {
             if (result.isConfirmed) form.submit();
         });

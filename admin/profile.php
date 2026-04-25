@@ -58,11 +58,11 @@ try {
     <title>My Profile - Gaushala Admin</title>
     <?php include 'include/head.php'; ?>
 </head>
-<body class="md:h-screen flex flex-col md:flex-row bg-[#faf8f6] overflow-hidden selection:bg-saffron selection:text-white">
+<body class="bg-[#faf8f6] flex flex-col md:flex-row md:h-screen md:overflow-hidden selection:bg-saffron selection:text-white">
     
     <?php include 'include/sidebar.php'; ?>
 
-    <main class="flex-1 p-6 md:p-12 overflow-y-auto h-full">
+    <main class="flex-1 p-4 md:p-12 md:overflow-y-auto h-full">
         <header class="mb-12">
             <h1 style="font-family: 'Playfair Display';" class="text-4xl font-bold text-nature mb-2">My <span class="italic text-saffron">Profile</span></h1>
             <p class="text-[12px] uppercase tracking-widest text-gray-400 font-bold">Manage your portal credentials and security</p>
